@@ -1,0 +1,145 @@
+package com.rdpanel.fo.qna.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+
+import com.rdpanel.cmmn.SendMail;
+import com.rdpanel.cmmn.SimpleUrl;
+import com.rdpanel.cmmn.dao.ComnAbstractDAO;
+import com.rdpanel.cmmn.security.SessionsPanel;
+import com.rdpanel.fo.qna.service.QnaBoardService;
+import com.webiz.util.StringUtil;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.qna.service.impl
+* 2. 타입명 : QnaBoardServiceImpl.java
+* 3. 작성일 : 2017. 9. 27.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : Q&A ServiceImpl
+* </pre>
+ */
+@Service("qnaBoardService")
+public class QnaBoardServiceImpl implements QnaBoardService {
+	
+    @Resource(name="comnAbstractDAO") 
+    private ComnAbstractDAO comnAbstractDAO;
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectQnaBoardListCnt
+    * 2. 작성일 : 2017. 9. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험별 Q&A 목록 갯수
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	public int selectQnaBoardListCnt(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		return comnAbstractDAO.selectCount("QnaBoard.selectQnaBoardListCnt", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectQnaBoardList
+	* 2. 작성일 : 2017. 9. 27.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험별 Q&A 목록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectQnaBoardList(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		return comnAbstractDAO.selectList("QnaBoard.selectQnaBoardList", commandMap);
+	}
+
+	/**
+	* <pre>
+	* 1. 메소드명 : selectQnaBoardInfo
+	* 2. 작성일 : 2017. 10. 10.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험별 Q&A 상세정보
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+    @SuppressWarnings("unchecked")
+	public Map<String, Object> selectQnaBoardInfo (Map<String, Object> commandMap) throws Exception
+    {
+        return comnAbstractDAO.select("QnaBoard.selectQnaBoardInfo", commandMap);
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : insertQnaBoardAdd
+    * 2. 작성일 : 2017. 10. 31.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험별 Q&A 글쓰기 등록
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	public int insertQnaBoardAdd(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+		// Q&A 등록
+		int result = comnAbstractDAO.insert("QnaBoard.insertQnaBoardAdd", commandMap);
+		
+		// _________Email 전송__________
+		Map<String, Object> examInfo = comnAbstractDAO.select("QnaBoard.selectQnaBoardInfo", commandMap);
+		
+		String examTitle = examInfo.get("EXAM_TITLE").toString();
+		String researcherName = StringUtil.getString(examInfo.get("RESEARCHER_NAME"), "");
+		String receiveEmail = StringUtil.getString(examInfo.get("RECEIVE_EMAIL"), "");
+		
+		// 연구원이 수신 받을 이메일이 null이 아닐 경우 안내 EMAIL 발송
+		if(!"".equals(receiveEmail)){
+	    
+	    	// 단축 URl 생성
+	    	SimpleUrl simpUrl = new SimpleUrl();
+	        String searchBoardMngNo = String.valueOf(result); // Q&A 번호
+	        String params = "searchBoardMngNo="+searchBoardMngNo;
+	        
+	    	String textUrl = request.getAttribute("admRootDomain") + "/bo/cp/qnaBoardList.do?" + params;
+	    	commandMap.put("textUrl", textUrl);
+	    	
+	    	Map<String, Object> returnMap = simpUrl.getSimpleUrl(request, commandMap);
+	    	
+	    	// Q&A 답변 안내 Email
+	    	SendMail sendMail = new SendMail();
+	    	String title, contents = "";
+	    	title = "[아모레퍼시픽 고객연구센터] " + examTitle + "에 Q&A 질문이 등록되었습니다.";
+	    	contents += researcherName + "님 " + examTitle + " 에 Q&A 질문이 등록되었습니다. 확인해주세요.</br>";
+	    	contents += "해당 시험 제목 : " + examTitle + "</br>";
+	    	contents += "<a href='"+ returnMap.get("simpleUrl") +"' target='blank'>해당 Q&A 바로가기</a>";
+	    	
+	    	commandMap.put("title", title);
+	    	commandMap.put("contents", contents);
+	    	commandMap.put("receiveEmail", receiveEmail);
+	    	sendMail.SendSMTP(request, commandMap);
+		}
+		
+		return result;
+	}
+
+}

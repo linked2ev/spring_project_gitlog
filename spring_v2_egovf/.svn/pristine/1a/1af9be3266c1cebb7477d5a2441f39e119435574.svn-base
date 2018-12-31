@@ -1,0 +1,540 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]><html class="ie8" lang="ko"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="ko"><!--<![endif]-->
+
+<head>
+	<title>아모레퍼시픽 고객연구센터</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="shortcut icon" href="../images/favi/favicon.ico" type="image/x-icon"/>
+	<link rel="apple-touch-icon-precomposed" href="../images/favi/favicon57.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favi/favicon114.png"/>
+
+	<!--[if lt IE 9]><script src="../js/html5shiv.min.js"></script><![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- _____________Grid_____________ -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- jquery-custom-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/jquery-ui.css" />
+
+<!-- jquery-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap-ui.css" />
+
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/ui.multiselect.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/searchFilter.css" />
+
+<link rel="stylesheet" href="../css/panel_style.css" type="text/css">
+ 
+<script src="../../common/lib/jqGrid/js/jquery-1.11.0.min.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery-ui.js"></script>
+
+<script src="../../common/lib/jqGrid/js/grid.locale-kr.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.js"></script>
+<script src="../../common/lib/jqGrid/plugins/ui.multiselect.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.tablednd.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.contextmenu.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.searchFilter.js"></script>
+<script src="../../common/lib/jqGrid/src/grid.celledit.js"></script>
+
+<script src="../../common/lib/jqGrid/custom/ui-custom.js"></script>
+
+<script src="../js/jquery.simpler-sidebar.min.js"></script>
+<script src="../js/sidebar.js"></script>
+
+<script type="text/javascript">
+	function qna(idMyDiv){
+		 var objDiv = document.getElementById(idMyDiv);
+		 if(objDiv.style.display==""){ objDiv.style.display = "none"; }
+		 else{ objDiv.style.display = ""; }
+	}
+</script>	
+
+</head>
+
+<body>
+
+<!-- skip navigation -->
+<a href="#main" class="skip">본문바로가기</a>
+<!-- // skip navigation -->
+
+<!-- header -->
+<header id="header" class="header respWidth">
+
+	<div class="header-pc">
+		<h1><a href="#">아모레퍼시픽 고객연구센터</a></h1>
+		<div class="util">
+			<span class="user-name"><em>김아모레</em>님</span>
+			<span class="btn-logout"><button type="submit">LOGOUT</button></span>
+		</div>
+	</div>
+	<div class="header-mobile">
+		<h1><a href="#">아모레퍼시픽 고객연구센터</a></h1>
+		<a href="#" id="sidebar-main-trigger" class="mob-all-menu"><span class="screen_out">전체메뉴</span></a>
+	</div>
+	<aside id="sidebar-main" class="sidebar-mobile">
+
+		<div class="sidebar-close">
+			<span><i class="screen_out">닫기</i></span>
+		</div>
+		<div class="sidebar-container">
+			<div class="sidebar-logo">
+				<h1>아모레퍼시픽 고객연구센터</h1>
+			</div>
+			<div class="sidebar-nav">
+				<ul class="sideNav-list">
+					<li><a href="#">시험 모집 안내</a></li>
+					<li><a href="#">시험 모집 공고</a></li>
+					<li class="on">
+						<a href="#">마이 페이지</a>
+						<ul class="sub">
+							<li><a href="#">시험 신청 이력 조회</a></li>
+							<li class="on"><a href="#">시험 신청 현황</a></li>
+							<li><a href="#">회원 정보 변경</a></li>
+							<li><a href="#">회원 탈퇴</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">소통광장</a>
+						<ul class="sub">
+							<li><a href="#">1&#58;1 Q&amp;A</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="sidebar-util">
+				<div class="sidebar-util-container">
+					<span class="user-name"><em>김아모레</em>님</span>
+					<span class="btn-logout"><button type="submit">LOGOUT</button></span>
+				</div>
+			</div>
+		</div>
+	</aside>
+
+</header>
+<!-- // header -->
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+
+		<div class="leftNav">
+			<ul class="leftNav-list">
+				<li><a href="#">시험 모집 안내</a></li>
+				<li><a href="#">시험 모집 공고</a></li>
+				<li class="on">
+					<a href="#">마이 페이지</a>
+					<ul class="sub">
+						<li><a href="#">시험 신청 이력 조회</a></li>
+						<li class="on"><a href="#">시험 신청 현황</a></li>
+						<li><a href="#">회원 정보 변경</a></li>
+						<li><a href="#">회원 탈퇴</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">소통광장</a>
+					<ul class="sub">
+						<li><a href="#">1&#58;1 Q&amp;A</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="pageWrap rndQna">
+
+			<div class="page-title">
+				<h2>시험별 Q&amp;A</h2>
+				<div class="page-location">
+					<span class="home">홈</span> - 마이 페이지 - 시험 신청 현황 - <b>시험별 Q&amp;A</b>
+				</div>
+			</div>
+			<div class="page-content">
+
+				<div class="page-title-sub txtRed">시험제목 : <i>수분 마스크팩 첩포 시험</i></div>
+				<div class="listWrap qna-list">
+					<table>
+						<colgroup>
+							<col width="15%">
+							<col width="*">
+							<col width="10%">
+							<col width="18%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>시험비 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list01');return false;">시험비 관련 문의 합니다.</a><span class="qna-new"><i class="screen_out">New</i></span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list01" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 아직 답변 안달렸을 때 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list02');return false;">시험 진행중 궁금한 사항 있어서 질문 드립니다.</a><span class="qna-new"><i class="screen_out">New</i><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list02" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list03');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list03" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list04');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list04" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list05');return false;">방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list05" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list06');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list06" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list07');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list07" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list08');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list08" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list09');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list09" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>시험 관련</td>
+								<td class="txtL">
+									<a href="#" onclick="qna('list10');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+								</td>
+								<td><span class="qna-writer">김패널</span></td>
+								<td><span class="qna-date">2017-12-28 11:24</span></td>
+							</tr>
+							<tr id="list10" style="display:none;">
+								<td colspan="4">
+									<div class="qna-expand-wrap"><!-- 답변완료 -->
+										<div class="qna-question">
+											<p>
+												시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+												언제 입금되는지 알려주세요.
+											</p>
+										</div>
+										<div class="qna-answer">
+											<p>
+												안녕하세요, 김태평양 패널님.<br>
+												12월 31일 일괄 지급 예정입니다.<br>
+												이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+												감사합니다.
+												<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>				
+				</div>
+				<!-- <div class="pageNavi">
+					<a href="#" onclick="return false;" class="page-first"><em class="page-arrow first dis"></em><span class="screen_out">처음 페이지</span></a>
+					<a href="#" onclick="return false;" class="page-prev"><em class="page-arrow prev dis"></em><span class="screen_out">이전 페이지</span></a>
+					<span class="pageNumbering">
+						<a href="#" class="page current">1</a>
+						<a href="#" class="page">2</a>
+						<a href="#" class="page">3</a>
+						<a href="#" class="page">4</a>
+						<a href="#" class="page">5</a>
+					</span>
+					<a href="#" class="page-next"><em class="page-arrow next"></em><span class="screen_out">다음 페이지</span></a>
+					<a href="#" class="page-end"><em class="page-arrow end"></em><span class="screen_out">마지막 페이지</span></a>
+				</div> -->
+				<div class="btn-wrap btnR">
+					<button type="button" href="#layer1" class="btn btn-prim btn-red wd100 btn-popup">글쓰기</button>
+				</div>
+
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+<!-- footer -->
+<footer id="footer" class="footer footer-intro respWidth">
+	<copyright>&#169; Since2017 Amorepacific, All Rights Reserved.</copyright>
+</footer>
+<!-- // footer -->
+
+<!-- popup -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+	<!-- 글쓰기 -->
+    <div id="layer1" class="popupBoxWrap rndQnaWrite" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">문의하기</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>시험별 Q&A 글쓰기 테이블</caption>
+							<colgroup>
+								<col width="20%">
+								<col width="80%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>카테고리</th>
+									<td>
+										<select id="" name="" class="inputBox" style="width:180px;">
+											<option value>시험비 관련</option>
+											<option value>시험 관련</option>
+										</select>	
+									</td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td>
+										<input type="text" id="" name="" class="inputBox">
+									</td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>
+										<textarea type="text" id="" name="" class="inputBox" style="height:300px;"></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+	<!-- // 글쓰기 -->
+</div>
+<script  src="../js/popup.js"></script>
+<!-- // popup -->
+
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/WEB-INF/jsp/fo/include/head.jsp" />
+</head>
+
+<body>
+
+<!-- header -->
+<jsp:include page="/WEB-INF/jsp/fo/include/header/headerPanel${panelAuth }.jsp" flush="false" />
+<!-- // header -->
+
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+
+		<div class="pageWrap rndTerm">
+
+			<div class="page-title">
+				<h2><spring:message code="menu.016"/></h2>
+				<div class="page-location">
+					<span class="home"><spring:message code="menu.010"/></span> - <spring:message code="menu.017"/> - <b><spring:message code="menu.016"/></b>
+				</div>
+			</div>
+			<div class="page-content">
+				<form id="form" name="form">
+				
+				<div class="join-term">
+					<div class="term-title">
+						<span><spring:message code="joinStep.000"/></span>
+					</div>
+					<div class="term-wrap" style="height: 330px;">
+						<div class="term-text">
+
+							<jsp:include page="/WEB-INF/jsp/fo/mj/memberTermAgree1${LOCALE_LANG }.jsp" flush="false" />
+
+						</div>
+					</div>
+					<div class="termAgree-chk">
+						<input type="checkbox" id="termAgree" name="termAgree" value="Y">
+						<label for="termAgree"> <spring:message code="joinStep.007"/></label>
+					</div>
+				</div>
+
+				<div class="join-rule mgtp20">
+					<div class="term-title">
+						<span><spring:message code="joinStep.003"/></span>
+					</div>
+					<div class="term-wrap" style="height: 330px;">
+						<div class="term-text" id="term-text2">
+ 	
+ 							<jsp:include page="/WEB-INF/jsp/fo/mj/memberTermAgree2${LOCALE_LANG }.jsp" flush="false" />
+
+						</div>
+					</div>
+					<div class="termAgree-chk">
+						<input type="checkbox" id="termAgree2_total" name="termAgree2_total" value="Y">
+						<label for="termAgree2_total"> <spring:message code="joinStep.004"/></label>
+					</div>
+				</div>
+				<div class="btn-wrap btnC">
+					<button type="button" class="btn btn-prim btn-red wd100" id="fn_goMemberJoinStep2"><spring:message code="button.004"/></button>
+				</div>
+				
+				</form>
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+
+<!-- footer -->
+<jsp:include page="/WEB-INF/jsp/fo/include/footer.jsp" />
+<!-- // footer -->
+	
+<script>
+$(function(){
+	
+	// termAgree 부분 전체 동의시 termAgree2_total checked 이벤트
+	$(document).on("change", ".termAgree2", function(){
+		var checkedCnt = $(".termAgree2:checked").length;
+		if(4 < checkedCnt){
+			$('input:checkbox[name="termAgree2_total"]').prop("checked", true);
+		}else{
+			$('input:checkbox[name="termAgree2_total"]').prop("checked", false);
+		}
+	}); 
+	
+	// 회원가입 추가정보 이동
+	$(document).on("click", "#fn_goMemberJoinStep2", function(){
+		
+		if(!$('input:checkbox[name="termAgree"]').is(":checked")){
+			$("#termAgree").focus();
+			returnMsg.alertMsg(fnLang("웹사이트 이용 약관에 동의해주세요.", "LC00"));
+			return;
+		}
+		if(!$('input:checkbox[name="termAgree2"]').is(":checked")){
+			$("#termAgree2").focus();
+			returnMsg.alertMsg(fnLang("패널활동 및 개인정보 수집 약관에</br>동의해주세요.", "LC01"));
+			return;
+		}
+		if(!$('input:checkbox[name="termAgree2_step3"]').is(":checked")){
+			$("#termAgree2_step3").focus();
+			returnMsg.alertMsg(fnLang("개인정보 처리위탁에 대한 동의 약관에 동의해주세요.", "LC02"));
+			return;
+		}
+		if(!$('input:checkbox[name="termAgree2_step4"]').is(":checked")){
+			$("#termAgree2_step4").focus();
+			returnMsg.alertMsg(fnLang("민감정보 수집 · 이용 및 활동에 대한 동의 약관에 동의해주세요.", "LC03"));
+			return;
+		}
+		if(!$('input:checkbox[name="termAgree2_step5"]').is(":checked")){
+			$("#termAgree2_step5").focus();
+			returnMsg.alertMsg(fnLang("영업비밀 보안에 관한 서약 약관에 동의해주세요.", "LC04"));
+			return;
+		}
+		if(!$('input:checkbox[name="termAgree2_step6"]').is(":checked")){
+			$("#termAgree2_step6").focus();
+			returnMsg.alertMsg(fnLang("저작물 권리 귀속 및 사용에 관한 동의 약관에 동의해주세요.", "LC05"));
+			return;
+		}
+		
+        $("#form").attr({"action":"<c:url value='/fo/mj/memberJoinStep2.do'/>", "target":"_self", "method":"post"}).submit();
+	});
+	
+	// 전체 체크 선택/해제
+	$(document).on("change", "#termAgree2_total", function(){
+		if($("#termAgree2_total").is(":checked")){
+			$(".termAgree2:input[value=Y]").prop("checked", true);
+        }else{
+        	$(".termAgree2:input[value=Y]").prop("checked", false);
+        }
+	});
+});
+</script>
+
+</body>
+</html>

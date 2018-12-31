@@ -1,0 +1,227 @@
+package com.rdpanel.fo.qna.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import com.rdpanel.cmmn.SendMail;
+import com.rdpanel.cmmn.security.SessionsPanel;
+import com.rdpanel.cmmn.service.CmmnService;
+import com.rdpanel.fo.mp.service.MyPageService;
+import com.rdpanel.fo.qna.service.QnaBoardService;
+import com.webiz.util.PaginationInfo;
+import com.webiz.util.StringUtil;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.qna.controller
+* 2. 타입명 : QnaBoardController.java
+* 3. 작성일 : 2017. 9. 27.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : Q&A Controller
+* </pre>
+ */
+@Controller
+public class QnaBoardController {
+
+	@Autowired SessionLocaleResolver localeResolver;
+
+	@Autowired MessageSource messageSource;
+	
+    @Resource(name="cmmnService") 
+    private CmmnService cmmnService;   
+    
+    @Resource(name="qnaBoardService") 
+    private QnaBoardService qnaBoardService;   
+    
+    @Resource(name="myPageService") 
+    private MyPageService myPageService;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : oneQnaAddForm
+    * 2. 작성일 : 2017. 10. 17.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 1:1 Q&A 이메일 보내기
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping("/fo/qna/oneQnaSendForm.do")
+	public ModelAndView oneQnaSendForm(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+    		
+		String [] COMM_CD = new String [] { "EMAIL_CD" };
+        
+        // 코드 목록
+        for(int i=0; i<COMM_CD.length; i++){
+        	commandMap.put("COMM_CD", COMM_CD[i]);
+        	mv.addObject(COMM_CD[i] +"_LIST", this.cmmnService.selectCmmnList(commandMap));
+        }
+        mv.addObject("info", this.myPageService.selectMyInfo(request, commandMap));
+        
+        mv.addObject("commandMap", commandMap);
+		 
+		return mv;
+	}
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : oneQnaSendProc
+    * 2. 작성일 : 2017. 10. 18.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 1:1 Q&A 이메일 보내기 처리
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping("/fo/qna/oneQnaSendProc.do")
+    public ModelAndView oneQnaSendProc(MultipartHttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+    	
+    	ModelAndView mv = new ModelAndView();
+    	 
+    	SendMail sendMail = new SendMail();
+
+    	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+    	
+    	commandMap.put("fromType", "PANEL");
+    	commandMap.put("NAME", panelInfo.get("SESSION_NAME"));
+    	Map<String, Object> returnMap = sendMail.SendSMTP(request, commandMap, "mail");
+    	
+    	if(returnMap != null)
+    	{
+    		//mv.addObject("alertMsg", messageSource.getMessage("qnaBoard.000", null, "이메일을 성공적으로 보냈습니다.", (Locale) request.getAttribute("LOCALE_LANG")));
+    		mv.addObject("alertMsg", "이메일을 성공적으로 보냈습니다.");
+            mv.addObject("returnUrl", request.getAttribute("webRootDomain") + "/fo/qna/oneQnaSendForm.do");
+            mv.setViewName("/fo/common/result");
+    	}
+    	else
+    	{
+    		//mv.addObject("alertMsg", messageSource.getMessage("qnaBoard.001", null, "이메일을 보내는 도중 실패했습니다.", (Locale) request.getAttribute("LOCALE_LANG")));
+    		mv.addObject("alertMsg", "이메일을 보내는 도중 실패했습니다.");
+            mv.addObject("returnUrl", request.getAttribute("webRootDomain") + "/fo/qna/oneQnaSendForm.do");
+            mv.setViewName("/fo/common/result");
+    	}
+        
+    	return mv;
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : qnaBoardList
+    * 2. 작성일 : 2017. 9. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험별 Q&A 목록
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping("/fo/mp/qnaBoardList.do")
+	public ModelAndView qnaBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+        
+		
+    	/* SESSION 확인 */
+    	if(SessionsPanel.isLogin(request))
+    	{
+			/* EXAM_MNG_NO 확인 */
+	        if(!"".equals(StringUtil.getString(commandMap.get("EXAM_MNG_NO"), ""))){
+	            
+	            String [] COMM_CD = new String [] { "CTEGORY" };
+	            
+	            // 코드 목록
+	            for(int i=0; i<COMM_CD.length; i++){
+	            	commandMap.put("COMM_CD", COMM_CD[i]);
+	            	mv.addObject(COMM_CD[i] +"_LIST", this.cmmnService.selectCmmnList(commandMap));
+	            }
+	            
+	        	// 시험별 Q&A 상세정보
+	            mv.addObject("info", this.qnaBoardService.selectQnaBoardInfo(commandMap));
+	        
+		        // 시험별 Q&A 목록 갯수
+		        int listCnt = this.qnaBoardService.selectQnaBoardListCnt(request, commandMap);
+		        PaginationInfo paginationInfo = new PaginationInfo(listCnt, commandMap);
+		        mv.addObject("paginationInfo", paginationInfo);
+		        
+		        List<Map<String, Object>> list = null; 
+		        if (listCnt > 0){
+		        	
+		        	// 시험별 Q&A 목록
+		    		list = this.qnaBoardService.selectQnaBoardList(request, commandMap);
+		        }
+		        
+		        mv.addObject("listCnt", listCnt);
+		        mv.addObject("list", list);
+		        
+	        }else{
+	        	//mv.addObject("alertMsg", messageSource.getMessage("return.error.000", null, "비정상적인 접근입니다.", (Locale) request.getAttribute("LOCALE_LANG")));
+	        	mv.addObject("alertMsg", "비정상적인 접근입니다.");
+	            mv.addObject("returnUrl", request.getAttribute("webRootDomain") + "/fo/mn/panelMainIndex.do");
+	            mv.setViewName("/fo/common/result");
+	        }
+    	}
+    	else
+    	{
+       		//mv.addObject("alertMsg", messageSource.getMessage("return.error.001", null, "로그인 후 이용해주세요.", (Locale) request.getAttribute("LOCALE_LANG")));
+    		mv.addObject("alertMsg", "로그인 후 이용해주세요.");
+            mv.addObject("returnUrl", request.getAttribute("webRootDomain") + "/fo/sc/login.do");
+            mv.setViewName("/fo/common/result");
+    	}
+        
+        mv.addObject("commandMap", commandMap);
+		 
+		return mv;
+	}
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : qnaBoardAjaxAdd
+    * 2. 작성일 : 2017. 9. 29.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험별 Q&A 글쓰기 등록
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping("/fo/mp/qnaBoardAjaxAdd.do")
+    public ModelAndView qnaBoardAjaxAdd(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+    	
+    	ModelAndView mv = new ModelAndView("jsonView");
+    	
+    	commandMap.put("QNA_GBN", "01");  // 01 : 질문
+    	
+    	int result = 0;
+    	
+		/* EXAM_MNG_NO 확인 */
+        if(!"".equals(StringUtil.getString(commandMap.get("EXAM_MNG_NO"), "")))
+        {
+        	// 시험별 Q&A 글쓰기 등록
+        	result = this.qnaBoardService.insertQnaBoardAdd(request, commandMap);
+        }
+        
+        mv.addObject("resultYn", result);
+        
+        return mv;
+    }
+}

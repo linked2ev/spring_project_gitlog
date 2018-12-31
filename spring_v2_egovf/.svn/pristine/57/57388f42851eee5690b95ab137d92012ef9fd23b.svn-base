@@ -1,0 +1,65 @@
+package com.rdpanel.fo.com.service.impl;
+
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+
+import com.rdpanel.cmmn.dao.ComnAbstractDAO;
+import com.rdpanel.fo.com.service.CommonService;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.bo.com.service.impl
+* 2. 타입명 : CommonServiceImpl.java
+* 3. 작성일 : 2017. 11. 10.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : CommonServiceImpl
+* </pre>
+ */
+@Service("commonService")
+public class CommonServiceImpl implements CommonService {
+
+    @Resource(name="comnAbstractDAO") 
+    private ComnAbstractDAO comnAbstractDAO;
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectUnsubscribePanelInfoCnt
+    * 2. 작성일 : 2017. 11. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 080수신거부 할 패널 정보 조회
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	public int selectUnsubscribePanelInfoCnt(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.selectCount("Common.selectUnsubscribePanelInfoCnt", commandMap);
+	}
+    
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : updateUnsubscribePanelInfo
+	* 2. 작성일 : 2017. 11. 27.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 080수신거부 할 패널 수신거부
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public int updateUnsubscribePanelInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.update("Common.updateUnsubscribePanelInfo", commandMap);
+	}
+		
+}

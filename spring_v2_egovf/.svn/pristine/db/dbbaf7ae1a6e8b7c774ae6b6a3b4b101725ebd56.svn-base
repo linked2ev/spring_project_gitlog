@@ -1,0 +1,143 @@
+@CHARSET "UTF-8";
+
+/*--------------- 추가 CSS ---------------*/
+/* 참가신청 > 상세설문 약관동의 */
+/* .rndBaseSurvey2, .rndAddInfo, .rndBaseSurvey {margin-left:39px;} */ 
+.rndBaseSurvey2 .term-title {border:1px solid #e0e0e0;border-bottom:none;}
+.rndBaseSurvey2 .term-title span {display:inline-block;padding:10px 20px 8px;font-size:16px;font-weight:500;color:#202020;}
+.rndBaseSurvey2 .term-wrap {height:180px;border:1px solid #e0e0e0;border-top-color:#eee;overflow-y:auto;}
+.rndBaseSurvey2 .term-wrap .term-text {padding:30px;line-height:1.4;}
+.rndBaseSurvey2 .termAgree-chk {position:relative;padding:16px 25px 14px;border:1px solid #e0e0e0;border-top:none;background-color:#f9f9f9;}
+input[type='checkbox'].chk-agree {display:none;}
+input[type='checkbox'].chk-agree + label {display:inline-block;margin-right:16px;cursor:pointer;}
+input[type='checkbox'].chk-agree + label:before {content:'';display:inline-block;width:18px;height:18px;margin:-2px 6px 0 0;vertical-align:middle;overflow:hidden;background:url('../images/form_radio_term.png') no-repeat left top;background-size:18px 50px;cursor:pointer;}
+input[type='checkbox'].chk-agree:checked + label:before {background-position:left -25px;} 
+@media all and (max-width: 767px) {
+	.rndTerm .term-title span {padding:10px 20px 8px;font-size:15px;}
+	.rndTerm .term-wrap {height:140px;}
+	.rndTerm .term-wrap .term-text {padding:20px}
+	.rndTerm .termAgree-chk {padding:14px 15px;}
+}
+
+/* 1:1 Q&A > 약관동의 */
+/* .rndContact, .rndAddInfo, .rndBaseSurvey {margin-left:39px;} */ 
+.rndContact .term-title {border:1px solid #e0e0e0;border-bottom:none;}
+.rndContact .term-title span {display:inline-block;padding:10px 20px 8px;font-size:16px;font-weight:500;color:#202020;}
+.rndContact .term-wrap {height:180px;border:1px solid #e0e0e0;border-top-color:#eee;overflow-y:auto;}
+.rndContact .term-wrap .term-text {padding:30px;line-height:1.4;}
+.rndContact .termAgree-chk {position:relative;padding:16px 25px 14px;border:1px solid #e0e0e0;border-top:none;background-color:#f9f9f9;}
+input[type='checkbox'].chk-agree {display:none;}
+input[type='checkbox'].chk-agree + label {display:inline-block;margin-right:16px;cursor:pointer;}
+input[type='checkbox'].chk-agree + label:before {content:'';display:inline-block;width:18px;height:18px;margin:-2px 6px 0 0;vertical-align:middle;overflow:hidden;background:url('../images/form_radio_term.png') no-repeat left top;background-size:18px 50px;cursor:pointer;}
+input[type='checkbox'].chk-agree:checked + label:before {background-position:left -25px;} 
+@media all and (max-width: 767px) {
+	.rndTerm .term-title span {padding:10px 20px 8px;font-size:15px;}
+	.rndTerm .term-wrap {height:140px;}
+	.rndTerm .term-wrap .term-text {padding:20px}
+	.rndTerm .termAgree-chk {padding:14px 15px;}
+}
+
+/* multi-select Css */
+.ms-container{
+  background: transparent url('../../common/images/ico_switch.png') no-repeat 50% 50%;
+  width: 370px;
+}
+
+.ms-container:after{
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  clear: both;
+  min-height: 0;
+  visibility: hidden;
+}
+
+.ms-container .ms-selectable, .ms-container .ms-selection{
+  background: #fff;
+  color: #555555;
+  float: left;
+  width: 45%;
+}
+.ms-container .ms-selection{
+  float: right;
+}
+
+.ms-container .ms-list{
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  height: 250px;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.ms-container .ms-list.ms-focus{
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0;
+  outline: thin dotted \9;
+}
+
+.ms-container ul{
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+}
+
+.ms-container .ms-optgroup-container{
+  width: 100%;
+}
+
+.ms-container .ms-optgroup-label{
+  margin: 0;
+  padding: 5px 0px 0px 5px;
+  cursor: pointer;
+  color: #999;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection{
+  border-bottom: 1px #eee solid;
+  padding: 4px 4px 4px 10px;
+  color: #555; 
+  font-size: 16px;
+}
+
+.ms-container .ms-selectable li.ms-hover,
+.ms-container .ms-selection li.ms-hover{
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  background-color: #08c;
+}
+
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled{
+  background-color: #eee;
+  color: #aaa;
+  cursor: text;
+}
+.ms-container .ms-selectable .custom-header,
+.ms-container .ms-selection .custom-header{
+  border: 1px #d9d9d9 solid;
+  border-radius: 3px;
+  padding: 4px 4px 4px 10px;
+  color: #555; 
+  font-size: 16px;
+  text-align: center; 
+  background-color: #d9d9d9; 
+}

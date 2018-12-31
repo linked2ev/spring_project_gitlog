@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/WEB-INF/jsp/fo/include/head.jsp" />
+</head>
+<body>
+
+<!-- header -->
+<jsp:include page="/WEB-INF/jsp/fo/include/header/headerPanel${panelAuth }.jsp" flush="true" />
+<!-- // header -->
+
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+	
+	<!-- leftNav -->  
+	<jsp:include page="/WEB-INF/jsp/fo/include/left/leftPanel${panelAuth }.jsp" flush="true" />
+	<!-- // leftNav --> 
+	
+		<div class="pageWrap rndWithdrawMember">
+		
+			<div class="page-title">
+				<h2><spring:message code="menu.007"/></h2>
+				<div class="page-location">
+					<span class="home"><spring:message code="menu.010"/></span> - <spring:message code="menu.003"/> - <b><spring:message code="menu.007"/></b>
+				</div>
+			</div>			
+			
+			<div class="page-content">
+			<form id="form" name="form">
+				
+				<div class="withdraw-box">
+					<ul class="withdraw-list">
+						<li><spring:message code="memberLeave.000"/></li>
+						<li>
+							<spring:message code="memberLeave.001"/>
+							</br>(<spring:message code="memberLeave.002"/> : <a href="https://www.beautypoint.co.kr/main.html" target="_blank" style="color: #0066ff; font-weight: bold;">www.beautypoint.co.kr</a>)
+						</li>
+						<li><spring:message code="memberLeave.003"/><br class="br-mobile">(<spring:message code="memberLeave.004"/>)</li>
+						<li>
+							<spring:message code="memberLeave.006"/>
+							<a href="<c:url value='/fo/mp/myInfo.do'/>" target="_self" style="color: #0066ff; font-weight: bold;"><spring:message code="memberLeave.007"/></a>
+							<spring:message code="memberLeave.008"/>
+						</li>
+					</ul>
+					<div class="agree-area">
+						<input type="checkbox" id="rschAgree" name="rschAgree" value="Y">
+						<label for="rschAgree"> <spring:message code="memberLeave.009"/></label>
+					</div>
+				</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-red wd100" id="fn_memberLeave"><spring:message code="button.007"/></button>
+					</div>
+	
+				</div><!-- // page-content -->
+				
+			</form>
+		</div><!-- // pageWrap -->
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+
+<!-- footer -->
+<jsp:include page="/WEB-INF/jsp/fo/include/footer.jsp" />
+<!-- // footer -->
+
+<script>
+$(function(){
+	
+	// 회원 탈퇴
+	$(document).on("click", "#fn_memberLeave", function(){
+		
+		if(!$('input:checkbox[name="rschAgree"]').is(":checked")){
+			$("#termAgree").focus();
+			returnMsg.alertMsg(fnLang("회원탈퇴 약관에 동의해주세요.", "LC00"));
+			return;
+		}
+		
+        $("#form").attr({"action":"<c:url value='/fo/mp/memberLeaveProc.do'/>", "target":"_self", "method":"post"}).submit();
+	});
+	
+});
+</script>
+</body>
+</html>

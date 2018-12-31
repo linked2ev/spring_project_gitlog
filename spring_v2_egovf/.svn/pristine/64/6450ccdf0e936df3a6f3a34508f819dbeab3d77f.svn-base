@@ -1,0 +1,3689 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]><html class="ie8" lang="ko"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="ko"><!--<![endif]-->
+
+<head>
+	<title>아모레퍼시픽 고객연구센터</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="shortcut icon" href="../images/favi/favicon.ico" type="image/x-icon"/>
+	<link rel="apple-touch-icon-precomposed" href="../images/favi/favicon57.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favi/favicon114.png"/>
+
+	<!--[if lt IE 9]><script src="../js/html5shiv.min.js"></script><![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- _____________Grid_____________ -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- jquery-custom-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/jquery-ui.css" />
+
+<!-- jquery-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap-ui.css" />
+
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/ui.multiselect.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/searchFilter.css" />
+
+<link rel="stylesheet" href="../css/panel_style.css" type="text/css">
+ 
+<script src="../../common/lib/jqGrid/js/jquery-1.11.0.min.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery-ui.js"></script>
+
+<script src="../../common/lib/jqGrid/js/grid.locale-kr.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.js"></script>
+<script src="../../common/lib/jqGrid/plugins/ui.multiselect.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.tablednd.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.contextmenu.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.searchFilter.js"></script>
+<script src="../../common/lib/jqGrid/src/grid.celledit.js"></script>
+
+<script src="../../common/lib/jqGrid/custom/ui-custom.js"></script>
+
+<script src="../js/jquery.simpler-sidebar.min.js"></script>
+<script src="../js/sidebar.js"></script>
+
+<script>
+	// 탭 : 페이지
+	$(function() {
+		$('ul.tab li').click(function() {
+			var activeTab = $(this).attr('data-tab');
+			$('ul.tab li').removeClass('current');
+			$('.tabcontent').removeClass('current');
+			$(this).addClass('current');
+			$('#' + activeTab).addClass('current');
+		})
+	});
+	
+	// 탭 : 팝업
+	$(function() {
+		$('ul.tab-popup li').click(function() {
+			var activeTab = $(this).attr('data-tab');
+			$(this).parents(".popup-content").find('ul.tab-popup li').removeClass('current');
+			$(this).parents(".popup-content").find('.tabcontent-popup').removeClass('current');
+			$(this).addClass('current');
+			$(this).parents(".popup-content").find('#' + activeTab).addClass('current');
+		})
+	});
+
+	// QnA
+	function qna(idMyDiv){
+		 var objDiv = document.getElementById(idMyDiv);
+		 if(objDiv.style.display==""){ objDiv.style.display = "none"; }
+		 else{ objDiv.style.display = ""; }
+	}
+
+</script>
+</head>
+
+<body>
+
+<!-- skip navigation -->
+<a href="#main" class="skip">본문바로가기</a>
+<!-- // skip navigation -->
+
+<!-- header -->
+<header id="header" class="header respWidth">
+
+	<div class="header-pc">
+		<h1><a href="#">아모레퍼시픽 고객연구센터</a></h1>
+		<div class="util">
+			<span class="user-name"><em>김아모레</em>님</span>
+			<span class="btn-logout"><button type="submit">LOGOUT</button></span>
+		</div>
+	</div>
+	<div class="header-mobile">
+		<h1><a href="#">아모레퍼시픽 고객연구센터</a></h1>
+		<a href="#" id="sidebar-main-trigger" class="mob-all-menu"><span class="screen_out">전체메뉴</span></a>
+	</div>
+	<aside id="sidebar-main" class="sidebar-mobile">
+
+		<div class="sidebar-close" id="sidebar-main-trigger">
+			<span><i class="screen_out">닫기</i></span>
+		</div>
+		<div class="sidebar-container">
+			<div class="sidebar-logo">
+				<h1>아모레퍼시픽 고객연구센터</h1>
+			</div>
+			<div class="sidebar-nav">
+				<ul class="sideNav-list">
+					<li class="on">
+						<a href="#">시험관리</a>
+						<ul class="sub">
+							<li class="on"><a href="#">시험 모집 공고 현황</a></li>
+							<li><a href="#">시험 모집 공고 등록</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">패널관리</a>
+						<ul class="sub">
+							<li><a href="#">패널 타입 관리</a></li>
+							<li><a href="#">패널 이력 관리</a></li>
+							<li><a href="#">방문 예약 목록</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">소통광장</a>
+						<ul class="sub">
+							<li><a href="#">1&#58;1 Q&amp;A</a></li>
+						</ul>				
+					</li>
+					<li>
+						<a href="#">설문관리</a>
+						<ul class="sub">
+							<li><a href="#">팀별 설문관리</a></li>
+						</ul>	
+					</li>
+				</ul>
+			</div>
+			<div class="sidebar-util">
+				<div class="sidebar-util-container">
+					<span class="user-name"><em>김아모레</em>님</span>
+					<span class="btn-logout"><button type="submit">LOGOUT</button></span>
+				</div>
+			</div>
+
+		</div>
+	</aside>
+
+</header>
+<!-- // header -->
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+
+		<div class="leftNav">
+			<ul class="leftNav-list">
+				<li class="on">
+					<a href="#">시험관리</a>
+					<ul class="sub">
+						<li class="on"><a href="#">시험 모집 공고 현황</a></li>
+						<li><a href="#">시험 모집 공고 등록</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">패널관리</a>
+					<ul class="sub">
+						<li><a href="#">패널 타입 관리</a></li>
+						<li><a href="#">패널 이력 관리</a></li>
+						<li><a href="#">방문 예약 목록</a></li>
+					</ul>
+				</li>
+				<!-- <li>
+					<a href="#">소통광장</a>
+					<ul class="sub">
+						<li><a href="#">1&#58;1 Q&amp;A</a></li>
+					</ul>				
+				</li>
+				<li>
+					<a href="#">설문관리</a>
+					<ul class="sub">
+						<li><a href="#">팀별 설문관리</a></li>
+					</ul>	
+				</li> -->
+			</ul>
+		</div>	
+		<div class="pageWrap rndRecrViewInside">
+
+			<div class="page-title">
+				<h2>시험 모집 상세 정보</h2>
+				<div class="page-location">
+					<span class="home">홈</span> - 시험관리 - 시험 모집 공고 현황 - <b>시험 모집 상세 정보</b>
+				</div>
+			</div>
+			<div class="page-content respMobile">
+				<div class="respMobile-alert"><span>해당 업무는<br>PC와 태블릿을 이용해 주세요.</span></div>
+			</div>
+			<div class="page-content respPC">
+
+				<div class="listWrap btNo">
+					<div class="recruit-view admin">
+						<div class="recruit-content">
+							<div class="recruit-r">
+								<div class="recruit-label">
+									<span class="label-green">접수중</span>
+								</div>
+							</div>													
+							<div class="recruit-l">
+								<div class="recuit-title"><a href="#"><em>01</em> 수분 마스크팩 첩포 시험</a></div>
+							</div>
+							<div class="recruit-detail">
+								<dl>
+									<dt>모집인원</dt>
+									<dd>60(10)</dd>
+									<dt>방문일자</dt>
+									<dd>2017.09.20 / 2017.09.23 / 2017.09.25</dd>
+									<dt>패널타입</dt>
+									<dd>10대 / 20대 / 여성 / 피부 건성 /  주름 이마 / 처짐 유</dd>
+								</dl>
+							</div>
+							<div class="recruit-btn btnC">
+								<button type="button" class="btn btn-3rd btn-gray wd30">시험취소</button>
+								<button type="button" class="btn btn-3rd btn-gray btn-dis wd30">신청마감</button>
+								<button type="button" class="btn btn-3rd btn-gray wd30">수정</button>
+							</div>
+						</div>
+						<div class="admin-content">
+
+							<ul class="tab">
+								<li class="current" data-tab="tab1"><span>설문관리</span></li>
+								<li data-tab="tab2"><span>패널 선정 관리</span></li>
+								<li data-tab="tab3"><span>최종 선정 패널</span></li>
+								<li data-tab="tab4"><span>시험 결과 현황</span></li>
+								<li data-tab="tab5"><span>Q&amp;A</span></li>
+							</ul>
+
+							<div id="tab1" class="tabcontent current">
+								<div class="searchWrap">
+									<div class="search-cont">
+
+										<div class="search-l">
+											<dl class="sch-multi single">
+												<dt>설문 종류</dt>
+												<dd>
+													<select id="" name="" class="inputBox" style="width:110px;">
+														<option value>상세 설문</option>
+														<option value>결과 설문</option>
+													</select>
+													<select id="" name="" class="inputBox" style="width:80px;">
+														<option value>1차</option>
+														<option value>2차</option>
+													</select>
+												</dd>
+											</dl>
+											<dl class="sch-multi single">
+												<dt>지난시험검색</dt>
+												<dd>
+													<select id="" name="" class="inputBox" style="width:110px;">
+														<option value>효능</option>
+														<option value selected>안정성</option>
+														<option value>향</option>
+														<option value>센서리</option>
+													</select>
+													<select id="" name="" class="inputBox" style="width:280px;">
+														<option value>수분 마스크팩 시험</option>
+														<option value>아이오페 나이트 리페어 크림 첩포 시험</option>
+														<option value></option>
+													</select>
+													<select id="" name="" class="inputBox" style="width:80px;">
+														<option value>1차</option>
+														<option value>2차</option>
+													</select>
+													<button type="button" class="btn btn-5th btn-gold">불러오기</button>
+												</dd>
+											</dl>
+											<dl class="sch-multi single">
+												<dt></dt>
+												<dd>
+													<button type="button" href="#layer101" class="btn btn-5th btn-blue btn-popup">문제은행</button>
+												</dd>
+											</dl>
+										</div>
+
+									</div>
+								</div>								
+								<div class="tblWrap tbl-wm">
+									<table>
+										<caption>설문 테이블</caption>
+										<colgroup>
+											<col width="25%">
+											<col width="75%">
+										</colgroup>
+										<tbody>
+											<tr>
+												<th>피부타입</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp01" name="resch01">
+														<label for="grp01">건성</label>
+														<input type="radio" id="grp02" name="resch01">
+														<label for="grp02">중성</label>
+														<input type="radio" id="grp03" name="resch01">
+														<label for="grp03">지성</label>
+														<input type="radio" id="grp04" name="resch01">
+														<label for="grp04">복합성</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th>주름</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp05" name="resch02">
+														<label for="grp05">이마</label>
+														<input type="radio" id="grp06" name="resch02">
+														<label for="grp06">미간</label>
+														<input type="radio" id="grp07" name="resch02">
+														<label for="grp07">눈가</label>
+														<input type="radio" id="grp08" name="resch02">
+														<label for="grp08">눈밑</label>
+														<input type="radio" id="grp09" name="resch02">
+														<label for="grp09">팔자</label>
+														<input type="radio" id="grp10" name="resch02">
+														<label for="grp10">목</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th>처짐</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp11" name="resch03">
+														<label for="grp11">유</label>
+														<input type="radio" id="grp12" name="resch03">
+														<label for="grp12">무</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th>모공(눈에 띄는)</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp13" name="resch04">
+														<label for="grp13">많음</label>
+														<input type="radio" id="grp14" name="resch04">
+														<label for="grp14">보통</label>
+														<input type="radio" id="grp15" name="resch04">
+														<label for="grp15">없음</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th>아이백</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp16" name="resch05">
+														<label for="grp16">유</label>
+														<input type="radio" id="grp17" name="resch05">
+														<label for="grp17">무</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th>피부톤</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp18" name="resch06">
+														<label for="grp18">노란</label>
+														<input type="radio" id="grp19" name="resch06">
+														<label for="grp19">붉은</label>
+														<input type="radio" id="grp20" name="resch06">
+														<label for="grp20">밝은</label>
+														<input type="radio" id="grp21" name="resch06">
+														<label for="grp21">어두운</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th>기미잡티</th>
+												<td>
+													<div class="divCheck">
+														<input type="radio" id="grp22" name="resch07">
+														<label for="grp22">많은</label>
+														<input type="radio" id="grp23" name="resch07">
+														<label for="grp23">보통</label>
+														<input type="radio" id="grp24" name="resch07">
+														<label for="grp24">없음</label>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="btn-wrap btnC">
+									<button type="button" class="btn btn-prim btn-red">저장</button>
+								</div>
+							</div>
+
+							<div id="tab2" class="tabcontent">
+								<div class="list-total">패널 수 <em class="txtRed">55</em>명</div>
+								<div class="listWrap tbl-list">
+									<div class="tbl-scroll tbl-ht10">
+										<table>
+											<colgroup>
+												<col width="6%">
+												<col width="14%">
+												<col width="18%">
+												<col width="22%">
+												<col width="22%">
+												<col width="18%">
+											</colgroup>							
+											<thead>
+												<tr>
+													<th><input type="checkbox" id="test21" name=""><label for="test21" class="screen-out"></label></th>
+													<th>이름</th>
+													<th>전화번호</th>
+													<th>이메일</th>
+													<th>패널타입</th>
+													<th>최근 시험 참가</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input type="checkbox" id="test22" name=""><label for="test22" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td>블랙리스트</td>
+													<td>65일 경과</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test23" name=""><label for="test23" class="screen-out"></label></td>
+													<td>나피디</td>
+													<td>010-1234-4567</td>
+													<td>1234567890@email.com</td>
+													<td></td>
+													<td>-</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test24" name=""><label for="test24" class="screen-out"></label></td>
+													<td>남반장</td>
+													<td>010-1234-4567</td>
+													<td>1234567890@email.com</td>
+													<td></td>
+													<td>65일 경과</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test25" name=""><label for="test25" class="screen-out"></label></td>
+													<td>여반장</td>
+													<td>010-1234-4567</td>
+													<td>abcdefghijk@email.com</td>
+													<td></td>
+													<td>타 시험 진행중</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test26" name=""><label for="test26" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td>40일 경과</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test27" name=""><label for="test27" class="screen-out"></label></td>
+													<td>우효</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td>블랙리스트</td>
+													<td>20일 경과</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test28" name=""><label for="test28" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td>10일 경과</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test29" name=""><label for="test29" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td>-</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test30" name=""><label for="test30" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td>65일 경과</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test31" name=""><label for="test31" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td>타 시험 진행중</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test32" name=""><label for="test32" class="screen-out"></label></td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td>타 시험 진행중</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="btn-wrap btnR">
+									<div class="fltL">
+										<button type="button" href="#layer201" class="btn btn-prim btn-red btn-popup">공고패널 추가</button>
+										<button type="button" href="#layer202" class="btn btn-prim btn-red btn-popup">패널 선정</button>
+									</div>
+									<button type="button" href="#layer203" class="btn btn-prim btn-gray btn-popup">SMS 전송</button>
+									<button type="button" href="#layer204" class="btn btn-prim btn-gray btn-popup">E-Mail 전송</button>
+								</div>
+							</div>
+
+							<div id="tab3" class="tabcontent">
+								<div class="grid-filter">
+									<div class="filter-l">
+										<div class="list-total">선정된 패널 수 <em class="txtRed">55</em>명</div>
+									</div>
+									<button type="button" class="btn btn-prim btn-red"><i class="ico-down"></i>엑셀 다운로드</button>
+								</div>
+								<div class="listWrap tbl-list">
+									<div class="tbl-scroll tbl-ht10">
+										<table>
+											<colgroup>
+												<col width="4%">
+												<col width="6%">
+												<col width="14%">
+												<col width="18%">
+												<col width="22%">
+												<col width="15%">
+												<col width="10%">
+												<col width="10%">
+											</colgroup>							
+											<thead>
+												<tr>
+													<th><input type="checkbox" id="test41" name=""><label for="test41" class="screen-out"></label></th>
+													<th>번호</th>
+													<th>이름</th>
+													<th>전화번호</th>
+													<th>이메일</th>
+													<th>패널타입</th>
+													<th>패널선정 알림</th>
+													<th>동의서<br>작성</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input type="checkbox" id="test42" name=""><label for="test42" class="screen-out"></label></td>
+													<td>1</td>
+													<td>김반장짱</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td>블랙리스트</td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test43" name=""><label for="test43" class="screen-out"></label></td>
+													<td>2</td>
+													<td>나피디</td>
+													<td>010-1234-4567</td>
+													<td>1234567890@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test44" name=""><label for="test44" class="screen-out"></label></td>
+													<td>3</td>
+													<td>남반장</td>
+													<td>010-1234-4567</td>
+													<td>1234567890@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test45" name=""><label for="test45" class="screen-out"></label></td>
+													<td>4</td>
+													<td>여반장</td>
+													<td>010-1234-4567</td>
+													<td>abcdefghijk@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test46" name=""><label for="test46" class="screen-out"></label></td>
+													<td>5</td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test47" name=""><label for="test47" class="screen-out"></label></td>
+													<td>6</td>
+													<td>우효</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td>블랙리스트</td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test48" name=""><label for="test48" class="screen-out"></label></td>
+													<td>7</td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test49" name=""><label for="test49" class="screen-out"></label></td>
+													<td>8</td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test50" name=""><label for="test50" class="screen-out"></label></td>
+													<td>9</td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test51" name=""><label for="test51" class="screen-out"></label></td>
+													<td>10</td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><input type="checkbox" id="test52" name=""><label for="test52" class="screen-out"></label></td>
+													<td>11</td>
+													<td>김반장</td>
+													<td>010-1234-4567</td>
+													<td>mailmail@email.com</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="btn-wrap btnR">
+									<div class="fltL">
+										<button type="button" class="btn btn-prim btn-gray btn-narr">패널 선정 취소</button>
+										<button type="button" href="#layer301" class="btn btn-prim btn-gray btn-popup btn-narr">동의서 작성</button>
+										<button type="button" href="#layer302" class="btn btn-prim btn-gray btn-popup btn-narr">결과설문 작성</button>
+										<button type="button" href="#layer303" class="btn btn-prim btn-gray btn-popup btn-narr">방문일정 현황</button>
+									</div>
+									<button type="button" href="#layer203" class="btn btn-prim btn-gray btn-popup btn-narr">SMS 전송</button>
+									<button type="button" href="#layer204" class="btn btn-prim btn-gray btn-popup btn-narr">E-Mail 전송</button>
+								</div>
+							</div>
+
+							<div id="tab4" class="tabcontent">
+								<div class="grid-filter">
+									<div class="filter-l">
+										<span class="filter-tit">결과 설문 차수 선택</span>
+										<select id="" name="" class="inputBox" style="width:100px;">
+											<option value>1차</option>
+											<option value>2차</option>
+											<option value>3차</option>
+										</select>	
+									</div>
+									<button type="button" class="btn btn-prim btn-red"><i class="ico-down"></i>엑셀 다운로드</button>
+									<button type="button" href="#layer401" class="btn btn-prim btn-blue btn-narr btn-popup">결과설문 작성현황</button>						
+								</div>
+								<div class="result-box">
+									<div class="result-box-scroll">
+										<ul class="result-list">
+											<li>
+												<div class="result-question">1. 샘플 #UC14향이 얼마나 마음에 드십니까?</div>
+												<dl>
+													<dt>① 매우 싫다</dt>
+													<dd><span>1 / 50</span><i>(2%)</i></dd>
+													<dt>② 싫다</dt>
+													<dd><span>2 / 50</span><i>(4%)</i></dd>
+													<dt>③ 조금 싫다</dt>
+													<dd><span>5 / 50</span><i>(10%)</i></dd>
+													<dt>④ 보통</dt>
+													<dd><span>8 / 50</span><i>(16%)</i></dd>
+													<dt>⑤ 조금 좋다</dt>
+													<dd><span>13 / 50</span><i>(26%)</i></dd>
+													<dt>⑥ 좋다</dt>
+													<dd><span>11 / 50</span><i>(22%)</i></dd>
+													<dt>⑦ 매우 좋다</dt>
+													<dd><span>10 / 50</span><i>(20%)</i></dd>
+												</dl>
+											</li>
+											<li>
+												<div class="result-question">2. 샘플 #UC14 향이 얼마나 강하다고 느끼십니까?</div>
+												<dl>
+													<dt>① 매우 싫다</dt>
+													<dd><span>1 / 50</span><i>(2%)</i></dd>
+													<dt>② 싫다</dt>
+													<dd><span>2 / 50</span><i>(4%)</i></dd>
+													<dt>③ 조금 싫다</dt>
+													<dd><span>5 / 50</span><i>(10%)</i></dd>
+													<dt>④ 보통</dt>
+													<dd><span>8 / 50</span><i>(16%)</i></dd>
+													<dt>⑤ 조금 좋다</dt>
+													<dd><span>13 / 50</span><i>(26%)</i></dd>
+													<dt>⑥ 좋다</dt>
+													<dd><span>11 / 50</span><i>(22%)</i></dd>
+													<dt>⑦ 매우 좋다</dt>
+													<dd><span>10 / 50</span><i>(20%)</i></dd>
+												</dl>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div id="tab5" class="tabcontent">
+								<div class="listWrap qna-list">
+									<table>
+										<colgroup>
+											<col width="14%">
+											<col width="58%">
+											<col width="10%">
+											<col width="18%">
+										</colgroup>
+										<tbody>
+											<tr>
+												<td>시험비 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list01');return false;">시험비 관련 문의 합니다.</a><span class="qna-new"><i class="screen_out">New</i></span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list01" style="display:;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 아직 답변 안달렸을 때 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																<textarea id="" name="" class="inputBox" style="height:150px;"></textarea>
+															</p>
+																<div class="mgtp10 btnR">
+																	<button type="button" class="btn btn-prim btn-red">답글쓰기</button>
+																	<button type="button" class="btn btn-prim btn-gray">E-Mail 전송</button>
+																</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list02');return false;">시험 진행중 궁금한 사항 있어서 질문 드립니다.</a><span class="qna-new"><i class="screen_out">New</i><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list02" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list03');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list03" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list04');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list04" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list05');return false;">방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list05" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의방문날짜 변경 문의
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요안돼요
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list06');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list06" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list07');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list07" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list08');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list08" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list09');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list09" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>시험 관련</td>
+												<td class="txtL">
+													<a href="#" onclick="qna('list10');return false;">방문날짜 변경 문의</a><span class="qna-complete">답변완료</span>
+												</td>
+												<td><span class="qna-writer">김패널</span></td>
+												<td><span class="qna-date">2017-12-28 11:24</span></td>
+											</tr>
+											<tr id="list10" style="display:none;">
+												<td colspan="4">
+													<div class="qna-expand-wrap"><!-- 답변완료 -->
+														<div class="qna-question">
+															<p>
+																시험 종료되었는데 아직 시험비 입금이 안되었어요.<br>
+																언제 입금되는지 알려주세요.
+															</p>
+														</div>
+														<div class="qna-answer">
+															<p>
+																안녕하세요, 김태평양 패널님.<br>
+																12월 31일 일괄 지급 예정입니다.<br>
+																이후에도 입금이 되지 않았을 경우 다시 문의 주세요.<br>
+																감사합니다.
+																<span class="qna-answer-uploader"><em>연구원</em><i>2017-12-27 09:23</i></span>
+															</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>				
+								</div>
+							</div>
+
+						</div><!-- // admin-content -->
+					</div><!-- // recruit-view admin -->
+				</div><!-- // listWrap -->			
+
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+<!-- footer -->
+<footer id="footer" class="footer respWidth">
+	<div class="footer-menu">
+		<a href="https://www.beautypoint.co.kr/footer/privacy/personal.html" target="_blank">개인정보처리방침</a>
+	</div>
+	<copyright>&#169; Since2017 Amorepacific, All Rights Reserved.</copyright>
+</footer>
+<!-- // footer -->
+
+<!-- popup : 문제은행 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer101" class="popupBoxWrap" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">문제은행</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="grid-filter">
+						<div class="filter-l">
+							<span class="filter-tit">시험구분</span>
+							<select id="" name="" class="inputBox" style="width:110px;">
+								<option value>효능</option>
+								<option value selected>안정성</option>
+								<option value>향</option>
+								<option value>센서리</option>
+							</select>
+						</div>
+					</div>
+					<div class="listWrap tbl-list">
+						<div class="tbl-scroll tbl-ht10"><!-- PC 기준 10개 -->
+							<table>
+								<colgroup>
+									<col width="6%">
+									<col width="94%">
+								</colgroup>							
+								<thead>
+									<tr>
+										<th></th>
+										<th>시험 문제</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input type="checkbox" id="test01" name=""><label for="test01" class="screen-out"></label><!-- 반드시 label과 함께 이동 바랍니다. --></td>
+										<td class="txtL">향취가 얼마나 마음에 드십니까?</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test02" name=""><label for="test02" class="screen-out"></label></td>
+										<td class="txtL">향취의 강도는 어느 정도입니까?</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test03" name=""><label for="test03" class="screen-out"></label></td>
+										<td class="txtL">사용해 보신 크림의 향에 대한 만족스러운 점을 간단하게 적어 주세요.</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test04" name=""><label for="test04" class="screen-out"></label></td>
+										<td class="txtL">사용해 보신 크림의 향에 대한 아쉬운 점을 간단하게 적어 주세요.</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test05" name=""><label for="test05" class="screen-out"></label></td>
+										<td class="txtL">향과 어울리는 기능 선택</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test06" name=""><label for="test06" class="screen-out"></label></td>
+										<td class="txtL">향과 적합한 브랜드 선택</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test07" name=""><label for="test07" class="screen-out"></label></td>
+										<td class="txtL">브랜드 적합도 평가</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test08" name=""><label for="test08" class="screen-out"></label></td>
+										<td class="txtL">크림의 뚜껑을 열어 향을 맡아 보시고 향취 기호도와 향취 강도를 평가해 주세요.</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test09" name=""><label for="test09" class="screen-out"></label></td>
+										<td class="txtL">크림을 얼굴 전체에 바른 후에 향취를 평가해 주세요.</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test10" name=""><label for="test10" class="screen-out"></label></td>
+										<td class="txtL">사용해 보신 크림의 전체적인 향취 기호도와 향취 강도를 평가해 주세요.</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test11" name=""><label for="test11" class="screen-out"></label></td>
+										<td class="txtL">고객님께서는 평소에 크림을 주로 어디에서 구입하십니까?</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test12" name=""><label for="test11" class="screen-out"></label></td>
+										<td class="txtL">평소 크림을 사용하실 때에 어느 단계에서 향이 가장 중요하다고 생각 하십니까?</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-red">적용</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 패널추가 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer201" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">패널추가</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="searchWrap">
+						<div class="search-cont">
+
+							<div class="search-l">
+								<dl class="sch-multi">
+									<dt>패널명</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox">
+									</dd>
+									<dt>나이</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;세&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;세
+									</dd>
+								</dl>
+								<dl class="sch-multi">
+									<dt>키</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;cm&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;cm
+									</dd>
+									<dt>몸무게</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;kg&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;kg
+									</dd>
+								</dl>
+								<dl class="sch-multi">
+									<dt>BMI</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;
+									</dd>
+									<dt>성별</dt>
+									<dd>
+										<input type="radio" id="male" name="cond01">
+										<label for="male">남성</label>
+										<input type="radio" id="female" name="cond01">
+										<label for="female">여성</label>
+									</dd>
+								</dl>
+								<dl class="sch-multi single">
+									<dt>패널타입</dt>
+									<dd>
+										<input type="checkbox" id="cmpPn" name="">
+										<label for="cmpPn">사내패널 포함</label>
+										<input type="checkbox" id="blackC" name="">
+										<label for="blackC">블랙리스트 포함</label>
+									</dd>
+								</dl>
+								<dl class="sch-multi single">
+									<dt>필터 설정</dt>
+									<dd>
+										<button type="button" href="#layer11" class="btn btn-3rd btn-gray btn-popup">기초설문 필터</button>
+										<button type="button" href="#layer12" class="btn btn-3rd btn-gray btn-popup">팀별설문 필터</button>
+										<button type="button" href="#layer13" class="btn btn-3rd btn-gray btn-popup">패널타입 필터</button>	
+									</dd>
+								</dl>
+							</div>
+							<div class="search-r">
+								<div class="search-r-cont">							
+									<button type="submit" class="btn btn-search"><i class="ico-search"></i>조회</button>
+								</div>
+							</div>
+						</div>
+					</div>					
+					<div class="listWrap tbl-list">
+						<div class="tbl-scroll tbl-ht10 tbl-mob"><!-- PC 기준 10개/태블릿 기준 5개 -->
+							<table>
+								<colgroup>
+									<col width="6%">
+									<col width="14%">
+									<col width="18%">
+									<col width="22%">
+									<col width="22%">
+									<col width="18%">
+								</colgroup>							
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="test101" name=""><label for="test101" class="screen-out"></label></th>
+										<th>이름</th>
+										<th>전화번호</th>
+										<th>이메일</th>
+										<th>패널타입</th>
+										<th>최근 시험 참가</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input type="checkbox" id="test102" name=""><label for="test102" class="screen-out"></label></td>
+										<td>김반장</td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td>블랙리스트</td>
+										<td>65일 경과</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test103" name=""><label for="test103" class="screen-out"></label></td>
+										<td>나피디</td>
+										<td>010-1234-4567</td>
+										<td>1234567890@email.com</td>
+										<td></td>
+										<td>-</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test104" name=""><label for="test104" class="screen-out"></label></td>
+										<td>남반장</td>
+										<td>010-1234-4567</td>
+										<td>1234567890@email.com</td>
+										<td></td>
+										<td>65일 경과</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test105" name=""><label for="test105" class="screen-out"></label></td>
+										<td>여반장</td>
+										<td>010-1234-4567</td>
+										<td>abcdefghijk@email.com</td>
+										<td></td>
+										<td>타 시험 진행중</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test106" name=""><label for="test106" class="screen-out"></label></td>
+										<td>김반장</td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td></td>
+										<td>40일 경과</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test107" name=""><label for="test107" class="screen-out"></label></td>
+										<td>우효</td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td>블랙리스트</td>
+										<td>20일 경과</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test108" name=""><label for="test108" class="screen-out"></label></td>
+										<td>김반장</td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td></td>
+										<td>10일 경과</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">추가</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 패널선정 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer202" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">패널선정</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="searchWrap">
+						<div class="search-cont">
+
+							<div class="search-l">
+								<dl class="sch-multi">
+									<dt>나이</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;세&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;세
+									</dd>
+									<dt>키</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;cm&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;cm
+									</dd>
+								</dl>
+
+								<dl class="sch-multi">
+									
+									<dt>몸무게</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;kg&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;kg
+									</dd>
+									<dt>BMI</dt>
+									<dd>
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;~&nbsp;
+										<input type="text" id="" name="" class="inputBox" style="width:70px;">&nbsp;
+									</dd>
+								</dl>
+								<dl class="sch-multi">
+									
+									<dt>성별</dt>
+									<dd>
+										<input type="radio" id="male02" name="cond02">
+										<label for="male02">남성</label>
+										<input type="radio" id="female02" name="cond02">
+										<label for="female02">여성</label>
+									</dd>
+								</dl>
+								<dl class="sch-multi single">
+									<dt>패널타입</dt>
+									<dd>
+										<input type="checkbox" id="cmpPn02" name="">
+										<label for="cmpPn02">사내패널 포함</label>
+										<input type="checkbox" id="blackC02" name="">
+										<label for="blackC02">블랙리스트 포함</label>
+									</dd>
+								</dl>
+								<dl class="sch-multi single">
+									<dt>필터 설정</dt>
+									<dd>
+										<button type="button" href="#layer205" class="btn btn-3rd btn-gray btn-popup">기초설문 필터</button>
+										<button type="button" href="#layer206" class="btn btn-3rd btn-gray btn-popup">팀별설문 필터</button>
+										<button type="button" href="#layer207" class="btn btn-3rd btn-gray btn-popup">패널타입 필터</button>	
+										<button type="button" href="#layer208" class="btn btn-3rd btn-gray btn-popup">상세설문 필터</button>	
+									</dd>
+								</dl>
+							</div>
+							<div class="search-r">
+								<div class="search-r-cont">							
+									<button type="submit" class="btn btn-search"><i class="ico-search"></i>조회</button>
+								</div>
+							</div>
+
+						</div>
+					</div>	
+					<div class="list-total">패널 수 <em class="txtRed">55</em>명</div>
+					<div class="listWrap tbl-list">
+						<div class="tbl-scroll tbl-ht10 tbl-mob">
+							<table>
+								<colgroup>
+									<col width="6%">
+									<col width="14%">
+									<col width="18%">
+									<col width="22%">
+									<col width="18%">
+									<col width="22%">
+								</colgroup>							
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="test201" name=""><label for="test201" class="screen-out"></label></th>
+										<th>이름</th>
+										<th>전화번호</th>
+										<th>이메일</th>
+										<th>최근 시험 참가</th>
+										<th>신청일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input type="checkbox" id="test202" name=""><label for="test202" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">김반장</a></td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td>65일 경과</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test203" name=""><label for="test203" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">나피디</a></td>
+										<td>010-1234-4567</td>
+										<td>1234567890@email.com</td>
+										<td>-</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test204" name=""><label for="test204" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">남반장</td>
+										<td>010-1234-4567</td>
+										<td>1234567890@email.com</td>
+										<td>65일 경과</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test205" name=""><label for="test205" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">여반장</a></td>
+										<td>010-1234-4567</td>
+										<td>abcdefghijk@email.com</td>
+										<td>타 시험 진행중</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test206" name=""><label for="test206" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">김반장</a></td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td>40일 경과</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test207" name=""><label for="test207" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">우효</a></td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td>20일 경과</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" id="test208" name=""><label for="test208" class="screen-out"></label></td>
+										<td><a href="#panelFilterList" class="ln-txtBlue btn-popup">김반장</a></td>
+										<td>010-1234-4567</td>
+										<td>mailmail@email.com</td>
+										<td>10일 경과</td>
+										<td>2017-10-10 09:02:55</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">패널 선정</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : SMS전송 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer203" class="popupBoxWrap" style="width:600px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">SMS 전송</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>SMS 전송 정보 입력 테이블</caption>
+							<colgroup>
+								<col width="25%">
+								<col width="75%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>발신번호</th>
+									<td>
+										<ul class="divForm phoneNo">
+											<li>
+												<select id="" name="" class="inputBox">
+													<option value>010</option>
+													<option value>011</option>
+													<option value>016</option>
+												</select>
+											</li>
+											<li class="divLetter"><span>-</span></li>
+											<li><input type="tel" id="" name="" class="inputBox"></li>
+											<li class="divLetter"><span>-</span></li>
+											<li><input type="tel" id="" name="" class="inputBox"></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>
+										<textarea id="" name="" class="inputBox" placeholder="내용을 입력하세요." style="height:200px;"></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">전송</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 이메일전송 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer204" class="popupBoxWrap" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">E-Mail 전송</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>E-Mail 전송 정보 입력 테이블</caption>
+							<colgroup>
+								<col width="25%">
+								<col width="75%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>보내는 사람 E-Mail</th>
+									<td><input type="email" id="" name="" class="inputBox"></td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" id="" name="" class="inputBox"></td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>
+										<textarea id="" name="" class="inputBox" placeholder="내용을 입력하세요." style="height:200px;"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td>
+										<div class="divForm file-box">
+											<input type="text" class="fileName inputBox" readonly="readonly" style="width:340px;">
+											<label for="upload-name" class="btn btn-5th btn-blue btn_file">찾아보기</label>
+											<input type="file" id="upload-name" class="upload-name">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">전송</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+	<!-- // 이메일전송 -->
+</div>
+<!-- // popup -->
+
+<!-- popup :개인설문 필터 이력 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="panelFilterList" class="popupBoxWrap" style="width:760px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">개인설문 필터 이력</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<ul class="tab-popup">
+						<li class="current" data-tab="tab2-1">기초설문 필터</li>
+						<li data-tab="tab2-2">팀별설문 필터</li>
+						<li data-tab="tab2-3">패널타입 필터</li>
+						<li data-tab="tab2-4">상세설문 필터</li>
+					</ul>
+					<div id="tab2-1" class="tabcontent-popup current">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>효능 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp501" name="resch501">
+													<label for="grp501">건성</label>
+													<input type="radio" id="grp502" name="resch501">
+													<label for="grp502">중성</label>
+													<input type="radio" id="grp503" name="resch501">
+													<label for="grp503">지성</label>
+													<input type="radio" id="grp504" name="resch501">
+													<label for="grp504">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp505" name="resch502">
+													<label for="grp505">이마</label>
+													<input type="radio" id="grp506" name="resch502">
+													<label for="grp506">미간</label>
+													<input type="radio" id="grp507" name="resch502">
+													<label for="grp507">눈가</label>
+													<input type="radio" id="grp508" name="resch502">
+													<label for="grp508">눈밑</label>
+													<input type="radio" id="grp509" name="resch502">
+													<label for="grp509">팔자</label>
+													<input type="radio" id="grp510" name="resch502">
+													<label for="grp510">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp511" name="resch503">
+													<label for="grp511">유</label>
+													<input type="radio" id="grp512" name="resch503">
+													<label for="grp512">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp513" name="resch504">
+													<label for="grp513">많음</label>
+													<input type="radio" id="grp514" name="resch504">
+													<label for="grp514">보통</label>
+													<input type="radio" id="grp515" name="resch504">
+													<label for="grp515">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp516" name="resch505">
+													<label for="grp516">유</label>
+													<input type="radio" id="grp517" name="resch505">
+													<label for="grp517">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp518" name="resch506">
+													<label for="grp518">노란</label>
+													<input type="radio" id="grp519" name="resch506">
+													<label for="grp519">붉은</label>
+													<input type="radio" id="grp520" name="resch506">
+													<label for="grp520">밝은</label>
+													<input type="radio" id="grp521" name="resch506">
+													<label for="grp521">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp522" name="resch507">
+													<label for="grp522">많은</label>
+													<input type="radio" id="grp523" name="resch507">
+													<label for="grp523">보통</label>
+													<input type="radio" id="grp524" name="resch507">
+													<label for="grp524">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp525" name="resch508">
+													<label for="grp525">심함</label>
+													<input type="radio" id="grp526" name="resch508">
+													<label for="grp526">보통</label>
+													<input type="radio" id="grp527" name="resch508">
+													<label for="grp527">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp528" name="resch509">
+													<label for="grp528">많음</label>
+													<input type="radio" id="grp529" name="resch509">
+													<label for="grp529">보통</label>
+													<input type="radio" id="grp530" name="resch509">
+													<label for="grp530">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름 흔적, 흉터</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp531" name="resch510">
+													<label for="grp531">많음</label>
+													<input type="radio" id="grp532" name="resch510">
+													<label for="grp532">보통</label>
+													<input type="radio" id="grp533" name="resch510">
+													<label for="grp533">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>민감성 피부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp534" name="resch511">
+													<label for="grp534">유</label>
+													<input type="radio" id="grp535" name="resch511">
+													<label for="grp535">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>화장품 자극 경험</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp536" name="resch512">
+													<label for="grp536">유</label>
+													<input type="radio" id="grp537" name="resch512">
+													<label for="grp537">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발길이</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp538" name="resch513">
+													<label for="grp538">단발</label>
+													<input type="radio" id="grp539" name="resch513">
+													<label for="grp539">중단발</label>
+													<input type="radio" id="grp540" name="resch513">
+													<label for="grp540">장발</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp541" name="resch514">
+													<label for="grp541">중성</label>
+													<input type="radio" id="grp542" name="resch514">
+													<label for="grp542">건성</label>
+													<input type="radio" id="grp543" name="resch514">
+													<label for="grp543">지성</label>
+													<input type="radio" id="grp544" name="resch514">
+													<label for="grp544">지루성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피민감/트러블</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp545" name="resch515">
+													<label for="grp545">중성</label>
+													<input type="radio" id="grp546" name="resch515">
+													<label for="grp546">건성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발손상</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp547" name="resch516">
+													<label for="grp547">정상</label>
+													<input type="radio" id="grp548" name="resch516">
+													<label for="grp548">손상</label>
+													<input type="radio" id="grp549" name="resch516">
+													<label for="grp549">극손상</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="tab2-2" class="tabcontent-popup">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>필터 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp301" name="resch301">
+													<label for="grp301">건성</label>
+													<input type="radio" id="grp302" name="resch301">
+													<label for="grp302">중성</label>
+													<input type="radio" id="grp303" name="resch301">
+													<label for="grp303">지성</label>
+													<input type="radio" id="grp304" name="resch301">
+													<label for="grp304">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp305" name="resch302">
+													<label for="grp305">이마</label>
+													<input type="radio" id="grp306" name="resch302">
+													<label for="grp306">미간</label>
+													<input type="radio" id="grp307" name="resch302">
+													<label for="grp307">눈가</label>
+													<input type="radio" id="grp308" name="resch302">
+													<label for="grp308">눈밑</label>
+													<input type="radio" id="grp309" name="resch302">
+													<label for="grp309">팔자</label>
+													<input type="radio" id="grp310" name="resch302">
+													<label for="grp310">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp311" name="resch303">
+													<label for="grp311">유</label>
+													<input type="radio" id="grp312" name="resch303">
+													<label for="grp312">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp313" name="resch304">
+													<label for="grp313">많음</label>
+													<input type="radio" id="grp314" name="resch304">
+													<label for="grp314">보통</label>
+													<input type="radio" id="grp315" name="resch304">
+													<label for="grp315">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp316" name="resch305">
+													<label for="grp316">유</label>
+													<input type="radio" id="grp317" name="resch305">
+													<label for="grp317">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp318" name="resch306">
+													<label for="grp318">노란</label>
+													<input type="radio" id="grp319" name="resch306">
+													<label for="grp319">붉은</label>
+													<input type="radio" id="grp320" name="resch306">
+													<label for="grp320">밝은</label>
+													<input type="radio" id="grp321" name="resch306">
+													<label for="grp321">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp322" name="resch307">
+													<label for="grp322">많은</label>
+													<input type="radio" id="grp323" name="resch307">
+													<label for="grp323">보통</label>
+													<input type="radio" id="grp324" name="resch307">
+													<label for="grp324">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp325" name="resch308">
+													<label for="grp325">심함</label>
+													<input type="radio" id="grp326" name="resch308">
+													<label for="grp326">보통</label>
+													<input type="radio" id="grp327" name="resch308">
+													<label for="grp327">없음</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="tab2-3" class="tabcontent-popup">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>필터 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>민감 여부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp431" name="resch401">
+													<label for="grp431">건성</label>
+													<input type="radio" id="grp432" name="resch401">
+													<label for="grp432">중성</label>
+													<input type="radio" id="grp433" name="resch401">
+													<label for="grp433">지성</label>
+													<input type="radio" id="grp434" name="resch401">
+													<label for="grp434">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>고관여 여부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp435" name="resch402">
+													<label for="grp435">이마</label>
+													<input type="radio" id="grp436" name="resch402">
+													<label for="grp436">미간</label>
+													<input type="radio" id="grp437" name="resch402">
+													<label for="grp437">눈가</label>
+													<input type="radio" id="grp438" name="resch402">
+													<label for="grp438">눈밑</label>
+													<input type="radio" id="grp439" name="resch402">
+													<label for="grp439">팔자</label>
+													<input type="radio" id="grp440" name="resch402">
+													<label for="grp440">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp411" name="resch403">
+													<label for="grp411">유</label>
+													<input type="radio" id="grp412" name="resch403">
+													<label for="grp412">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>향 민감성</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp413" name="resch404">
+													<label for="grp413">많음</label>
+													<input type="radio" id="grp414" name="resch404">
+													<label for="grp414">보통</label>
+													<input type="radio" id="grp415" name="resch404">
+													<label for="grp415">없음</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<div id="tab2-4" class="tabcontent-popup">
+						상세설문 필터
+					</div>
+				
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">적용</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 임상연구 참가 동의서 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer301" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">동의서 서명</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="grid-filter">
+						<div class="filter-l">
+							<span class="filter-tit txtRed">시험제목 : <i>수분 마스크팩 첩포 시험</i></span>
+						</div>
+						<span class="filter-tit">패널명</span>
+						<select id="" name="" class="inputBox" style="width:120px;">
+							<option value>김태평양</option>
+							<option value>홍길동</option>
+							<option value>나피디</option>
+						</select>						
+					</div>
+					<div class="hr-top"></div>
+					<div class="page-title-sub">
+						<h3>임상연구 참가 동의서</h3>
+					</div>
+					<div class="rsch-consent consent-box">
+						<div class="consent-box-scroll" style="height:120px;">
+							<div class="consent-text">
+								<b>1. 임사연구 배경 및 목적</b><br><br>
+								임상연구 명 : 인체피부 일차자극첩포시험을 통한 화장품 및 화장품 원료에 대한 안정성 평가<br><br>
+								본 연구의 목적<br>
+								1) 새로 개발되었거나 기존에 개발된 화장품 및 화장품 원료의 첩포 시험을 통하여 그 반응을 검증한다.<br>
+								2) 새로운 화장품의 개발을 위하여 인체피부 일차자극첩포시험을 시행함으로써 화장품으로 인한 접촉 피부염의 발생을 최소화하고 한국인의
+								  정상 피부에 대한 자극 및 알러지성을 연구하는데 기초자료로 활용코자 합니다.<br>
+								<br><br><br><br>
+								<b>8. 임상연구 참여 동의</b><br><br>
+								본인은 연구 담당자로부터 본 연구 물질의 특징 및 효과, 연구방법, 목적을 상세히 설명을 듣고 충분히 이해하였으며, 자유로운 의사에 본 연구에
+								참여할 것을 동의합니다.
+							</div>
+						</div>
+						<div class="agree-area">
+							<input type="checkbox" id="rschAgree" name="rschAgree">
+							<label for="rschAgree">위 내용에 동의합니다.</label>
+						</div>
+					</div>					
+					
+					<div class="page-title-sub mgtp20">
+						<h3>개인정보 수집 &middot; 이용 동의서</h3>
+					</div>
+					<div class="info-consent consent-box">
+						<div class="consent-box-scroll" style="height:120px;">
+							내용 어케요??
+						</div>
+						<div class="agree-area">
+							<input type="checkbox" id="infoAgree" name="infoAgree">
+							<label for="infoAgree">위 내용에 동의합니다.</label>
+						</div>
+					</div>
+					<div class="rsch-signWarp">
+						<div class="rsch-sign-date">2017년 10월 31일</div>
+						<div class="rsch-sign-name">성명 <a href="#">김태평양</a> (인)</div>
+					</div>		
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 결과 설문 작성 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer302" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">결과 설문 작성</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="grid-filter">
+						<div class="filter-l">
+							<span class="filter-tit txtRed">시험제목 : <i>수분 마스크팩 첩포 시험</i></span>
+						</div>
+						<span class="filter-tit">시험차수</span>
+						<select id="" name="" class="inputBox" style="width:120px;">
+							<option value>1차</option>
+							<option value>2차</option>
+							<option value>3차</option>
+						</select>	
+						&nbsp;&nbsp;&nbsp;
+						<span class="filter-tit">패널명</span>
+						<select id="" name="" class="inputBox" style="width:120px;">
+							<option value>김태평양</option>
+							<option value>홍길동</option>
+							<option value>나피디</option>
+						</select>						
+					</div>
+					<div class="tblWrap tbl-wm">
+						<div class="tbl-scroll tbl-ht10">
+							<table>
+								<caption>결과설문 테이블</caption>
+								<colgroup>
+									<col width="25%">
+									<col width="75%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>민감 여부</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>고관여 여부</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>처짐</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>향 민감성</th>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>				
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+						<button type="button" class="btn btn-prim btn-gray">다음</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 방문 일정 현황 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer303" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">방문 일정 현황</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="schedule-title-wrap">
+						<div class="schedule-navi">
+							<a href="#" class="schd-ico prev"><i class="screen_out">이전</i></a>
+							<span class="current">
+								<em>2017.&nbsp;12</em>
+							</span>
+							<a href="#" class="schd-ico next"><i class="screen_out">다음</i></a>
+						</div>
+						<div class="schedule-legend">
+							<span class="legend-seoul">서울</span>
+							<span class="legend-yongin">용인</span>
+						</div>
+					</div>
+					<div class="listWrap tbl-list tbl-visit-sched">
+						<div class="tbl-scroll tbl-ht10">
+							<table>
+								<colgroup>
+									<col width="">
+									<col width="">
+									<col width="">
+									<col width="">
+									<col width="">
+									<col width="">
+									<col width="">
+								</colgroup>							
+								<thead>
+									<tr>
+										<th><span>12/3</span><em>SUN</em></th>
+										<th><span>12/4</span><em>MON</em></th>
+										<th><span>12/5</span><em>TUE</em></th>
+										<th><span>12/6</span><em>WED</em></th>
+										<th><span>12/7</span><em>THU</em></th>
+										<th><span>12/8</span><em>FRI</em></th>
+										<th><span>12/9</span><em>SAT</em></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td></td>
+										<td>
+											<a href="#layer305" class="visit-seoul btn-popup">11:00 김수한무</a>
+											<a href="#layer305" class="visit-yongin btn-popup">11:00 김수한무</a>
+										</td>
+										<td>
+											<a href="#layer305" class="visit-seoul btn-popup">11:00 김수한무</a>
+											<a href="#layer305" class="visit-yongin btn-popup">11:00 김수한무</a>
+											<a href="#layer305" class="visit-yongin btn-popup">11:00 이동동</a>
+										</td>
+										<td>
+											<a href="#layer305" class="visit-seoul btn-popup">11:00 김수한무</a>
+											<a href="#layer305" class="visit-seoul btn-popup">11:00 박방방</a>
+											<a href="#layer305" class="visit-yongin btn-popup">11:00 김수한무</a>
+										</td>
+										<td>
+											<a href="#layer305" class="visit-seoul btn-popup">11:00 김수한무</a>
+											<a href="#layer305" class="visit-yongin btn-popup">11:00 김수한무</a>
+										</td>
+										<td>
+											<a href="#layer305" class="visit-seoul btn-popup">11:00 김수한무</a>
+											<a href="#layer305" class="visit-yongin btn-popup">11:00 김수한무</a>
+										</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer304" class="btn btn-prim btn-red btn-popup">방문일정등록</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 방문일정 등록 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer304" class="popupBoxWrap" style="width:400px !important;z-index:9;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">방문일정 등록</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>방문일정 등록 테이블</caption>
+							<colgroup>
+								<col width="28%">
+								<col width="72%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>패널명</th>
+									<td>
+										<select id="" name="" class="inputBox">
+											<option value>김태평양</option>
+											<option value>김수한무</option>
+											<option value>이동동</option>
+											<option value>박방방</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th>방문일</th>
+									<td>
+										<select id="" name="" class="inputBox">
+											<option value>2017-12-31 10:00 ~ 11:00</option>
+											<option value>2017-12-31 13:00 ~ 17:30</option>
+											<option value>2018-01-10 10:00 ~ 11:00</option>
+											<option value>2018-01-10 13:00 ~ 17:30</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 방문일정 수정 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer305" class="popupBoxWrap" style="width:400px !important;z-index:9;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">방문일정 수정</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>방문일정 수정 테이블</caption>
+							<colgroup>
+								<col width="28%">
+								<col width="72%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>패널명</th>
+									<td>김태평양</td>
+								</tr>
+								<tr>
+									<th>방문일</th>
+									<td>
+										<select id="" name="" class="inputBox">
+											<option value>2017-12-31 10:00 ~ 11:00</option>
+											<option value>2017-12-31 13:00 ~ 17:30</option>
+											<option value>2018-01-10 10:00 ~ 11:00</option>
+											<option value>2018-01-10 13:00 ~ 17:30</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 결과설문 작성현황 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer401" class="popupBoxWrap" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">결과설문 작성현황</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="listWrap tbl-list">
+						<div class="tbl-scroll tbl-ht10">
+							<table>
+								<colgroup>
+									<col width="7%">
+									<col width="16%">
+									<col width="23%">
+									<col width="18%">
+									<col width="18%">
+									<col width="18%">
+								</colgroup>							
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>이름</th>
+										<th>전화번호</th>
+										<th>1차 결과설문</th>
+										<th>2차 결과설문</th>
+										<th>3차 결과설문</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>6</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>7</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>8</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>9</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>10</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>11</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>12</td>
+										<td>김태평양</td>
+										<td>010-1234-5678</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+					</div>
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 기초설문 필터 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer205" class="popupBoxWrap" style="width:760px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">기초설문 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+					<div class="tblWrap tbl-wm">
+						<div class="tbl-scroll tbl-ht10">
+							<table>
+								<caption>기초설문 데이터 설정 테이블</caption>
+								<colgroup>
+									<col width="25%">
+									<col width="75%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>피부타입</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp01" name="resch01">
+												<label for="grp01">건성</label>
+												<input type="radio" id="grp02" name="resch01">
+												<label for="grp02">중성</label>
+												<input type="radio" id="grp03" name="resch01">
+												<label for="grp03">지성</label>
+												<input type="radio" id="grp04" name="resch01">
+												<label for="grp04">복합성</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>주름</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp05" name="resch02">
+												<label for="grp05">이마</label>
+												<input type="radio" id="grp06" name="resch02">
+												<label for="grp06">미간</label>
+												<input type="radio" id="grp07" name="resch02">
+												<label for="grp07">눈가</label>
+												<input type="radio" id="grp08" name="resch02">
+												<label for="grp08">눈밑</label>
+												<input type="radio" id="grp09" name="resch02">
+												<label for="grp09">팔자</label>
+												<input type="radio" id="grp10" name="resch02">
+												<label for="grp10">목</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>처짐</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp11" name="resch03">
+												<label for="grp11">유</label>
+												<input type="radio" id="grp12" name="resch03">
+												<label for="grp12">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>모공(눈에 띄는)</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp13" name="resch04">
+												<label for="grp13">많음</label>
+												<input type="radio" id="grp14" name="resch04">
+												<label for="grp14">보통</label>
+												<input type="radio" id="grp15" name="resch04">
+												<label for="grp15">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>아이백</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp16" name="resch05">
+												<label for="grp16">유</label>
+												<input type="radio" id="grp17" name="resch05">
+												<label for="grp17">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>피부톤</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp18" name="resch06">
+												<label for="grp18">노란</label>
+												<input type="radio" id="grp19" name="resch06">
+												<label for="grp19">붉은</label>
+												<input type="radio" id="grp20" name="resch06">
+												<label for="grp20">밝은</label>
+												<input type="radio" id="grp21" name="resch06">
+												<label for="grp21">어두운</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>기미잡티</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp22" name="resch07">
+												<label for="grp22">많은</label>
+												<input type="radio" id="grp23" name="resch07">
+												<label for="grp23">보통</label>
+												<input type="radio" id="grp24" name="resch07">
+												<label for="grp24">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>다크서클</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp25" name="resch08">
+												<label for="grp25">심함</label>
+												<input type="radio" id="grp26" name="resch08">
+												<label for="grp26">보통</label>
+												<input type="radio" id="grp27" name="resch08">
+												<label for="grp27">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>여드름</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp28" name="resch09">
+												<label for="grp28">많음</label>
+												<input type="radio" id="grp29" name="resch09">
+												<label for="grp29">보통</label>
+												<input type="radio" id="grp30" name="resch09">
+												<label for="grp30">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>여드름 흔적, 흉터</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp31" name="resch10">
+												<label for="grp31">많음</label>
+												<input type="radio" id="grp32" name="resch10">
+												<label for="grp32">보통</label>
+												<input type="radio" id="grp33" name="resch10">
+												<label for="grp33">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>민감성 피부</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp34" name="resch11">
+												<label for="grp34">유</label>
+												<input type="radio" id="grp35" name="resch11">
+												<label for="grp35">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>화장품 자극 경험</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp36" name="resch12">
+												<label for="grp36">유</label>
+												<input type="radio" id="grp37" name="resch12">
+												<label for="grp37">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>모발길이</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp38" name="resch13">
+												<label for="grp38">단발</label>
+												<input type="radio" id="grp39" name="resch13">
+												<label for="grp39">중단발</label>
+												<input type="radio" id="grp40" name="resch13">
+												<label for="grp40">장발</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>두피타입</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp41" name="resch14">
+												<label for="grp41">중성</label>
+												<input type="radio" id="grp42" name="resch14">
+												<label for="grp42">건성</label>
+												<input type="radio" id="grp43" name="resch14">
+												<label for="grp43">지성</label>
+												<input type="radio" id="grp44" name="resch14">
+												<label for="grp44">지루성</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>두피민감/트러블</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp45" name="resch15">
+												<label for="grp45">중성</label>
+												<input type="radio" id="grp46" name="resch15">
+												<label for="grp46">건성</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>모발손상</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp47" name="resch16">
+												<label for="grp47">정상</label>
+												<input type="radio" id="grp48" name="resch16">
+												<label for="grp48">손상</label>
+												<input type="radio" id="grp49" name="resch16">
+												<label for="grp49">극손상</label>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">적용</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 팀별설문 필터 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer206" class="popupBoxWrap" style="width:760px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">팀별설문 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<ul class="tab-popup">
+						<li class="current" data-tab="tab3-1">효능</li>
+						<li data-tab="tab3-2">향</li>
+						<li data-tab="tab3-3">센서리</li>
+					</ul>
+					<div id="tab3-1" class="tabcontent-popup current">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>효능 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp01" name="resch01">
+													<label for="grp01">건성</label>
+													<input type="radio" id="grp02" name="resch01">
+													<label for="grp02">중성</label>
+													<input type="radio" id="grp03" name="resch01">
+													<label for="grp03">지성</label>
+													<input type="radio" id="grp04" name="resch01">
+													<label for="grp04">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp05" name="resch02">
+													<label for="grp05">이마</label>
+													<input type="radio" id="grp06" name="resch02">
+													<label for="grp06">미간</label>
+													<input type="radio" id="grp07" name="resch02">
+													<label for="grp07">눈가</label>
+													<input type="radio" id="grp08" name="resch02">
+													<label for="grp08">눈밑</label>
+													<input type="radio" id="grp09" name="resch02">
+													<label for="grp09">팔자</label>
+													<input type="radio" id="grp10" name="resch02">
+													<label for="grp10">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp11" name="resch03">
+													<label for="grp11">유</label>
+													<input type="radio" id="grp12" name="resch03">
+													<label for="grp12">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp13" name="resch04">
+													<label for="grp13">많음</label>
+													<input type="radio" id="grp14" name="resch04">
+													<label for="grp14">보통</label>
+													<input type="radio" id="grp15" name="resch04">
+													<label for="grp15">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp16" name="resch05">
+													<label for="grp16">유</label>
+													<input type="radio" id="grp17" name="resch05">
+													<label for="grp17">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp18" name="resch06">
+													<label for="grp18">노란</label>
+													<input type="radio" id="grp19" name="resch06">
+													<label for="grp19">붉은</label>
+													<input type="radio" id="grp20" name="resch06">
+													<label for="grp20">밝은</label>
+													<input type="radio" id="grp21" name="resch06">
+													<label for="grp21">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp22" name="resch07">
+													<label for="grp22">많은</label>
+													<input type="radio" id="grp23" name="resch07">
+													<label for="grp23">보통</label>
+													<input type="radio" id="grp24" name="resch07">
+													<label for="grp24">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp25" name="resch08">
+													<label for="grp25">심함</label>
+													<input type="radio" id="grp26" name="resch08">
+													<label for="grp26">보통</label>
+													<input type="radio" id="grp27" name="resch08">
+													<label for="grp27">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp28" name="resch09">
+													<label for="grp28">많음</label>
+													<input type="radio" id="grp29" name="resch09">
+													<label for="grp29">보통</label>
+													<input type="radio" id="grp30" name="resch09">
+													<label for="grp30">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름 흔적, 흉터</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp31" name="resch10">
+													<label for="grp31">많음</label>
+													<input type="radio" id="grp32" name="resch10">
+													<label for="grp32">보통</label>
+													<input type="radio" id="grp33" name="resch10">
+													<label for="grp33">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>민감성 피부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp34" name="resch11">
+													<label for="grp34">유</label>
+													<input type="radio" id="grp35" name="resch11">
+													<label for="grp35">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>화장품 자극 경험</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp36" name="resch12">
+													<label for="grp36">유</label>
+													<input type="radio" id="grp37" name="resch12">
+													<label for="grp37">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발길이</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp38" name="resch13">
+													<label for="grp38">단발</label>
+													<input type="radio" id="grp39" name="resch13">
+													<label for="grp39">중단발</label>
+													<input type="radio" id="grp40" name="resch13">
+													<label for="grp40">장발</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp41" name="resch14">
+													<label for="grp41">중성</label>
+													<input type="radio" id="grp42" name="resch14">
+													<label for="grp42">건성</label>
+													<input type="radio" id="grp43" name="resch14">
+													<label for="grp43">지성</label>
+													<input type="radio" id="grp44" name="resch14">
+													<label for="grp44">지루성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피민감/트러블</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp45" name="resch15">
+													<label for="grp45">중성</label>
+													<input type="radio" id="grp46" name="resch15">
+													<label for="grp46">건성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발손상</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp47" name="resch16">
+													<label for="grp47">정상</label>
+													<input type="radio" id="grp48" name="resch16">
+													<label for="grp48">손상</label>
+													<input type="radio" id="grp49" name="resch16">
+													<label for="grp49">극손상</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="tab3-2" class="tabcontent-popup">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>향 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp01" name="resch01">
+													<label for="grp01">건성</label>
+													<input type="radio" id="grp02" name="resch01">
+													<label for="grp02">중성</label>
+													<input type="radio" id="grp03" name="resch01">
+													<label for="grp03">지성</label>
+													<input type="radio" id="grp04" name="resch01">
+													<label for="grp04">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp05" name="resch02">
+													<label for="grp05">이마</label>
+													<input type="radio" id="grp06" name="resch02">
+													<label for="grp06">미간</label>
+													<input type="radio" id="grp07" name="resch02">
+													<label for="grp07">눈가</label>
+													<input type="radio" id="grp08" name="resch02">
+													<label for="grp08">눈밑</label>
+													<input type="radio" id="grp09" name="resch02">
+													<label for="grp09">팔자</label>
+													<input type="radio" id="grp10" name="resch02">
+													<label for="grp10">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp11" name="resch03">
+													<label for="grp11">유</label>
+													<input type="radio" id="grp12" name="resch03">
+													<label for="grp12">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp13" name="resch04">
+													<label for="grp13">많음</label>
+													<input type="radio" id="grp14" name="resch04">
+													<label for="grp14">보통</label>
+													<input type="radio" id="grp15" name="resch04">
+													<label for="grp15">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp16" name="resch05">
+													<label for="grp16">유</label>
+													<input type="radio" id="grp17" name="resch05">
+													<label for="grp17">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp18" name="resch06">
+													<label for="grp18">노란</label>
+													<input type="radio" id="grp19" name="resch06">
+													<label for="grp19">붉은</label>
+													<input type="radio" id="grp20" name="resch06">
+													<label for="grp20">밝은</label>
+													<input type="radio" id="grp21" name="resch06">
+													<label for="grp21">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp22" name="resch07">
+													<label for="grp22">많은</label>
+													<input type="radio" id="grp23" name="resch07">
+													<label for="grp23">보통</label>
+													<input type="radio" id="grp24" name="resch07">
+													<label for="grp24">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp25" name="resch08">
+													<label for="grp25">심함</label>
+													<input type="radio" id="grp26" name="resch08">
+													<label for="grp26">보통</label>
+													<input type="radio" id="grp27" name="resch08">
+													<label for="grp27">없음</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="tab3-3" class="tabcontent-popup">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>센서리 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp01" name="resch01">
+													<label for="grp01">건성</label>
+													<input type="radio" id="grp02" name="resch01">
+													<label for="grp02">중성</label>
+													<input type="radio" id="grp03" name="resch01">
+													<label for="grp03">지성</label>
+													<input type="radio" id="grp04" name="resch01">
+													<label for="grp04">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp05" name="resch02">
+													<label for="grp05">이마</label>
+													<input type="radio" id="grp06" name="resch02">
+													<label for="grp06">미간</label>
+													<input type="radio" id="grp07" name="resch02">
+													<label for="grp07">눈가</label>
+													<input type="radio" id="grp08" name="resch02">
+													<label for="grp08">눈밑</label>
+													<input type="radio" id="grp09" name="resch02">
+													<label for="grp09">팔자</label>
+													<input type="radio" id="grp10" name="resch02">
+													<label for="grp10">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp11" name="resch03">
+													<label for="grp11">유</label>
+													<input type="radio" id="grp12" name="resch03">
+													<label for="grp12">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp13" name="resch04">
+													<label for="grp13">많음</label>
+													<input type="radio" id="grp14" name="resch04">
+													<label for="grp14">보통</label>
+													<input type="radio" id="grp15" name="resch04">
+													<label for="grp15">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp16" name="resch05">
+													<label for="grp16">유</label>
+													<input type="radio" id="grp17" name="resch05">
+													<label for="grp17">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp18" name="resch06">
+													<label for="grp18">노란</label>
+													<input type="radio" id="grp19" name="resch06">
+													<label for="grp19">붉은</label>
+													<input type="radio" id="grp20" name="resch06">
+													<label for="grp20">밝은</label>
+													<input type="radio" id="grp21" name="resch06">
+													<label for="grp21">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp22" name="resch07">
+													<label for="grp22">많은</label>
+													<input type="radio" id="grp23" name="resch07">
+													<label for="grp23">보통</label>
+													<input type="radio" id="grp24" name="resch07">
+													<label for="grp24">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp25" name="resch08">
+													<label for="grp25">심함</label>
+													<input type="radio" id="grp26" name="resch08">
+													<label for="grp26">보통</label>
+													<input type="radio" id="grp27" name="resch08">
+													<label for="grp27">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp28" name="resch09">
+													<label for="grp28">많음</label>
+													<input type="radio" id="grp29" name="resch09">
+													<label for="grp29">보통</label>
+													<input type="radio" id="grp30" name="resch09">
+													<label for="grp30">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름 흔적, 흉터</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp31" name="resch10">
+													<label for="grp31">많음</label>
+													<input type="radio" id="grp32" name="resch10">
+													<label for="grp32">보통</label>
+													<input type="radio" id="grp33" name="resch10">
+													<label for="grp33">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>민감성 피부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp34" name="resch11">
+													<label for="grp34">유</label>
+													<input type="radio" id="grp35" name="resch11">
+													<label for="grp35">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>화장품 자극 경험</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp36" name="resch12">
+													<label for="grp36">유</label>
+													<input type="radio" id="grp37" name="resch12">
+													<label for="grp37">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발길이</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp38" name="resch13">
+													<label for="grp38">단발</label>
+													<input type="radio" id="grp39" name="resch13">
+													<label for="grp39">중단발</label>
+													<input type="radio" id="grp40" name="resch13">
+													<label for="grp40">장발</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp41" name="resch14">
+													<label for="grp41">중성</label>
+													<input type="radio" id="grp42" name="resch14">
+													<label for="grp42">건성</label>
+													<input type="radio" id="grp43" name="resch14">
+													<label for="grp43">지성</label>
+													<input type="radio" id="grp44" name="resch14">
+													<label for="grp44">지루성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피민감/트러블</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp45" name="resch15">
+													<label for="grp45">중성</label>
+													<input type="radio" id="grp46" name="resch15">
+													<label for="grp46">건성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발손상</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp47" name="resch16">
+													<label for="grp47">정상</label>
+													<input type="radio" id="grp48" name="resch16">
+													<label for="grp48">손상</label>
+													<input type="radio" id="grp49" name="resch16">
+													<label for="grp49">극손상</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">적용</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 패널타입 필터 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer207" class="popupBoxWrap" style="width:760px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">패널타입 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>패널타입 데이터 설정 테이블</caption>
+							<colgroup>
+								<col width="25%">
+								<col width="75%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>민감 여부</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp31" name="resch01">
+											<label for="grp31">건성</label>
+											<input type="radio" id="grp32" name="resch01">
+											<label for="grp32">중성</label>
+											<input type="radio" id="grp33" name="resch01">
+											<label for="grp33">지성</label>
+											<input type="radio" id="grp34" name="resch01">
+											<label for="grp34">복합성</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>고관여 여부</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp35" name="resch02">
+											<label for="grp35">이마</label>
+											<input type="radio" id="grp36" name="resch02">
+											<label for="grp36">미간</label>
+											<input type="radio" id="grp37" name="resch02">
+											<label for="grp37">눈가</label>
+											<input type="radio" id="grp38" name="resch02">
+											<label for="grp38">눈밑</label>
+											<input type="radio" id="grp39" name="resch02">
+											<label for="grp39">팔자</label>
+											<input type="radio" id="grp40" name="resch02">
+											<label for="grp40">목</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>처짐</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp11" name="resch03">
+											<label for="grp11">유</label>
+											<input type="radio" id="grp12" name="resch03">
+											<label for="grp12">무</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>향 민감성</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp13" name="resch04">
+											<label for="grp13">많음</label>
+											<input type="radio" id="grp14" name="resch04">
+											<label for="grp14">보통</label>
+											<input type="radio" id="grp15" name="resch04">
+											<label for="grp15">없음</label>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer99" class="btn btn-prim btn-red btn-popup">적용</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 상세설문 필터 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer208" class="popupBoxWrap" style="width:760px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">상세설문 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>상세설문 필터 입력 테이블</caption>
+							<colgroup>
+								<col width="25%">
+								<col width="75%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>민감 여부</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp31" name="resch01">
+											<label for="grp31">건성</label>
+											<input type="radio" id="grp32" name="resch01">
+											<label for="grp32">중성</label>
+											<input type="radio" id="grp33" name="resch01">
+											<label for="grp33">지성</label>
+											<input type="radio" id="grp34" name="resch01">
+											<label for="grp34">복합성</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>고관여 여부</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp35" name="resch02">
+											<label for="grp35">이마</label>
+											<input type="radio" id="grp36" name="resch02">
+											<label for="grp36">미간</label>
+											<input type="radio" id="grp37" name="resch02">
+											<label for="grp37">눈가</label>
+											<input type="radio" id="grp38" name="resch02">
+											<label for="grp38">눈밑</label>
+											<input type="radio" id="grp39" name="resch02">
+											<label for="grp39">팔자</label>
+											<input type="radio" id="grp40" name="resch02">
+											<label for="grp40">목</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>처짐</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp11" name="resch03">
+											<label for="grp11">유</label>
+											<input type="radio" id="grp12" name="resch03">
+											<label for="grp12">무</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>향 민감성</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp13" name="resch04">
+											<label for="grp13">많음</label>
+											<input type="radio" id="grp14" name="resch04">
+											<label for="grp14">보통</label>
+											<input type="radio" id="grp15" name="resch04">
+											<label for="grp15">없음</label>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">적용</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- // popup -->
+
+<!-- popup : 컨펌 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer99" class="popupBoxWrap popupAlert" style="width:360px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-content">
+					<div class="popup-alert-desc">
+						<span>정말로?</span>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-second btn-white btn-closePop">취소</button>
+						<button type="button" class="btn btn-second btn-red btn-closePop">확인</button>
+					</div>
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+	</div>
+</div>
+<!-- // popup -->
+
+<script  src="../js/popup.js"></script>
+
+<script>
+	var uploadFile = $('.file-box .upload-name');
+	uploadFile.on('change', function(){
+		if(window.FileReader){
+			var filename = $(this)[0].files[0].name;
+		} else {
+			var filename = $(this).val().split('/').pop().split('\\').pop();
+		}
+		$(this).siblings('.fileName').val(filename);
+	});
+</script>
+
+
+</body>
+</html>

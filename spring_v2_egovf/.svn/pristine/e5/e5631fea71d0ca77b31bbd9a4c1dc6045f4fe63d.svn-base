@@ -1,0 +1,515 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/WEB-INF/jsp/fo/include/headSurvey.jsp" />
+</head>
+
+<body>
+
+<!-- header -->
+<jsp:include page="/WEB-INF/jsp/fo/include/header/headerPanel${panelAuth }.jsp" flush="true" />
+<!-- // header -->
+ 
+	<!-- main -->
+	<main id="main" class="main main-intro respWidth">
+		<div class="introWrap introPanel">
+			
+			<form id="form" name="form">
+				<input type="hidden" id="EXAM_MNG_NO" name="EXAM_MNG_NO" value="">
+				<input type="hidden" id="EXAM_WAY_CD" name="EXAM_WAY_CD" value="">
+			</form>
+			
+			<div class="introQuick">
+				<div class="introQuick-container">
+					<a href="<c:out value="/fo/site/siteInfo.do"/>" class="quick-box quick-menu01">
+						<div class="quick">
+							<span><spring:message code="mainIndex.000"/></span>
+						</div> 
+						<div class="quick-over">
+							<span><spring:message code="mainIndex.000"/></span>
+							<i><spring:message code="mainIndex.001"/></i>
+						</div>
+					</a>
+					<a href="<c:out value="/fo/ta/testAnnounceList.do"/>"  class="quick-box quick-menu02">
+						<div class="quick">
+							<span><spring:message code="mainIndex.002"/></span>
+						</div>
+						<div class="quick-over">
+							<span><spring:message code="mainIndex.002"/></span>
+							<i><spring:message code="mainIndex.003"/></i>
+						</div>
+					</a>
+					<a href="<c:out value="/fo/mp/testApplicationStatusList.do"/>"  class="quick-box quick-menu03">
+						<div class="quick">
+							<span><spring:message code="mainIndex.004"/></span>
+						</div>
+						<div class="quick-over">
+							<span><spring:message code="mainIndex.004"/></span>
+							<i><spring:message code="mainIndex.005"/></i>
+						</div>
+					</a>
+					<a href="<c:out value="/fo/qna/oneQnaSendForm.do"/>" class="quick-box quick-menu04">
+						<div class="quick">
+							<span><spring:message code="mainIndex.006"/></span>
+						</div>
+						<div class="quick-over">
+							<span><spring:message code="mainIndex.006"/></span>
+							<i><spring:message code="mainIndex.007"/></i>
+						</div>
+					</a>
+				</div>
+			</div>
+			
+			<div class="introBtm">
+				<div class="introBtm-container">
+				
+					<div class="introSchedule">
+						<div class="intro-container">
+						
+							<!-- 나의 스케줄 현황 -->
+							<div class="intro-title schedule"><spring:message code="mainIndex.008"/></div>
+							<div class="introSchedule-l">
+								<c:choose>
+									<c:when test="${not empty myScheduleList}">
+										<c:set var="doneLoop" value="false"/>
+										<c:forEach var="row" items="${myScheduleList}" varStatus="i">
+											<c:if test="${not doneLoop}">
+												<c:choose>
+													<c:when test="${i.first && row.GBN_CD eq '01'}">
+														<div class="introSchedule-visit">
+															<div class="title"><spring:message code="mainIndex.009"/></div>
+															<div class="date"><c:out value="${row.VISIT_DATE}"/></div> <!-- <br class="br-mob">금요일 -->
+															<div class="time"><c:out value="${row.VISIT_TIME}"/></div>
+															<div class="place"><c:out value="${row.VISIT_AREA}"/> </br> <c:out value="${row.VISIT_PLACE}"/></div>
+															<button type="button" class="btn btn-intro-schedule fn_goTestAnnounceView " data-exam_mng_no="<c:out value="${row.EXAM_MNG_NO}"/>" data-exam_way_cd="<c:out value="${row.EXAM_WAY_CD }"/>"><spring:message code="mainIndex.010"/><i class="ico-arrow"></i></button>
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="introSchedule-visit">
+															<div class="title"><spring:message code="mainIndex.011"/></div>
+															<div class="no-data"><span><spring:message code="mainIndex.012"/></span></div>
+														</div> 
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+											<c:set var="doneLoop" value="true"/>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<div class="introSchedule-visit">
+											<div class="title"><spring:message code="mainIndex.011"/></div>
+											<div class="no-data"><span><spring:message code="mainIndex.012"/></span></div>
+										</div> 
+									</c:otherwise>
+								</c:choose>
+							</div>
+							
+							<div class="introSchedule-r">
+								<div class="introSchedule-list">
+									<ul>
+										<c:choose>
+											<c:when test="${not empty myScheduleList}">
+												<c:forEach var="row" items="${myScheduleList}" varStatus="i">
+													<c:if test="${(i.first && row.GBN_CD ne '01') || (i.first ne true)}">
+														<li>
+															<div class="intro-schedule-content">
+															    <c:if test="${row.GBN_CD eq '01'}"><c:set var="STATUS" value="pink"/><c:set var="FN_CLASS" value="fn_goTestAnnounceView"/></c:if>
+														   	    <c:if test="${row.GBN_CD eq '02'}"><c:set var="STATUS" value="green"/><c:set var="FN_CLASS" value="fn_resultSurvey"/></c:if>
+														        <c:if test="${row.GBN_CD eq '03'}"><c:set var="STATUS" value="beige"/><c:set var="FN_CLASS" value="fn_goTestAnnounceView"/></c:if>
+														        <c:if test="${row.GBN_CD eq '04'}"><c:set var="STATUS" value="blue"/><c:set var="FN_CLASS" value="fn_goTestAnnounceView"/></c:if>
+														    
+																<div class="schd-label <c:out value="${STATUS}"/>">
+																	<span><c:out value="${row.GBN}"/></span>
+																</div>
+																<a href="#" class="<c:out value="${FN_CLASS}"/>" data-exam_mng_no="<c:out value="${row.EXAM_MNG_NO}"/>" data-exam_way_cd="<c:out value="${row.EXAM_WAY_CD }"/>">
+																	<em><c:out value="${row.TEAM_GBN}"/></em> 
+																	<c:out value="${row.EXAM_TITLE}"/>
+																</a>
+																<span class="recruit-date">  
+																	<c:out value="${row.VISIT_DATE}"/>&nbsp;
+																	<c:out value="${row.VISIT_TIME}"/></br>
+																	<c:out value="${row.VISIT_AREA}"/>&nbsp;
+																	<c:out value="${row.VISIT_PLACE}"/>
+																</span>
+															</div>
+														</li>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<div class="no-data"><span><spring:message code="mainIndex.013"/></span></div>	
+											</c:otherwise>
+										</c:choose>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div><!-- //나의 스케줄 현황 -->				
+				
+					<!-- 신규시험모집공고 -->
+					<div class="introRecruit">
+						<div class="intro-container">
+							<div class="intro-title recruit"><spring:message code="mainIndex.014"/></div>
+							<ul class="intro-recruit-list">
+								<c:choose>
+									<c:when test="${not empty newTestList}">
+										<c:forEach var="row" items="${newTestList}" varStatus="i">
+											<li>
+												<div class="intro-recruit-content fn_goTestAnnounceView" data-exam_mng_no="<c:out value="${row.EXAM_MNG_NO}"/>" data-exam_way_cd="<c:out value="${row.EXAM_WAY_CD }"/>">
+													<a href="#">
+														<em><c:out value="${row.TEAM_GBN}"/></em> 
+														<c:out value="${row.EXAM_TITLE}"/>
+													</a>  
+													<span class="recruit-date"><spring:message code="mainIndex.015"/> : <c:out value="${row.APP_PERIOD}"/></span>
+												</div>
+											</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<div class="tbl-nodata"><div class="no-data"><span><spring:message code="mainIndex.016"/></span></div></div>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+						</div>
+					</div><!-- //신규시험모집공고 -->
+				
+				</div>
+			</div><!-- // introBt -->
+
+		</div>
+	</main>
+	<!-- // main -->
+	
+	
+	<!-- popup : 설문작성 -->
+	<div class="popupWrap">
+	    <div class="dimBack"></div>
+	    <div id="resultSurvey" class="popupBoxWrap" style="width:800px;">
+	    	<form id="surveyForm" name="surveyForm" enctype="multipart/form-data">
+	    		<input type="hidden" name="surveyResult" id="surveyResult" value="">
+	    		<input type="hidden" name="EXAM_MNG_NO" value=""/>
+	    		<input type="hidden" name="EXAM_WAY_CD" value=""/>
+    			<input type="hidden" name="EXAM_ORDER" value=""/>
+	    		<input type="hidden" name="EXAM_TYPE" value="RESULT_TYPE"/>
+	    		<input type="hidden" name="SAVE_TYPE" value=""/>
+	    	
+				<div class="popupBox">
+					<div class="popup-container">
+						<div class="popup-header">
+							<div class="popup-title"><spring:message code="popup.result.000"/></div>
+							<div class="popup-close">
+								<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out"><spring:message code="button.004"/></span></button>
+							</div>
+						</div>
+						<div class="popup-content">
+		
+							<div class="tblWrap tbl-wm">
+								<table>
+									<caption><spring:message code="popup.result.001"/></caption>
+									<colgroup>
+										<col width="15%">
+										<col width="35%">
+										<col width="15%">
+										<col width="35%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th><spring:message code="popup.result.002"/></th>
+											<td id="EXAM_TITLE_TEXT">  </td>
+											<th><spring:message code="popup.result.003"/></th>
+											<td id="EXAM_ORDER_TEXT">  </td>
+										</tr>
+										<tr>
+											<th><spring:message code="popup.result.004"/></th>
+											<td id="NAME_TEXT">  </td>
+											<th><spring:message code="popup.result.005"/></th>
+											<td id="WRITE_DATE_TEXT">  </td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="tbl-reset surveyWrap" id="resultSurveyElement" style="overflow-y:scroll; height:400px;">
+													<!-- 결과설문 Survey 영역 -->
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th><spring:message code="button.file.000"/></th>
+											<td colspan="3">
+												<div class="divForm file-box">
+													<input type="text" id="UPLOAD_FILE_TEXT" class="fileName inputBox" readonly="readonly" style="width:340px;" value="">
+													<label for="upload-name" class="btn btn-5th btn-blue btn_file"><spring:message code="button.file.001"/></label>
+													<input type="file" id="upload-name" class="upload-name" name="UPLOAD_FILE_NAME">
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>					
+							<div class="btn-wrap btnC">
+								<button type="button" class="btn btn-prim btn-white btn-closePop" id="fn_resultSurveyClose"><spring:message code="button.005"/></button>
+								<button type="button" class="btn btn-prim btn-gray" id="fn_goTempStorage"><spring:message code="button.002"/></button>
+								<button type="button" class="btn btn-prim btn-white wd100 fn_goPrevious" id="fn_goPrevious"><spring:message code="button.003"/></button>
+								<button type="button" class="btn btn-prim btn-red wd100 fn_goNext" id="fn_goNext"><spring:message code="button.004"/></button>
+								<button type="button" class="btn btn-prim btn-red fn_surveySave" id="fn_resultSurveySave"><spring:message code="button.001"/></button>
+							</div>
+		
+						</div><!-- // popup-content -->
+					</div><!-- // popup-container -->
+				</div><!-- // popupBox -->
+			
+			</form>
+	    </div>
+	</div><!-- // popup : 설문작성 -->
+	
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/jsp/fo/include/footer.jsp" />
+	<!-- // footer -->
+	
+<script>
+
+var uploadFile = $('.file-box .upload-name');
+uploadFile.on('change', function(){
+	if(window.FileReader){
+		var filename = $(this)[0].files[0].name;
+	} else {
+		var filename = $(this).val().split('/').pop().split('\\').pop();
+	}
+	$(this).siblings('.fileName').val(filename);
+});
+
+Survey.Survey.cssType = "bootstrap";
+
+//_____특수기호 '|' 사용 제한_____
+var MyTextValidator = (function (_super) {
+  Survey.__extends(MyTextValidator, _super);
+  function MyTextValidator() {
+      _super.call(this);
+  }
+  MyTextValidator.prototype.getType = function () { return "mytextvalidator"; };
+  MyTextValidator.prototype.validate = function (value, name) {
+      if(value.indexOf("|") >= 0) {
+          return new Survey.ValidatorResult(null, new Survey.CustomError(this.getErrorText(name)));
+      }
+      return null;
+  };
+  MyTextValidator.prototype.getDefaultErrorText = function(name) {
+      return fnLang("'|'는 사용하실 수 없습니다.", "LC00");
+  }
+  return MyTextValidator;
+})(Survey.SurveyValidator);
+Survey.MyTextValidator = MyTextValidator;
+
+Survey.JsonObject.metaData.addClass("mytextvalidator", [], function () { return new MyTextValidator(); }, "surveyvalidator");
+//__________________________________
+var tPage = 0;
+var cPage = 0;
+var survey = null;
+/* survey create */ 
+function surveyCreate (qData, aData, element){
+	survey = new Survey.Model('{"pages":'+  qData +'}');
+	survey.requiredText = "";
+	survey.showNavigationButtons = false; 
+	survey.questionTitleTemplate = "{no}) {title}";
+	survey.data = jsonParseReturn(aData);
+	
+	setRequiredAll(survey, true, element);
+	
+	tPage = survey.pagesValue.length;  // 전체 페이지
+	cPage = survey.currentPageValue.visibleIndex + 1;
+	
+	$(".fn_goPrevious").hide();
+	$(".fn_surveySave").hide();
+}
+
+//surveyPaging(결과설문)
+surveyPaging = function(){
+	
+	cPage = survey.currentPageValue.visibleIndex + 1;
+	if(cPage == 1){ 
+		$(".fn_goPrevious").hide();
+	}
+	if(cPage == 2){
+		$(".fn_goPrevious").show();
+	} 
+	if(tPage <= cPage){
+		$(".fn_goNext").hide();
+		$(".fn_surveySave").show();
+	}else{
+		$(".fn_goNext").show();
+		$(".fn_surveySave").hide();
+	}
+} 
+
+//서베이 필수체크 여부 설정   
+function setRequiredAll(item, required, surveyElement){
+	var q = item.getAllQuestions(true);
+	for(var i = 0; i < q.length; i++){
+		if(typeof q[i].isAllRowRequired != "undefinded" && q[i].isAllRowRequired == false){
+			q[i].isAllRowRequired = required;
+		}else{
+			q[i].isRequired = required;
+		}
+	}
+	item.render(surveyElement);
+}
+
+$(function(){
+	
+	// 신규시험 모집공고 상세보기 이벤트
+	$(document).on("click", ".fn_goTestAnnounceView", function(){
+		var $form = $("#form");
+		var examMngNo = $(this).data("exam_mng_no");
+		var examWayCd = $(this).data("exam_way_cd");
+
+		$form.find("input[name='EXAM_MNG_NO']").val(examMngNo);
+		$form.find("input[name='EXAM_WAY_CD']").val(examWayCd);
+	    $form.attr({"action":"<c:url value='/fo/ta/testAnnounceView.do'/>", "target":"_self", "method":"post"}).submit();
+	});
+	
+	// 결과설문 버튼 클릭 이벤트
+    $(document).on("click", ".fn_resultSurvey", function () {
+    	var $surveyForm = $("#surveyForm");
+    	var examMngNo = $(this).data("exam_mng_no");
+    	var examWayCd = $(this).data("exam_way_cd");
+    	$surveyForm.find("input[name='EXAM_MNG_NO']").val(examMngNo);
+    	$surveyForm.find("input[name='EXAM_WAY_CD']").val(examWayCd);
+
+    	if(examMngNo != "" && examMngNo != null && examWayCd != "" && examWayCd != null){
+          	
+        	$.ajax({
+                async : false,
+                type : "POST",
+                dataType: "json",
+                data : {"EXAM_MNG_NO": examMngNo, "EXAM_WAY_CD": examWayCd},
+                url : "<c:url value='/fo/mp/resultSurveyAjaxView.do'/>",
+                success : function (data){
+                	//console.log(">> [fn_resultSurvey] RESULT_SURVEY_DATA:" , data);
+                    if(data != null){
+                    	var infoData = data.data;
+                    	$("#EXAM_TITLE_TEXT").text(infoData.EXAM_TITLE);
+                    	$("#EXAM_ORDER_TEXT").text(infoData.EXAM_ORDER + " 차");
+                    	$surveyForm.find("input[name='EXAM_ORDER']").val(infoData.EXAM_ORDER);
+                    	$("#NAME_TEXT").text(infoData.NAME);
+                    	$("#WRITE_DATE_TEXT").text(infoData.WRITE_DATE);
+                    	
+                    	// 첨부파일
+                    	if(data.finishInfo != null){
+                    		$("#UPLOAD_FILE_TEXT").val(data.finishInfo.ORIGIN_FILE_NAME);
+                    	}
+                    	
+                    	surveyCreate(data.surveyTxt, data.answerTxt, "resultSurveyElement");
+                    	
+                    	layer_popup("#resultSurvey");
+                    	
+                    }else{
+                    	returnMsg.alertMsg(fnLang("결과설문 호출 중에 오류가 발생하였습니다.</br>관리자에게 문의해주세요.", "LC01"));
+                    }
+                },
+                error : function (err){
+                	returnMsg.alertMsg(fnLang("데이터 처리 중 시스템 오류가 발생했습니다.", err.status));
+                }
+            });
+          
+        }else{
+        	returnMsg.alertMsg(fnLang("데이터 호출 중에 오류가 발생하였습니다. 다시 시도해주세요.", "LC02"));
+      	}
+	}); 
+	
+	// [결과설문] 이전 버튼 클릭 이벤트
+	$(document).on("click", "#fn_goPrevious", function(){
+		$(".sv_prev_btn").trigger("click");
+		surveyPaging();
+	});
+	
+	// [결과설문] 다음 버튼 클릭 이벤트
+	$(document).on("click", "#fn_goNext", function(){
+		$(".sv_next_btn").trigger("click");
+		surveyPaging();
+	});
+	
+	// 결과설문 > 임시저장 버튼 클릭 이벤트
+	$(document).on("click", "#fn_goTempStorage", function(){
+		
+		// 임시 저장 시 requried 해제
+		setRequiredAll(survey, false, "surveyElement");
+		
+		$(".sv_complete_btn").trigger("click");
+		
+		if(JSON.stringify(survey.data) != "{}"){
+			$('#surveyResult').val(JSON.stringify(survey.data));
+ 		}
+ 		
+		if(survey.isCompleted == true){
+			// 결과설문(서베이) 등록 호출
+			fn_insertResultSurvey("TEMP");
+		}
+	});
+	
+	// 결과설문 > 저장 버튼 클릭 이벤트
+	$(document).on("click", "#fn_resultSurveySave", function(){
+		
+		$(".sv_complete_btn").trigger("click"); 
+		 
+		if(JSON.stringify(survey.data) != "{}"){
+			$('#surveyResult').val(JSON.stringify(survey.data));
+ 		}
+ 		
+		if(survey.isCompleted == true){
+			// 결과설문(서베이) 등록 호출
+			fn_insertResultSurvey("COMPLETE");
+		}
+	}); 
+ 	
+}); 
+
+//결과설문(서베이) 등록
+function fn_insertResultSurvey(type){
+	var $surveyForm = $("#surveyForm");
+	$surveyForm.find("input[name='SAVE_TYPE']").val(type);
+
+	$.ajax({
+            async : false,
+            type : "POST",
+            dataType: "json",
+            data : $surveyForm.serialize(),
+            url : "<c:url value='/fo/mj/surveyResultDelete.do'/>",
+            success : function (data){
+                if(data.resultYn != null || data.resultYn != ""){
+					
+        	        var form = $("#surveyForm")[0];
+        	        var params = new FormData(form);
+        	        
+                	$.ajax({
+        	        	async : false,
+        	            type : "POST",
+        	            enctype: "multipart/form-data",
+        	            dataType: "json",
+        	            contentType: false,
+        	            processData: false,    
+        	            data : params,
+        	            url : "<c:url value='/fo/mj/surveyResultInsert.do'/>",
+        	            success : function (data){
+        	                if(data.resultYn > 0){
+        	                	returnMsg.alertMsg(fnLang("정상적으로 결과설문을 했습니다.", "LC03"), "reload");
+        	                	
+        	                }else{
+        	                	returnMsg.alertMsg(fnLang("데이터 호출 중에 오류가 발생하였습니다. 다시 시도해주세요.", "LC04"), "reload");
+        	                }
+        	            },
+        	            error : function (err){
+        	            	returnMsg.alertMsg(fnLang("데이터 처리 중 시스템 오류가 발생했습니다.", err.status), "reload");
+        	            }
+        	        });
+                       
+                }else{
+                	returnMsg.alertMsg(fnLang("데이터 호출 중에 오류가 발생하였습니다. 다시 시도해주세요.", "LC05"), "reload");
+                }
+            },
+            error : function (err){
+            	returnMsg.alertMsg(fnLang("데이터 처리 중 시스템 오류가 발생했습니다.", err.status), "reload");
+            }
+	});
+}
+</script>
+	
+</body>
+</html>

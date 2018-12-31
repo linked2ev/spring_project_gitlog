@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>아모레퍼시픽 고객연구센터</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin:0;padding:0;">
+	<div align="center">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="800" style="font-family:'Dotum','돋움','맑은 고딕','Malgun Gothic';font-size:12px;border-collapse:collapse;"> 
+			<tr><td height="40" bgcolor="#fff"></td></tr>
+			<tr><td height="3" bgcolor="#444"></td></tr>
+			<tr>
+				<td height="117" bgcolor="#fff"><a href="#"><img src="../images/mail/mail_logo.png" width="252" height="44" alt="아모레퍼시픽 고객연구센터" style="display:block;padding-left:30px;border:0;" /></a></td>
+			</tr>
+			<tr><td height="1" bgcolor="#d0d0d0"></td></tr>
+			<tr>
+				<td bgcolor="#fff" style="padding:40px 30px;color:#333;">
+					<p style="padding-bottom:10px;"><b style="font-size:14px;">안녕하세요, 김아모레 고객님.</b></p>
+					<p style="line-height:220%;font-size:12px;">
+웹은 발전하고 있지만 웹메일 서비스를 제공하는 곳들은 글쎄... 라고 말하고 싶다... 이유야 많겠지만 아직도 eDM(이메일 마케팅) 보내기 위해 작성하는 html 코드가 너무 복잡하고 예전 방식만 가능하기 때문이다...
+<br>
+물론 각각의 웹메일 서비스 업체마다 이유야 많다. 예를들어 스크립트의 사용등을 제거하는 이유는 일부 악의를 띈 이메일에 피해를 받을 수도 있기 때문이다....
+<br>
+최근의 이메일 마케팅에 사용되는 html 코드는 텍스트도 많으나 이미지를 사용하는 경우가 많다. 예를들어 이미지 전체를 하나의 콘텐츠 내용으로 발송하며 이때 각각의 링크들을 추가하기 위해 이미지를 잘게 쪼개는 방식이 사용된다.
+<br>
+# 이메일 html 퍼블리싱에서 의도하지 않은 여백이나 흰줄이 생기는 경우
+<br>
+특히 outlook의 경우 다양한 이슈가 상대적으로 많아 보인다. 아웃룩 역시 다양한 버전 (2010, 2013 등등...)이 존재하고 각각의 버전에 맞는 html 방법이 필요하기 때문에 무척이나 어렵다... 오늘은 이를 해결하기 위한 방법 몇 가지를 알아보고자 한다.
+<br>
+1. 가능한 사용 태그를 최소화하자
+<br>
+태그는 각각의 특성이 모두 다르지만 email html을 작성할 때는 많은 태그를 사용하지 않는 것이 좋다. 예외적이지만 어떤 웹서비스에서 어떤 태그를 사용하느냐에 따라 모두 다른 스타일이 적용될 수 있기때문이다.
+
+div, p, table, span을 예로 들자면 굳이 div, p 태그를 모두 사용할 필요는 없다 가급적 하나만 정해서 쓰자. block 또는 inline 타입 중 맞는 최소의 태그만 사용하자.						
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" cellspacing="0" width="800" bgcolor="#f8f8f8" style="border-collapse:collapse;">
+						<tr>
+							<td width="210" align="center" style="padding:25px 0;">
+								<img src="../images/mail/mail_footer_logo.png" width="128" height="12" alt="AMOREPACIFIC" style="display:block;border:0;" />
+							</td>
+							<td width="590" style="padding:27px 30px 25px 0;line-height:170%;font-size:11px;color:#999;">
+								본 메일은 정보통신망 이용촉진 및 정보보호 등에 관한 법률에 의거하여 <span style="color:#2c81ca">2017년10월10일</span> 기준<br>
+								이메일 수신동의 여부를 확인한 결과 수신에 동의하신 고객님 대상으로 발송하는 발신 전용 메일입니다.
+								<br><br>
+								영리목적의 광고성 정보에 대한 이메일 수신을 원치 않으시면, <a href="#" style="color:#999;">수신거부</a>를 클릭해 주세요.<br>
+								If you don’t want to receive this e-mail anymore, please click <a href="#" style="color:#999;">수신거부</a><br>
+								상호명 : (주)아모레퍼시픽  <span style="color:#d0d0d0">|</span>  주소 : 서울 중구 청계천로100 시그니쳐 타워  <span style="color:#d0d0d0">|</span>  전화 : 080-023-5454
+								<br><br>
+								© AMOREPACIFIC CORPORATION. ALL RIGHTS RESERVED.
+
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr><td height="40" bgcolor="#fff"></td></tr>
+		</table>
+	</div>
+</body>
+</html>

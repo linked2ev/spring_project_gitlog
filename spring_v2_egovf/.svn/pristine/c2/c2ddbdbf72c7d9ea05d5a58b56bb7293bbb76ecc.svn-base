@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<div class="leftNav">
+	<ul class="leftNav-list">
+		<li <c:if test="${fn:indexOf(REQUEST_URI,'/site/siteInfo') > -1}">class="on"</c:if>>
+			<a href="<c:out value="/fo/site/siteInfo.do"/>">
+				<spring:message code="menu.001"/>
+			</a>
+		</li>
+		<li <c:if test="${fn:indexOf(REQUEST_URI,'/fo/ta/') > -1}">class="on"</c:if>>
+			<a href="<c:out value="/fo/ta/testAnnounceList.do"/>">
+				<spring:message code="menu.002"/>
+			</a>
+		</li>
+		<li <c:if test="${fn:indexOf(REQUEST_URI,'/fo/mp/') > -1}">class="on"</c:if>>
+			<a href="#"><spring:message code="menu.003"/></a>
+			<ul class="sub">
+				<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/testApplicationStatusList') > -1 || fn:indexOf(REQUEST_URI,'/mp/qnaBoardList') > -1}">class="on"</c:if>>
+					<a href="<c:out value="/fo/mp/testApplicationStatusList.do"/>">
+						<spring:message code="menu.004"/>
+					</a>
+				</li>
+				<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/testApplicationHistoryList') > -1}">class="on"</c:if>>
+					<a href="<c:out value="/fo/mp/testApplicationHistoryList.do"/>">
+						<spring:message code="menu.005"/>
+					</a>
+				</li>
+				<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/myInfo') > -1}">class="on"</c:if>>
+					<a href="<c:out value="/fo/mp/myInfo.do"/>">
+						<spring:message code="menu.006"/>
+					</a>
+				</li>
+				<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/memberLeave') > -1}">class="on"</c:if>>
+					<a href="<c:out value="/fo/mp/memberLeave.do"/>">
+						<spring:message code="menu.007"/>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li <c:if test="${fn:indexOf(REQUEST_URI,'/fo/qna/') > -1}">class="on"</c:if>>
+			<a href="#"><spring:message code="menu.008"/></a>
+			<ul class="sub">
+				<li <c:if test="${fn:indexOf(REQUEST_URI,'/qna/oneQnaSendForm') > -1}">class="on"</c:if>>
+					<a href="<c:out value="/fo/qna/oneQnaSendForm.do"/>">
+						<spring:message code="menu.009"/>
+					</a>
+				</li>
+			</ul>
+		</li>
+		
+	</ul>
+</div>

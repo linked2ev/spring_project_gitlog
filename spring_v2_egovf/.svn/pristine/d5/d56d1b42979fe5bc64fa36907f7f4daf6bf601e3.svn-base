@@ -1,0 +1,46 @@
+package com.rdpanel.fo.mn.service;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.mn.service
+* 2. 타입명 : panelMainService.java
+* 3. 작성일 : 2017. 9. 27.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 패널 메인 Service
+* </pre>
+ */
+public interface PanelMainService {
+
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectNewTestAnnounceList
+	* 2. 작성일 : 2017. 9. 27.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 신규시험 모집 공고 목록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public List<Map<String, Object>> selectNewTestAnnounceList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMyScheduleList
+	* 2. 작성일 : 2017. 9. 27.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 나의 스케줄 현황 목록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public List<Map<String, Object>> selectMyScheduleList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+
+}

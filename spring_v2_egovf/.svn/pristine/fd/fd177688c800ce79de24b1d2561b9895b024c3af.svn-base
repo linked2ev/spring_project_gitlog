@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MemberJoin">
+
+    
+    <!-- 마스터테이블 패널 정보 조회 -->
+    <select id="selectMstPanelCnt" parameterClass="com.rdpanel.cmmn.security.Panel" resultClass="Integer">
+    	/* MemberJoin.selectMstPanelCnt */
+        SELECT
+        		COUNT(*)
+       	FROM 
+       			RDUR101MT 
+		WHERE
+				USER_ID = #USER_ID#
+    </select>
+    
+    
+    <!-- 마스터테이블 패널 상세정보 -->
+    <select id="selectMstPanelInfo" parameterClass="com.rdpanel.cmmn.security.Panel" resultClass="HashMap">
+        /* MemberJoin.selectMstPanelInfo */
+        SELECT
+       			USER_MNG_NO
+       			,USER_ID
+       			,UCSTMID
+  		FROM 
+  				RDUR101MT
+ 		WHERE 
+ 				USER_ID = #USER_ID#
+    </select>
+    
+    
+    <!-- 패널 상세정보 조회 -->
+    <select id="selectPanelInfo" parameterClass="com.rdpanel.cmmn.security.Panel" resultClass="HashMap">
+        /* MemberJoin.selectPanelInfo */
+        SELECT
+        		A.USER_ID
+       			,A.NAME
+       			,A.PHONE
+	  			,SUBSTR(A.PHONE, 1, 3) AS PHONE1
+    			,CASE LENGTH(A.PHONE) 
+    					WHEN 10 THEN SUBSTR(A.PHONE, 4, 3)
+                    	WHEN 11 THEN SUBSTR(A.PHONE, 4, 4)
+     			END AS PHONE2
+    			,CASE LENGTH(A.PHONE) 
+    					WHEN 10 THEN SUBSTR(A.PHONE, 7, 4)
+                        WHEN 11 THEN SUBSTR(A.PHONE, 8, 4)
+     			END AS PHONE3
+	  			,A.EMAIL
+    			,A.GENDER_CD
+    			,A.BIRTH
+    			,SUBSTR(A.BIRTH, 1, 4) AS YEAR
+    			,SUBSTR(A.BIRTH, 5, 2) AS MONTH
+    			,SUBSTR(A.BIRTH, 7, 2) AS DAY
+    			,FLOOR(MONTHS_BETWEEN(SYSDATE, TO_DATE(A.BIRTH, 'YYYYMMDD')) / 12) AS AGE
+    			,A.OCCU_AREA_CD
+    			,A.VISIT_PREFER_CD
+    			,A.BREAK_YN
+    			,TO_CHAR(TO_DATE(A.BREAK_FROM, 'YYYYMMDD'), 'YYYY-MM-DD') AS BREAK_FROM
+   	 			,TO_CHAR(TO_DATE(A.BREAK_TO, 'YYYYMMDD'), 'YYYY-MM-DD') AS BREAK_TO
+   	 			,SURVEY_COMPLETE_YN
+		        ,(
+		        		SELECT
+		                		DISTINCT
+		                  		CASE WHEN (REG_DATE) + 360 <![CDATA[<]]> SYSDATE THEN 'N'
+		                      			ELSE 'Y'
+		                  		END AS BASIC_REG_DATE
+	                    FROM 
+	                    		RDSR101DT
+		                WHERE 
+		                		USER_ID = #USER_ID#
+		     	                AND EXAM_MNG_NO IN('1','2')
+			                    AND SURVEY_GBN IN('01','02')
+		          ) AS SURVEY_REG_FLAG /* 기초팀별설문 작성 후 1년 FLAG */
+		          ,B.UCSTMID
+  		FROM 
+  				RDUR102DT A
+  				INNER JOIN RDUR101MT B ON A.USER_MNG_NO = B.USER_MNG_NO
+ 		WHERE 
+ 				A.USER_ID = #USER_ID#
+    </select>
+    
+    
+    <!-- 마스터 패널 정보 등록 -->
+    <insert id="insertMstMyInfo" parameterClass="com.rdpanel.cmmn.security.Panel">
+        <selectKey keyProperty="USER_MNG_NO" resultClass="Integer">
+            SELECT RDUR101MT_SEQ.NEXTVAL AS USER_MNG_NO FROM DUAL
+        </selectKey>
+    	/* MemberJoin.insertMstMyInfo */
+    	INSERT INTO
+    		RDUR101MT
+    		(
+    			USER_MNG_NO
+    			,USER_ID
+    			,UCSTMID
+   			)
+   		VALUES
+   			(
+   				#USER_MNG_NO#
+   				,#USER_ID#
+   				,#UCSTMID#
+   			)
+    </insert>
+    
+    
+    <!-- 서베이 임시저장 유무 확인 조회 -->
+    <select id="selectAnswerSurveyTableCnt" parameterClass="com.rdpanel.cmmn.security.Panel" resultClass="Integer">
+    	/* MemberJoin.selectAnswerSurveyTableCnt */
+        SELECT
+        		COUNT(*)
+       	FROM 
+       			RDSR101DT 
+		WHERE
+				USER_ID = #USER_ID#
+				AND EXAM_MNG_NO IN ('1', '2')
+        		AND SURVEY_GBN IN ('01', '02')
+    </select>
+    
+    
+    <!-- 패널서베이 테이블에 패널 아이디 조회 -->
+    <select id="selectSurveyTablePanelIDCnt" parameterClass="HashMap" resultClass="Integer">
+    	/* MemberJoin.selectSurveyTablePanelIDCnt */
+        SELECT
+        		COUNT(*)
+       	FROM 
+       			RDPT101DT 
+		WHERE
+				USER_ID = #USER_ID#
+    </select>
+    
+    
+    <!-- 패널서베이 테이블에 패널 아이디 등록 -->
+    <insert id="insertPanelID" parameterClass="HashMap">
+    	/* MemberJoin.insertPanelID */
+    	INSERT INTO
+    		RDPT101DT
+    		(
+    			USER_ID
+    			<isNotEmpty property="PENRNR_CERT_FLAG">
+					<isEqual property="PENRNR_CERT_FLAG" compareValue="C">
+						,COM_PANEL_YN
+					</isEqual>
+				</isNotEmpty>
+   			)
+   		VALUES
+   			(
+   				#USER_ID#
+   				<isNotEmpty property="PENRNR_CERT_FLAG">
+					<isEqual property="PENRNR_CERT_FLAG" compareValue="C">
+						,'Y'
+					</isEqual>
+				</isNotEmpty>
+   			)
+    </insert>
+    
+    
+   	<!-- 회원가입 > 사내 패널이 이메일 인증 후 사내 PERNR 조회 -->
+    <select id="selectCertPernrId" parameterClass="HashMap" resultClass="HashMap">
+        /* MemberJoin.selectCertPernrId */
+    	SELECT 
+    			PERNR
+  		FROM 
+  				RDUR301DT
+ 		WHERE 
+ 				EMAIL = #EMAIL#
+    </select>
+    
+    
+    <!-- 회원가입 > 패널 정보 등록 -->
+    <insert id="insertMyInfo" parameterClass="com.rdpanel.cmmn.security.Panel">
+    	/* MemberJoin.insertMyInfo */
+    	INSERT INTO
+    		RDUR102DT
+    		(
+    			USER_MNG_NO
+    			,USER_ID
+    			,NAME
+	  			,PHONE
+    			,GENDER_CD
+    			,BIRTH
+    			,OCCU_AREA_CD
+    			,VISIT_PREFER_CD
+    			,SURVEY_COMPLETE_YN
+    			<isNotEmpty property="PENRNR_CERT_FLAG">
+					<isEqual property="PENRNR_CERT_FLAG" compareValue="C">
+						,PERNR
+					</isEqual>
+				</isNotEmpty>
+   			)
+   		VALUES
+   			(
+   				#USER_MNG_NO#
+   				,#USER_ID#
+   				,#NAME#
+   				,#PHONE#
+   				,#GENDER_CD#
+   				,#BIRTH#
+   				,#OCCU_AREA_CD#
+   				,#VISIT_PREFER_CD#
+   				,#SURVEY_COMPLETE_YN#
+   				<isNotEmpty property="PENRNR_CERT_FLAG">
+	   				<isEqual property="PENRNR_CERT_FLAG" compareValue="C">
+						,#PERNR#
+					</isEqual>
+				</isNotEmpty>
+   			)
+    </insert>
+    
+    
+    <!-- 회원가입 > 패널 정보 수정 -->
+    <update id="updateMyInfo" parameterClass="com.rdpanel.cmmn.security.Panel">
+        /* MemberJoin.updateMyInfo */
+        UPDATE
+            	RDUR102DT
+        SET
+	  			PHONE = #PHONE#
+    			,GENDER_CD = #GENDER_CD#
+    			,BIRTH = #BIRTH#
+    			,OCCU_AREA_CD = #OCCU_AREA_CD#
+    			,VISIT_PREFER_CD = #VISIT_PREFER_CD#
+    			,SURVEY_COMPLETE_YN = #SURVEY_COMPLETE_YN#
+        WHERE
+            	USER_ID = #USER_ID#
+    </update>
+    
+    
+    <!-- 설문 질문 목록: 기초설문/팀별설문 -->
+    <resultMap id="getQuestionListMap" class="HashMap">					
+		<result property="EXAM_MNG_NO" 			column="EXAM_MNG_NO" />
+		<result property="SURVEY_SEQ" 			column="SURVEY_SEQ" />
+		<result property="PANEL_ROW_RANK_SEQ" 	column="PANEL_ROW_RANK_SEQ" />		
+		<result property="MATRIX_ROW_RANK_SEQ" 	column="MATRIX_ROW_RANK_SEQ" />
+		<result property="PAGE_NUM" 			column="PAGE_NUM" />
+		<result property="QUESTION_TYPE" 		column="QUESTION_TYPE" />
+		<result property="QUESTION_CONTENT" 	column="QUESTION_CONTENT" />		
+		<result property="IMG_TOP" 				column="IMG_TOP" 		jdbcType="CLOB" 	javaType="java.lang.String" />
+		<result property="IMG_BOTTOM" 			column="IMG_BOTTOM" 	jdbcType="CLOB" 	javaType="java.lang.String" />		
+		<result property="EXAMPLE_CNT" 			column="EXAMPLE_CNT" />
+		<result property="CHOICE_CNT" 			column="CHOICE_CNT" />
+		<result property="COMMENT_NUMERIC_YN" 	column="COMMENT_NUMERIC_YN" />			
+		<result property="TEAM_GBN" 			column="TEAM_GBN" />
+	</resultMap>
+	<select id="getQuestionList" parameterClass="HashMap" resultMap="getQuestionListMap">
+		/* MemberJoin.getQuestionList */
+    	SELECT
+            A.EXAM_MNG_NO
+            ,CASE A.EXAM_MNG_NO WHEN 1 THEN A.SURVEY_SEQ
+            	ELSE A.SURVEY_SEQ + (SELECT MAX(B.SURVEY_SEQ) FROM RDSI101DT B WHERE B.EXAM_MNG_NO = '1')
+          	END AS SURVEY_SEQ
+		    ,A.PANEL_ROW_RANK_SEQ
+		    ,A.MATRIX_ROW_RANK_SEQ
+		    ,A.PAGE_NUM
+		    ,A.QUESTION_TYPE
+		    ,A.QUESTION_CONTENT
+		    ,A.IMG_TOP
+		    ,A.IMG_BOTTOM
+		    ,A.EXAMPLE_CNT
+		    ,A.CHOICE_CNT
+		    ,DECODE(A.COMMENT_NUMERIC_YN, 'Y', 'TRUE', 'FALSE') as COMMENT_NUMERIC_YN
+		    ,A.TEAM_GBN
+		FROM 
+		 	RDSI101DT A
+		WHERE    
+		 	A.EXAM_MNG_NO IN ('1','2')
+		 	AND A.SURVEY_GBN IN ('01', '02')
+		 	AND A.EXAM_ORDER = '1'
+        ORDER BY 
+        	A.EXAM_MNG_NO, A.SURVEY_SEQ
+    </select>
+    
+    
+    <!-- 설문 보기 목록 조회: 기초설문/팀별설문 -->
+   	<resultMap id="getAnswerListMap" class="HashMap">					
+		<result property="SURVEY_SEQ" 			column="SURVEY_SEQ" />
+		<result property="PANEL_ROW_RANK_SEQ" 	column="PANEL_ROW_RANK_SEQ" />		
+		<result property="MATRIX_ROW_RANK_SEQ" 	column="MATRIX_ROW_RANK_SEQ" />
+		<result property="EXAMPLE_SEQ" 			column="EXAMPLE_SEQ" />
+		<result property="EXAMPLE_CONTENT" 		column="EXAMPLE_CONTENT" />
+		<result property="IMG_LEFT" 			column="IMG_LEFT" 		jdbcType="CLOB" 	javaType="java.lang.String" />		
+		<result property="IMG_RIGHT" 			column="IMG_RIGHT" 		jdbcType="CLOB" 	javaType="java.lang.String" />
+		<result property="EXAMPLE_GBN" 			column="EXAMPLE_GBN" />		
+	</resultMap>	
+	<select id="getAnswerList" parameterClass="HashMap" resultMap="getAnswerListMap">
+		/* MemberJoin.getAnswerList */
+		SELECT
+		      CASE A.EXAM_MNG_NO WHEN 1 THEN A.SURVEY_SEQ
+                  ELSE A.SURVEY_SEQ + (SELECT MAX(B.SURVEY_SEQ) FROM RDSI101DT B WHERE B.EXAM_MNG_NO = '1')
+              END AS SURVEY_SEQ
+		      ,A.PANEL_ROW_RANK_SEQ
+		      ,A.MATRIX_ROW_RANK_SEQ
+		      ,A.EXAMPLE_SEQ
+		      ,A.EXAMPLE_CONTENT
+		      ,A.IMG_LEFT
+		      ,A.IMG_RIGHT
+		      ,A.EXAMPLE_GBN
+		 FROM 
+		 	  RDSI102DT A
+		 WHERE 
+		      A.EXAM_MNG_NO IN ('1', '2')
+		      AND A.SURVEY_GBN IN ('01', '02')
+		      AND A.EXAM_ORDER = '1'
+	     ORDER 
+		      BY A.EXAM_MNG_NO, A.SURVEY_SEQ
+    </select>    
+    
+    
+    <!-- 설문 정답 선택한 목록 조회: 기초설문/팀별설문 -->
+	<select id="getAnswerChooseList" parameterClass="HashMap" resultClass="HashMap">
+		/* MemberJoin.getAnswerChooseList */
+		SELECT
+				CASE A.EXAM_MNG_NO WHEN 1 THEN A.SURVEY_SEQ
+            		ELSE A.SURVEY_SEQ + (SELECT MAX(B.SURVEY_SEQ) FROM RDSI101DT B WHERE B.EXAM_MNG_NO = '1')
+          		END AS SURVEY_SEQ
+		        ,A.PANEL_ROW_RANK_SEQ
+		        ,A.MATRIX_ROW_RANK_SEQ
+		        ,A.ANSWER
+		FROM 
+				RDSR101DT A
+		WHERE 
+				A.EXAM_MNG_NO IN ('1', '2')
+		   		AND A.SURVEY_GBN IN ('01', '02')
+		   		AND A.EXAM_ORDER = '1'
+		   		AND A.USER_ID = #USER_ID#
+    </select>
+    
+    
+    <!-- 설문 정답 선택한 임시저장 마지막 페이지 넘버 -->
+	<select id="getAnswerChoosePageNum" parameterClass="HashMap" resultClass="HashMap">
+		/* MemberJoin.getAnswerChoosePageNum */
+    	SELECT
+                MAX(B.PAGE_NUM) AS PAGE
+		FROM 
+				RDSR101DT A
+        		INNER JOIN RDSI101DT B ON A.EXAM_MNG_NO = B.EXAM_MNG_NO AND A.SURVEY_GBN = B.SURVEY_GBN AND A.EXAM_ORDER = B.EXAM_ORDER AND A.SURVEY_SEQ = B.SURVEY_SEQ AND A.PANEL_ROW_RANK_SEQ = B.PANEL_ROW_RANK_SEQ
+                AND A.MATRIX_ROW_RANK_SEQ = B.MATRIX_ROW_RANK_SEQ AND A.TEAM_GBN = B.TEAM_GBN
+		WHERE 
+				A.EXAM_MNG_NO IN ('1', '2')
+		   		AND A.SURVEY_GBN IN ('01', '02')
+		   		AND A.EXAM_ORDER = '1'
+		   		AND A.USER_ID = #USER_ID#
+  	</select>
+    
+    
+    <!-- 회원가입 > 설문조사 등록(기초설문/팀별설문) -->
+    <insert id="insertSurveyResult" parameterClass="HashMap">
+    	/* MemberJoin.insertSurveyResult */
+        INSERT INTO
+            RDSR101DT
+            (
+                EXAM_MNG_NO
+                ,SURVEY_GBN
+                ,EXAM_ORDER
+                ,SURVEY_SEQ
+                ,PANEL_ROW_RANK_SEQ
+                ,MATRIX_ROW_RANK_SEQ
+                ,TEAM_GBN
+                ,USER_ID
+                ,ANSWER
+                ,REG_ID
+                ,REG_DATE
+            )
+        	<iterate property="surveyResultListMap" conjunction=" union all ">
+				SELECT
+					EXAM_MNG_NO
+				    ,SURVEY_GBN
+				    ,EXAM_ORDER
+				    ,SURVEY_SEQ
+				    ,PANEL_ROW_RANK_SEQ
+				    ,MATRIX_ROW_RANK_SEQ
+				    ,TEAM_GBN
+	                ,#USER_ID#
+	                ,#surveyResultListMap[].ANSWER#
+	                ,#USER_ID#
+	                ,SYSDATE
+				FROM 
+					RDSI101DT
+				WHERE
+					EXAM_MNG_NO = 
+						CASE
+					        WHEN (SELECT MAX(SURVEY_SEQ) FROM RDSI101DT WHERE EXAM_MNG_NO = '1') >= #surveyResultListMap[].SURVEY_SEQ# THEN '1'
+					        ELSE '2'
+					    END
+					AND SURVEY_GBN =
+					    CASE
+					        WHEN (SELECT MAX(SURVEY_SEQ) FROM RDSI101DT WHERE EXAM_MNG_NO = '1') >= #surveyResultListMap[].SURVEY_SEQ# THEN '01'
+					        ELSE '02'
+					    END
+				    AND SURVEY_SEQ =
+				   		CASE
+				        	WHEN (SELECT MAX(SURVEY_SEQ) FROM RDSI101DT WHERE EXAM_MNG_NO = '1') >= #surveyResultListMap[].SURVEY_SEQ# THEN $surveyResultListMap[].SURVEY_SEQ$
+				        	ELSE $surveyResultListMap[].SURVEY_SEQ$ - (SELECT MAX(SURVEY_SEQ) FROM RDSI101DT WHERE EXAM_MNG_NO = '1')
+				   		END
+			</iterate>
+    </insert> 
+    
+
+    <!-- 선정설문(서베이) 조사 등록 -->
+    <insert id="insertSelectionSurvey" parameterClass="HashMap">
+    	/* MemberJoin.insertSelectionSurvey */
+        INSERT INTO
+            RDSR201DT
+            (
+                EXAM_MNG_NO
+                ,SURVEY_GBN
+                ,EXAM_ORDER
+                ,SURVEY_SEQ
+                ,PANEL_ROW_RANK_SEQ
+                ,MATRIX_ROW_RANK_SEQ
+                ,USER_ID
+                ,ANSWER
+            )
+        	<iterate property="surveyResultListMap" conjunction=" union all ">
+				SELECT
+					#EXAM_MNG_NO#
+				    ,SURVEY_GBN
+				    ,EXAM_ORDER
+				    ,SURVEY_SEQ
+				    ,PANEL_ROW_RANK_SEQ
+				    ,MATRIX_ROW_RANK_SEQ
+	                ,#USER_ID#
+	                ,#surveyResultListMap[].ANSWER#
+				FROM 
+					RDSI101DT
+				WHERE
+					EXAM_MNG_NO = #EXAM_MNG_TYPE_CD#
+   					AND SURVEY_GBN = #SURVEY_GBN#
+   					AND EXAM_ORDER = #EXAM_ORDER#
+   					AND SURVEY_SEQ = #surveyResultListMap[].SURVEY_SEQ#
+			</iterate>
+    </insert>
+    
+    
+    <!-- 선정설문(서베이) 등록 후 FLAG -->
+    <update id="updateSelectionConsentYn" parameterClass="HashMap">
+        /* MemberJoin.updateSelectionConsentYn */
+        UPDATE
+            	RDEI102DT
+        SET
+            	CONSENT_YN = 'Y'
+        WHERE
+            	USER_ID = #USER_ID#
+            	AND EXAM_MNG_NO = #EXAM_MNG_NO#
+    </update>
+    
+    
+    <!-- 결과설문(서베이) 조사 등록 -->
+    <insert id="insertResultSurvey" parameterClass="HashMap">
+    	/* MemberJoin.insertResultSurvey */
+        INSERT INTO
+            RDSR201DT
+            (
+                EXAM_MNG_NO
+                ,SURVEY_GBN
+                ,EXAM_ORDER
+                ,SURVEY_SEQ
+                ,PANEL_ROW_RANK_SEQ
+                ,MATRIX_ROW_RANK_SEQ
+                ,USER_ID
+                ,ANSWER
+            )
+        	<iterate property="surveyResultListMap" conjunction=" union all ">
+				SELECT
+					#EXAM_MNG_NO#
+				    ,SURVEY_GBN
+				    ,EXAM_ORDER
+				    ,SURVEY_SEQ
+				    ,PANEL_ROW_RANK_SEQ
+				    ,MATRIX_ROW_RANK_SEQ
+	                ,#USER_ID#
+	                ,#surveyResultListMap[].ANSWER#
+				FROM 
+					RDSI101DT
+				WHERE
+					EXAM_MNG_NO = #EXAM_MNG_NO#
+   					AND SURVEY_GBN = #SURVEY_GBN#
+   					AND EXAM_ORDER = #EXAM_ORDER#
+   					AND SURVEY_SEQ = #surveyResultListMap[].SURVEY_SEQ#
+			</iterate>
+    </insert>
+    
+    
+    <!-- 결과설문(서베이) 등록 후 FLAG 조회 -->
+    <select id="selectResultFinishYnCnt" parameterClass="HashMap" resultClass="Integer">
+    	/* MemberJoin.selectResultFinishYnCnt */
+        SELECT
+        		COUNT(*)
+       	FROM 
+       			RDEI105DT 
+		WHERE
+				USER_ID = #USER_ID#
+				AND EXAM_MNG_NO = #EXAM_MNG_NO#
+				AND SURVEY_GBN = #SURVEY_GBN#
+				AND EXAM_ORDER = #EXAM_ORDER#
+    </select>
+    
+    
+    <!-- 결과설문(서베이) 등록 후 FLAG -->
+    <insert id="insertResultFinishYn" parameterClass="HashMap">
+        /* MemberJoin.insertResultFinishYn */
+        INSERT INTO
+	            RDEI105DT
+	            (
+	                EXAM_MNG_NO
+	                ,SURVEY_GBN
+	                ,USER_ID
+	                ,EXAM_ORDER
+	                ,PREPARE_DATE
+	                <isEqual property="SAVE_TYPE" compareValue="COMPLETE">
+					,FINISH_YN
+					</isEqual>
+	                ,ORIGIN_FILE_NAME
+	                ,FILE_NAME
+	                ,FILE_TYPE
+	                ,SAVE_URL
+	            )
+        VALUES
+	            (
+	                #EXAM_MNG_NO#
+	                ,#SURVEY_GBN#
+	                ,#USER_ID#
+	                ,#EXAM_ORDER#
+	                ,SYSDATE
+	               	<isEqual property="SAVE_TYPE" compareValue="COMPLETE">
+					,'Y'
+					</isEqual>
+	                ,#ORIGIN_FILE_NAME#
+	                ,#FILE_NAME#
+	                ,#FILE_TYPE#
+	                ,#SAVE_URL#
+	            )
+    </insert>
+    
+    
+    <!-- 결과설문(서베이) 등록 후 FLAG 수정 -->
+    <update id="updateResultFinishYn" parameterClass="HashMap">
+        /* MemberJoin.updateResultFinishYn */
+        UPDATE
+            	RDEI105DT
+        SET
+        		FINISH_YN = #FINISH_YN#
+        		<isNotEmpty property="ORIGIN_FILE_NAME">
+					,ORIGIN_FILE_NAME = #ORIGIN_FILE_NAME#
+					,FILE_NAME = #FILE_NAME#
+					,FILE_TYPE = #FILE_TYPE#
+					,SAVE_URL = #SAVE_URL#
+				</isNotEmpty>
+        WHERE
+            	USER_ID = #USER_ID#
+				AND EXAM_MNG_NO = #EXAM_MNG_NO#
+				AND SURVEY_GBN = #SURVEY_GBN#
+				AND EXAM_ORDER = #EXAM_ORDER#
+    </update>
+    
+    
+    <!-- 결과설문: 04/선정설문: 05 답변 (서베이) 삭제 -->
+    <delete id="deleteResultFinish" parameterClass="HashMap">
+        /* MemberJoin.deleteResultFinish */
+        DELETE FROM
+        	RDEI105DT
+        WHERE
+            USER_ID = #USER_ID#
+            AND SURVEY_GBN = #SURVEY_GBN#
+			AND EXAM_ORDER = #EXAM_ORDER#
+            AND EXAM_MNG_NO = #EXAM_MNG_NO#
+    </delete>
+    
+
+ 	<!-- 기초설문: 01/팀별설문: 02 답변 (서베이) 삭제 -->
+    <delete id="deleteSurveyResult101" parameterClass="HashMap">
+        /* MemberJoin.deleteSurveyResult101 */
+        DELETE FROM
+        	RDSR101DT
+        WHERE
+            USER_ID = #USER_ID#
+            AND EXAM_MNG_NO IN ('1', '2')
+    </delete>
+    
+    
+ 	<!-- 결과설문: 04/선정설문: 05 답변 (서베이) 삭제 -->
+    <delete id="deleteSurveyResult201" parameterClass="HashMap">
+        /* MemberJoin.deleteSurveyResult201 */
+        DELETE FROM
+        	RDSR201DT
+        WHERE
+            USER_ID = #USER_ID#
+            AND SURVEY_GBN = #SURVEY_GBN#
+			AND EXAM_ORDER = #EXAM_ORDER#
+            AND EXAM_MNG_NO = #EXAM_MNG_NO#
+    </delete>
+
+    
+</sqlMap>

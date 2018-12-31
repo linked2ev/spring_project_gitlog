@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
+	
+    <!-- [개발] DB 접속정보 -->
+<!-- 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!--         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
+<!--         <property name="url" value="jdbc:oracle:thin:@10.155.8.80:1521:UXUTF2" /> -->
+<!--         <property name="username" value="APRDPANELDBA"/> -->
+<!--         <property name="password" value="1q2w3e4r!@"/> -->
+<!--     </bean> -->
+    
+<!--     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> -->
+<!--         <constructor-arg ref="dataSourceSpied" /> -->
+<!--         <property name="logFormatter"> -->
+<!--             <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> -->
+<!--                 <property name="loggingType" value="MULTI_LINE" /> -->
+<!--                 <property name="sqlPrefix" value="SQL         :  "/> -->
+<!--             </bean> -->
+<!--         </property> -->
+<!--     </bean> -->
+    
+    <!-- [개발] SMS DB 접속정보 -->
+<!--     <bean id="dataSourceSpiedSMS" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!--         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
+<!--         <property name="url" value="jdbc:oracle:thin:@10.155.8.80:1521:UXUTF2" /> -->
+<!--         <property name="username" value="APRDPANELDBA"/> -->
+<!--         <property name="password" value="1q2w3e4r!@"/> -->
+<!--     </bean> -->
+    
+<!--     <bean id="dataSourceSMS" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> -->
+<!--         <constructor-arg ref="dataSourceSpiedSMS" /> -->
+<!--         <property name="logFormatter"> -->
+<!--             <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> -->
+<!--                 <property name="loggingType" value="MULTI_LINE" /> -->
+<!--                 <property name="sqlPrefix" value="SQL         :  "/> -->
+<!--             </bean> -->
+<!--         </property> -->
+<!--     </bean> -->
+    
+    <!-- [개발] 뷰티포인트몰 DB 접속정보 -->
+<!-- 	<bean id="dataSourceSpiedView" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!--         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
+<!--         <property name="url" value="jdbc:oracle:thin:@10.155.8.80:1521:UXUTF2" /> -->
+<!--         <property name="username" value="APRDPANELDBA"/> -->
+<!--         <property name="password" value="1q2w3e4r!@"/> -->
+<!--     </bean> -->
+    
+<!--     <bean id="dataSourceView" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> -->
+<!--         <constructor-arg ref="dataSourceSpiedView" /> -->
+<!--         <property name="logFormatter"> -->
+<!--             <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> -->
+<!--                 <property name="loggingType" value="MULTI_LINE" /> -->
+<!--                 <property name="sqlPrefix" value="SQL         :  "/> -->
+<!--             </bean> -->
+<!--         </property> -->
+<!--     </bean> -->
+    
+    
+    <!-- #################### [운영] #################### -->
+    <!-- [운영] DB 접속정보 -->
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@10.129.30.67:1527:IRDB" />
+        <property name="username" value="APRDPANELUSER"/>
+        <property name="password" value="1qaz2wsx!@"/>
+    </bean>
+    
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpied" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+    
+    <!-- [운영] 뷰티포인트몰 DB 접속정보 -->
+	<bean id="dataSourceSpiedView" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@10.129.28.121:1521:APWEBDB" />
+        <property name="username" value="APCRCDBA"/>
+        <property name="password" value="1q2w3e4r!@"/>
+    </bean>
+    
+    <bean id="dataSourceView" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpiedView" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+
+	<!-- [운영] SMS DB 접속정보  -->
+	<bean id="dataSourceSpiedSMS" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@10.129.29.37:1527:SMSDB" />
+        <property name="username" value="DBAUSER8"/>
+        <property name="password" value="USER8DBA"/>
+    </bean>
+    
+    <bean id="dataSourceSMS" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpiedSMS" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

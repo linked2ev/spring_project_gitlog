@@ -1,0 +1,358 @@
+package com.rdpanel.cmmn.security;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Panel {
+
+    static public enum PANELAUTH{
+        panel
+    }
+
+    static public Map<PANELAUTH, Integer> auths = new HashMap<PANELAUTH, Integer>();
+
+    static{
+    	auths.put(PANELAUTH.panel, 00);
+    }
+    
+    PANELAUTH PANEL_AUTH = PANELAUTH.panel;
+    
+    int COUNT;
+	String loginReqState = "LOGIN_FAIL";  // 로그인 상태 코드
+    String saveIdYn   = "";               // 아이디저장 유무
+    
+    /******************* [통합고객] 상세정보 ********************/
+    String UCSTMID = "";     // 통합 고유 ID
+    String CSTMID = "";      // 통합고객 회원 아이디
+    String CSTMNM = "";      // 통합고객 이름
+    String MOBILENO1 = "";   // 핸드폰1(첫번째)
+    String MOBILENO2 = "";   // 핸드폰2(두번째)
+    String MOBILENO3 = "";   // 핸드폰3(세번째)
+    String EMAIL1 = "";      // 이메일1(아이디)
+    String EMAIL2 = "";      // 이메일1(도메인)
+    String BRTHDATE = "";    // 생일
+    String AGE_YN = "";      // 미성년자 FLAG("Y":성인)
+    String SECPSWDFLAG = ""; // 비밀번호 FLAG("Y":1, else:2)
+    String SECPSWD = "";     // 비밀번호 변수
+    String SECPSWD1 = "";    // 비밀번호1
+    String SECPSWD2 = "";    // 비밀번호2
+    String DORMANCYYN = "";  // 휴면계정("Y")
+    
+    /******************* [R&D 패널] 상세정보 ********************/
+    int USER_MNG_NO;         // 패널 고유 ID
+    String USER_ID = "";     // 아이디
+    String NAME = "";        // 이름
+    String PHONE = "";       // 핸드폰(전체)
+    String PHONE1 = "";      // 핸드폰1(첫째자리)
+    String PHONE2 = "";      // 핸드폰2(두번째)
+    String PHONE3 = "";      // 핸드폰3(세번째)
+    String EMAIL = "";       // 이메일(전체)
+    String GENDER_CD = "";   // 성별
+    String BIRTH = "";       // 생일
+    String YEAR = "";        // YYYY
+    String MONTH = "";       // MM
+    String DAY = "";         // DD
+    String AGE = "";         // 나이
+    String OCCU_AREA_CD = "";     // 거주지역
+    String VISIT_PREFER_CD = "";  // 방문선호지역
+    String BREAK_YN = "";    // 패널 활동 유무 FLAG
+    String BREAK_FROM = "";  // 패널 활동 기간 FROM
+    String BREAK_TO = "";    // 패널 활동 기간 TO
+    
+    double HEIGHT;           // 키
+    double WEIGHT;           // 몸무게
+    double BMI;              // BMI
+    
+    String SURVEY_COMPLETE_YN = "";  // 서베이패널정보 테이블 작성 유무 FLAG
+    String SURVEY_REG_FLAG = "";     // 기초설문/팀별설문 1년 후 재설문 조사 필요 FLAG
+    String PENRNR_CERT_FLAG = "";    // 사내 패널 인증 FLAG
+    String PERNR = "";               // 사내 패널이 이메일 인증 후 사내 PERNR
+    
+    String IP = "";          // 접속 IP
+    
+
+	public String getPERNR() {
+		return PERNR;
+	}
+	public void setPERNR(String pERNR) {
+		PERNR = pERNR;
+	}
+	public static Map<PANELAUTH, Integer> getAuths() {
+		return auths;
+	}
+	public static void setAuths(Map<PANELAUTH, Integer> auths) {
+		Panel.auths = auths;
+	}
+	public PANELAUTH getPANEL_AUTH() {
+		return PANEL_AUTH;
+	}
+	public void setPANEL_AUTH(PANELAUTH pANEL_AUTH) {
+		PANEL_AUTH = pANEL_AUTH;
+	}
+	public int getCOUNT() {
+		return COUNT;
+	}
+	public void setCOUNT(int cOUNT) {
+		COUNT = cOUNT;
+	}
+	public String getLoginReqState() {
+		return loginReqState;
+	}
+	public void setLoginReqState(String loginReqState) {
+		this.loginReqState = loginReqState;
+	}
+	public String getSaveIdYn() {
+		return saveIdYn;
+	}
+	public void setSaveIdYn(String saveIdYn) {
+		this.saveIdYn = saveIdYn;
+	}
+	public String getUCSTMID() {
+		return UCSTMID;
+	}
+	public void setUCSTMID(String uCSTMID) {
+		UCSTMID = uCSTMID;
+	}
+	public String getCSTMID() {
+		return CSTMID;
+	}
+	public void setCSTMID(String cSTMID) {
+		CSTMID = cSTMID;
+	}
+	public String getCSTMNM() {
+		return CSTMNM;
+	}
+	public void setCSTMNM(String cSTMNM) {
+		CSTMNM = cSTMNM;
+	}
+	public String getMOBILENO1() {
+		return MOBILENO1;
+	}
+	public void setMOBILENO1(String mOBILENO1) {
+		MOBILENO1 = mOBILENO1;
+	}
+	public String getMOBILENO2() {
+		return MOBILENO2;
+	}
+	public void setMOBILENO2(String mOBILENO2) {
+		MOBILENO2 = mOBILENO2;
+	}
+	public String getMOBILENO3() {
+		return MOBILENO3;
+	}
+	public void setMOBILENO3(String mOBILENO3) {
+		MOBILENO3 = mOBILENO3;
+	}
+	public String getEMAIL1() {
+		return EMAIL1;
+	}
+	public void setEMAIL1(String eMAIL1) {
+		EMAIL1 = eMAIL1;
+	}
+	public String getEMAIL2() {
+		return EMAIL2;
+	}
+	public void setEMAIL2(String eMAIL2) {
+		EMAIL2 = eMAIL2;
+	}
+	public String getBRTHDATE() {
+		return BRTHDATE;
+	}
+	public void setBRTHDATE(String bRTHDATE) {
+		BRTHDATE = bRTHDATE;
+	}
+	public String getAGE_YN() {
+		return AGE_YN;
+	}
+	public void setAGE_YN(String aGE_YN) {
+		AGE_YN = aGE_YN;
+	}
+	public String getSECPSWDFLAG() {
+		return SECPSWDFLAG;
+	}
+	public void setSECPSWDFLAG(String sECPSWDFLAG) {
+		SECPSWDFLAG = sECPSWDFLAG;
+	}
+	public String getSECPSWD() {
+		return SECPSWD;
+	}
+	public void setSECPSWD(String sECPSWD) {
+		SECPSWD = sECPSWD;
+	}
+	public String getSECPSWD1() {
+		return SECPSWD1;
+	}
+	public void setSECPSWD1(String sECPSWD1) {
+		SECPSWD1 = sECPSWD1;
+	}
+	public String getSECPSWD2() {
+		return SECPSWD2;
+	}
+	public void setSECPSWD2(String sECPSWD2) {
+		SECPSWD2 = sECPSWD2;
+	}
+	public String getDORMANCYYN() {
+		return DORMANCYYN;
+	}
+	public void setDORMANCYYN(String dORMANCYYN) {
+		DORMANCYYN = dORMANCYYN;
+	}
+	public int getUSER_MNG_NO() {
+		return USER_MNG_NO;
+	}
+	public void setUSER_MNG_NO(int uSER_MNG_NO) {
+		USER_MNG_NO = uSER_MNG_NO;
+	}
+	public String getUSER_ID() {
+		return USER_ID;
+	}
+	public void setUSER_ID(String uSER_ID) {
+		USER_ID = uSER_ID;
+	}
+	public String getNAME() {
+		return NAME;
+	}
+	public void setNAME(String nAME) {
+		NAME = nAME;
+	}
+	public String getPHONE() {
+		return PHONE;
+	}
+	public void setPHONE(String pHONE) {
+		PHONE = pHONE;
+	}
+	public String getPHONE1() {
+		return PHONE1;
+	}
+	public void setPHONE1(String pHONE1) {
+		PHONE1 = pHONE1;
+	}
+	public String getPHONE2() {
+		return PHONE2;
+	}
+	public void setPHONE2(String pHONE2) {
+		PHONE2 = pHONE2;
+	}
+	public String getPHONE3() {
+		return PHONE3;
+	}
+	public void setPHONE3(String pHONE3) {
+		PHONE3 = pHONE3;
+	}
+	public String getEMAIL() {
+		return EMAIL;
+	}
+	public void setEMAIL(String eMAIL) {
+		EMAIL = eMAIL;
+	}
+	public String getGENDER_CD() {
+		return GENDER_CD;
+	}
+	public void setGENDER_CD(String gENDER_CD) {
+		GENDER_CD = gENDER_CD;
+	}
+	public String getBIRTH() {
+		return BIRTH;
+	}
+	public void setBIRTH(String bIRTH) {
+		BIRTH = bIRTH;
+	}
+	public String getYEAR() {
+		return YEAR;
+	}
+	public void setYEAR(String yEAR) {
+		YEAR = yEAR;
+	}
+	public String getMONTH() {
+		return MONTH;
+	}
+	public void setMONTH(String mONTH) {
+		MONTH = mONTH;
+	}
+	public String getDAY() {
+		return DAY;
+	}
+	public void setDAY(String dAY) {
+		DAY = dAY;
+	}
+	public String getAGE() {
+		return AGE;
+	}
+	public void setAGE(String aGE) {
+		AGE = aGE;
+	}
+	public String getOCCU_AREA_CD() {
+		return OCCU_AREA_CD;
+	}
+	public void setOCCU_AREA_CD(String oCCU_AREA_CD) {
+		OCCU_AREA_CD = oCCU_AREA_CD;
+	}
+	public String getVISIT_PREFER_CD() {
+		return VISIT_PREFER_CD;
+	}
+	public void setVISIT_PREFER_CD(String vISIT_PREFER_CD) {
+		VISIT_PREFER_CD = vISIT_PREFER_CD;
+	}
+	public String getBREAK_YN() {
+		return BREAK_YN;
+	}
+	public void setBREAK_YN(String bREAK_YN) {
+		BREAK_YN = bREAK_YN;
+	}
+	public String getBREAK_FROM() {
+		return BREAK_FROM;
+	}
+	public void setBREAK_FROM(String bREAK_FROM) {
+		BREAK_FROM = bREAK_FROM;
+	}
+	public String getBREAK_TO() {
+		return BREAK_TO;
+	}
+	public void setBREAK_TO(String bREAK_TO) {
+		BREAK_TO = bREAK_TO;
+	}
+	public double getHEIGHT() {
+		return HEIGHT;
+	}
+	public void setHEIGHT(double hEIGHT) {
+		HEIGHT = hEIGHT;
+	}
+	public double getWEIGHT() {
+		return WEIGHT;
+	}
+	public void setWEIGHT(double wEIGHT) {
+		WEIGHT = wEIGHT;
+	}
+	public double getBMI() {
+		return BMI;
+	}
+	public void setBMI(double bMI) {
+		BMI = bMI;
+	}
+	public String getSURVEY_COMPLETE_YN() {
+		return SURVEY_COMPLETE_YN;
+	}
+	public void setSURVEY_COMPLETE_YN(String sURVEY_COMPLETE_YN) {
+		SURVEY_COMPLETE_YN = sURVEY_COMPLETE_YN;
+	}
+	public String getIP() {
+		return IP;
+	}
+	public void setIP(String iP) {
+		IP = iP;
+	}
+	public String getSURVEY_REG_FLAG() {
+		return SURVEY_REG_FLAG;
+	}
+	public void setSURVEY_REG_FLAG(String sURVEY_REG_FLAG) {
+		SURVEY_REG_FLAG = sURVEY_REG_FLAG;
+	}
+	public String getPENRNR_CERT_FLAG() {
+		return PENRNR_CERT_FLAG;
+	}
+	public void setPENRNR_CERT_FLAG(String pENRNR_CERT_FLAG) {
+		PENRNR_CERT_FLAG = pENRNR_CERT_FLAG;
+	}
+	
+}
+

@@ -1,0 +1,407 @@
+package com.rdpanel.fo.sc.service.impl;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.rdpanel.cmmn.dao.ComnAbstractDAO;
+import com.rdpanel.cmmn.dao.ViewAbstractDAO;
+import com.rdpanel.cmmn.security.Panel;
+import com.rdpanel.cmmn.security.Panel.PANELAUTH;
+import com.rdpanel.cmmn.security.SessionsPanel;
+import com.rdpanel.fo.sc.service.PanelSecurityService;
+import com.ufo.common.utility.MD5;
+import com.webiz.util.StringUtil;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.sc.service.impl
+* 2. 타입명 : PanelSecurityServiceImpl.java
+* 3. 작성일 : 2017. 10. 26.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 로그인/로그아웃 보안 ServciceImpl
+* </pre>
+ */
+@Service("panelSecurityService")
+public class PanelSecurityServiceImpl implements PanelSecurityService {
+	
+	static final Logger logger = LoggerFactory.getLogger(PanelSecurityServiceImpl.class);
+	
+    @Resource(name="comnAbstractDAO") 
+    private ComnAbstractDAO comnAbstractDAO;
+    
+    @Resource(name="viewAbstractDAO") 
+    private ViewAbstractDAO viewAbstractDAO;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectGetMstPanelInfo
+    * 2. 작성일 : 2017. 10. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : [통합고객] 테이블에서 패널 상세정보를 가져온다.
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectGetMstPanelInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_JOIN_MEM__");
+		Panel panel = new Panel();
+		panel.setCSTMID(StringUtil.getString(panelInfo.get("SESSION_CSTMID"), ""));
+		return (Map<String, Object>) viewAbstractDAO.select("PanelSecurity.selectGetMstPanelInfo", panel);
+	} 
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : loginMstPanelProc
+	* 2. 작성일 : 2017. 10. 26.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : [통합고객] 로그인 처리
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+    @SuppressWarnings("unchecked")
+	public Panel loginMstPanelProc (HttpServletRequest request, Panel panel) throws Exception 
+	{
+    	logger.info("\n =============================================================================================================");
+    	logger.info("\n ======================================== [통합고객] 로그인 처리 시작 ========================================");
+    	
+	    PANELAUTH auths   = panel.getPANEL_AUTH(); 
+	        
+		String loginId = panel.getCSTMID();
+		String loginPw = panel.getSECPSWD();
+		
+        /**
+         * STEP 1 . [통합고객] 로그인 시작
+         */
+        if("panel".equals(auths.toString()))
+        {
+        	/**
+        	 * STEP 1-1 . [통합고객] 아이디 NULL 확인
+        	 */
+            if("".equals(loginId))
+            {
+            	panel.setLoginReqState("ID_NULL");
+            } 
+           	/**
+           	 * STEP 1-2 . [통합고객] 비밀번호 NULL 확인
+           	 */
+            else if("".equals(loginPw))
+            {
+            	panel.setLoginReqState("PW_NULL");
+            }
+            else  
+            {
+            	/**
+            	 * STEP 1-2-1 . [통합고객] 사용자 상세정보 조회
+            	 */
+                Map<String, Object> mstPanelInfo = (Map<String, Object>) viewAbstractDAO.select("PanelSecurity.selectGetMstPanelInfo", panel);
+            	logger.info("\n ======================================== [통합고객] 상세정보 조회 ========================================");
+            	logger.info("\n >> [통합고객: mstPanelInfo] : " + mstPanelInfo);
+                
+                /**
+                 * STEP 1-2-2 . [통합고객] 사용자 정보 존재 > 진행
+                 */
+                if(mstPanelInfo != null)
+                {
+            		/**
+                	 * STEP 1-2-2-1-1 . SECPSWDFLAG = 'Y'이면 SECPSWD2를 사용 : SHA512(PSWD원문)
+                	 */
+            		if("Y".equals(StringUtil.getString(mstPanelInfo.get("SECPSWDFLAG"), "")))
+                	{
+            			panel.setSECPSWDFLAG(mstPanelInfo.get("SECPSWDFLAG").toString());
+                		panel.setSECPSWD2(loginPw);
+                		
+                		// [임시] 테스트 확인용
+                		//MD5 m = new MD5();  
+                		//m.setMD5(loginPw);
+                		//System.out.println(">> m.getMD5(): " + m.getMD5());
+                	}
+                	/**
+                	 * STEP 1-2-2-1-2 . 그 외에는 SECPSWD1을 사용 : SHA512(MD5(PSWD원문))
+                	 */
+                	else
+                	{
+                		/**
+                		 * MD5 복호화 
+                		 */
+                		MD5 m = new MD5();
+                		m.setMD5(loginPw);
+                    	panel.setSECPSWD1(m.getMD5());
+                	}
+                	/**
+                	 * STEP 1-2-2-1-3 . [통합고객] 아이디/비밀번호 로그인 
+                	 */
+                	int loginResult = viewAbstractDAO.selectCount("PanelSecurity.selectGetMstPanelCnt", panel);
+                	
+                	/**
+                	 * STEP 1-2-2-1-4 . [통합고객] 로그인 성공
+                	 */
+                	if(loginResult > 0)
+                	{
+                		/**
+                    	 * STEP 1-2-2-1 . [통합고객] 휴면계정 확인
+                    	 */
+                    	if(!"Y".equals(StringUtil.getString(mstPanelInfo.get("DORMANCYYN"), "")))
+                    	{
+                    		/**
+                    		 * STEP 1-2-2-1-4-1 . [통합고객] 미성년자 확인 Y: 성인
+                    		 */
+                    		if("Y".equals(StringUtil.getString(mstPanelInfo.get("AGE_YN"), "")))
+                    		{
+                        		panel.setUCSTMID(StringUtil.getString(mstPanelInfo.get("UCSTMID"), ""));
+                        		panel.setCSTMID(StringUtil.getString(mstPanelInfo.get("CSTMID"), ""));
+                        		panel.setUSER_ID(StringUtil.getString(mstPanelInfo.get("CSTMID"), ""));
+                        		panel.setCSTMNM(StringUtil.getString(mstPanelInfo.get("CSTMNM"), ""));
+                        		
+                        		// [통합고객] 로그인 성공
+                        		panel.setLoginReqState("MST_LOGIN_SUCCESS");
+                    		}
+                    		/**
+                    		 * STEP 1-2-2-1-4-2 . [통합고객] 미성년자 일 경우
+                    		 */
+                    		else
+                    		{
+                    			panel.setLoginReqState("IF_MINOR_MEM");
+                    		}
+                    	}
+                	 	/**
+                    	 * STEP 1-2-2-2 . DORMANCYYN = "Y" > 휴면해제 페이지로 redirect
+                    	 */
+                    	else
+                    	{
+                    		// 휴면해제 화면으로 이동 : https://www.beautypoint.co.kr/header/sign-up.restore.html?ucstmid={통합고객번호}
+                    		panel.setLoginReqState("IF_INACTIVE");
+                    		panel.setCSTMID(StringUtil.getString(mstPanelInfo.get("CSTMID"), ""));
+                    	}
+                	}
+                	/**
+                	 * STEP 1-2-2-1-5 . [통합고객] 정보 불일치
+                	 */
+                	else
+                	{
+                		panel.setLoginReqState("IF_INCORRECT");
+                	}
+                /**
+                 * STEP 1-2-3 . [통합고객] 사용자 정보 NULL
+                 */
+                }
+                else
+                {
+                	// 뷰티포인트몰 회원가입 화면 이동
+                	panel.setLoginReqState("IF_NULL");
+                }
+            }
+        }/** STEP 1 종료 */
+        
+    	logger.info("\n======================================== [통합고객] 로그인 처리 종료 ========================================");
+		 
+	    return panel;
+    }
+
+    /**
+    * <pre>
+    * 1. 메소드명 : loginPanelProc
+    * 2. 작성일 : 2017. 10. 26.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : [R&D 패널] 로그인 처리
+    * </pre>
+    * @param request
+    * @param panel
+    * @return
+    * @throws Exception
+     */
+    @SuppressWarnings({ "unchecked", "null" })
+	public Panel loginPanelProc(HttpServletRequest request, Panel panel) throws Exception 
+	{
+    	logger.info("\n =============================================================================================================");
+    	logger.info("\n ======================================== [R&D 패널] 로그인 처리 시작 ========================================");
+    	logger.info("\n >> panel DataInfo : " + panel.toString());
+	    PANELAUTH auths = panel.getPANEL_AUTH();
+	    
+        /**
+         * STEP 1 . 패널 로그인
+         */
+        if("panel".equals(auths.toString()))
+        {
+        	Map<String, Object> panelInfo = null;
+        	
+        	/**
+        	 * STEP 1-1 .  [R&D 패널] 회원탈퇴 유무 조회
+        	 */
+        	//int leaveCnt = comnAbstractDAO.selectCount("MyPage.selectMemberLeaveCnt", panel);
+        	//logger.info("\n >> [R&D 패널] 회원탈퇴 유무 조회 leaveCnt: " + leaveCnt);
+        	int leaveCnt = 0;
+        	
+        	if(leaveCnt < 1)
+        	{
+        		/**
+            	 * STEP 1-1-2-1 . [R&D 패널] 상세정보 조회
+            	 */
+        		panelInfo = (Map<String, Object>) comnAbstractDAO.select("MemberJoin.selectPanelInfo", panel);
+            	logger.info("\n >> [R&D 패널] 상세정보 조회 panelInfo: " + panelInfo);
+            	//int loginResult = comnAbstractDAO.selectCount("MemberJoin.selectMstPanelCnt", panel);
+            	//logger.info("\n >> [R&D 패널] loginResult: " + loginResult);
+            	
+            	/**
+                 * STEP 1-1-2-2 . [R&D 패널] 사용자 정보 존재
+                 */
+                if(panelInfo != null)
+                {
+                	// 다국어 설정
+                	panelInfo.put("LOCALE_LANG", "ko"); // [임시] 추후 수정
+                	
+                	/**
+                	 * STEP 1-1-2-2-1 . [R&D 패널] 회원가입 완료 상태 > 로그인 처리
+                	 */
+                	if("Y".equals(panelInfo.get("SURVEY_COMPLETE_YN")) && "Y".equals(panelInfo.get("SURVEY_REG_FLAG")))
+                	{
+                		panel.setIP(getClientIP(request));
+                		
+                		/**
+                		 * STEP 1-1-2-2-1-1 . [관리자] 접속 IP 등록
+                		 */
+                		comnAbstractDAO.insert("PanelSecurity.insertClientIp", panel);
+                		
+                		// 다국어 설정
+                    	panelInfo.put("LOCALE_LANG", "ko"); // [임시] 추후 수정
+                    	
+                    	/**
+                    	 * STEP 1-1-2-2-1-2 . [R&D 패널] 패널 상세정보를 세션에 저장
+                    	 */
+                    	SessionsPanel.setSessionPanel(request, panelInfo);
+                    	
+                    	// 패널 메인 화면으로 이동
+                    	panel.setLoginReqState("PANEL_LOGIN_SUCCESS");
+                	}
+                	/**
+                	 * STEP 1-1-2-2-2 . [R&D 패널] 기초설문/팀별설문 1년 후 재설문 조사 필요 > R&D 패널 회원가입 STEP3 화면 이동
+                	 */
+                	else if("Y".equals(panelInfo.get("SURVEY_COMPLETE_YN")) && "N".equals(panelInfo.get("SURVEY_REG_FLAG")))
+                	{
+                   		/**
+                    	 * STEP 1-1-2-2-2-1 . [R&D 패널] 패널 상세정보를 세션에 저장
+                    	 */
+                		panelInfo.put("UCSTMID", panel.getUCSTMID());  
+                    	panelInfo.put("CSTMID", panel.getCSTMID());
+                    	
+                    	// 다국어 설정
+                    	panelInfo.put("LOCALE_LANG", "ko"); // [임시] 추후 수정
+                    	
+                    	SessionsPanel.setSessionJoinMem(request, panelInfo);
+                    	
+                		// R&D 패널 회원가입 STEP3 화면 이동(설문조사)
+                		panel.setLoginReqState("PANEL_GO_SURVEY");
+                		panel.setSURVEY_REG_FLAG(panelInfo.get("SURVEY_REG_FLAG").toString());
+                	}
+                	/**
+                	 * STEP 1-1-2-2-3 . [R&D 패널] 임시저장 상태 > R&D 패널 회원가입 STEP3 화면 이동
+                	 */
+                	else
+                	{
+                		/**
+                    	 * STEP 1-1-2-2-3-1 . [R&D 패널] 현재 DB 임시저장 기본 정보
+                    	 */
+                		panelInfo.put("UCSTMID", panel.getUCSTMID());  
+                    	panelInfo.put("CSTMID", panel.getCSTMID());
+                    	
+                    	// 다국어 설정
+                    	panelInfo.put("LOCALE_LANG", "ko"); // [임시] 추후 수정
+                    	
+                    	SessionsPanel.setSessionJoinMem(request, panelInfo);
+                    	
+                		// R&D 패널 회원가입 STEP3 화면 이동
+                		panel.setLoginReqState("PANEL_GO_STEP3");
+                	}
+                }
+                /**
+                 * STEP 1-1-2-3 . [R&D 패널] 사용자 정보 NULL > 회원가입 페이지 이동
+                 */
+                else
+                {
+                	/**
+                	 * STEP 1-1-2-3-1 . [R&D 패널] 회원가입을 위한 기본 정보만 저장
+                	 */
+                	panelInfo = new HashMap<String, Object>();
+                	panelInfo.put("UCSTMID", panel.getUCSTMID());  
+                	panelInfo.put("CSTMID", panel.getCSTMID());
+                	panelInfo.put("NAME", panel.getCSTMNM());
+                	panelInfo.put("USER_ID", panel.getUSER_ID());
+                	
+                	// 다국어 설정
+                	panelInfo.put("LOCALE_LANG", "ko"); // [임시] 추후 수정
+                	
+                	SessionsPanel.setSessionJoinMem(request, panelInfo);
+                	 
+            		// R&D 패널 회원가입 STEP1 화면 이동
+                	panel.setLoginReqState("PANEL_GO_STEP1");
+                }
+        	}
+        	/**
+        	 * STEP 1-2 . [R&D 패널] 회원탈퇴 유무 조회
+        	 */
+        	else
+        	{
+        		panel.setLoginReqState("PANEL_STATE_LEAVE");
+        	}
+        	
+        }/** STEP 1 종료 */
+		
+    	logger.info("\n ======================================== [R&D 패널] 로그인 처리 종료 ========================================");
+    	
+	    return panel;
+	}
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : getClientIP
+    * 2. 작성일 : 2017. 11. 9.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : [R&D 패널] 접속 클라이언트 IP
+    * </pre>
+    * @param request
+    * @return
+     */
+	public String getClientIP(HttpServletRequest request) 
+	{
+        String ip = request.getHeader("X-Forwarded-For");
+        
+        logger.info(">>>> X-FORWARDED-FOR : " + ip);
+ 
+        if (ip == null) {
+            ip = request.getHeader("Proxy-Client-IP");
+            logger.info(">>>> Proxy-Client-IP : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+            logger.info(">>>> WL-Proxy-Client-IP : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+            logger.info(">>>> HTTP_CLIENT_IP : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+            logger.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
+        }
+        if (ip == null) {
+            ip = request.getRemoteAddr();
+            logger.info(">>>> getRemoteAddr : "+ip);
+        }
+        logger.info(">>>> Result : IP Address : "+ip);
+        
+        return ip;
+    }
+}

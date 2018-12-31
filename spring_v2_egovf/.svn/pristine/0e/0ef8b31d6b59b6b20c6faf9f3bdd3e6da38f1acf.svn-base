@@ -1,0 +1,614 @@
+package com.rdpanel.fo.mp.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+
+import com.rdpanel.cmmn.dao.ComnAbstractDAO;
+import com.rdpanel.cmmn.security.Panel;
+import com.rdpanel.cmmn.security.SessionsPanel;
+import com.rdpanel.fo.mp.service.MyPageService;
+import com.webiz.util.StringUtil;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.mp.service.impl
+* 2. 타입명 : MyPageServiceImpl.java
+* 3. 작성일 : 2017. 9. 24.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 마이페이지 ServiceImpl
+* </pre>
+ */
+@Service("myPageService")
+public class MyPageServiceImpl implements MyPageService {
+	
+	@Resource(name="comnAbstractDAO")
+	private ComnAbstractDAO comnAbstractDAO;
+	
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectTestApplicationHistoryListCnt
+	* 2. 작성일 : 2017. 9. 24.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험신청이력 조회 목록 갯수
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+    public int selectTestApplicationHistoryListCnt (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+      	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+        return comnAbstractDAO.selectCount("MyPage.selectTestApplicationHistoryListCnt", commandMap);
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectTestApplicationHistoryList
+    * 2. 작성일 : 2017. 9. 24.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청이력 조회 목록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> selectTestApplicationHistoryList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+      	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+        return comnAbstractDAO.selectList("MyPage.selectTestApplicationHistoryList", commandMap);
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectTestApplicationStatusListCnt
+    * 2. 작성일 : 2017. 9. 24.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청현황 목록 갯수
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    public int selectTestApplicationStatusListCnt (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+      	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+        return comnAbstractDAO.selectCount("MyPage.selectTestApplicationStatusListCnt", commandMap);
+    }
+  
+    /**
+    * <pre>
+    * 1. 메소드명 : selectTestApplicationStatusList
+    * 2. 작성일 : 2017. 9. 24.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청현황 목록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> selectTestApplicationStatusList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+      	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+        return comnAbstractDAO.selectList("MyPage.selectTestApplicationStatusList", commandMap);
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectVisitTimeList
+    * 2. 작성일 : 2017. 10. 12.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청현황 목록 > 방문일 목록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectVisitTimeList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+    	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+    	return comnAbstractDAO.selectList("MyPage.selectVisitTimeList", commandMap);
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectVisitResultSurveyInfo
+    * 2. 작성일 : 2017. 10. 19.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청현황 목록 > 설문작성 상세정보 : 방문 일 때
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectVisitResultSurveyInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+    	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+	         
+		return comnAbstractDAO.select("MyPage.selectVisitResultSurveyInfo", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectOnlineResultSurveyInfo
+	* 2. 작성일 : 2017. 10. 19.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험신청현황 목록 > 설문작성 상세정보 : 온라인 일 때
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectOnlineResultSurveyInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+	  	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+	          
+		return comnAbstractDAO.select("MyPage.selectOnlineResultSurveyInfo", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectResultSurveyFinishInfo
+	* 2. 작성일 : 2017. 11. 20.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 결과설문 > 결과테이블 정보
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectResultSurveyFinishInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+    	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+	         
+		return comnAbstractDAO.select("MyPage.selectResultSurveyFinishInfo", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : insertResultSurvey
+	* 2. 작성일 : 2017. 10. 20.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험신청현황 목록 > 설문작성 등록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int insertResultSurvey(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+	  	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+		return comnAbstractDAO.insert("MyPage.insertVisitTime", commandMap);
+	}
+	
+ 	/**
+ 	* <pre>
+ 	* 1. 메소드명 : selectAgreeSignCnt
+ 	* 2. 작성일 : 2017. 11. 16.
+ 	* 3. 작성자 : JAMUGE
+ 	* 4. 설명 : 사인 조회
+ 	* </pre>
+ 	* @param commandMap
+ 	* @return
+ 	* @throws Exception
+ 	 */
+ 	public int selectAgreeSignCnt(HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+ 	{
+	  	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+ 		return comnAbstractDAO.selectCount("MyPage.selectAgreeSignCnt", commandMap);
+ 	} 
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectAgreeSignInfo
+	* 2. 작성일 : 2017. 10. 31.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 참가동의서 내용(html) 및 선정기준동의서 포함 여부 조회
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectAgreeSignInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.select("MyPage.selectAgreeSignInfo", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : insertAgreeSignSave
+	* 2. 작성일 : 2017. 11. 1.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 선정기준동의서 사인 등록
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int insertAgreeSignSave(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.insert("MyPage.insertAgreeSignSave", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : updateAgreeSignSave
+	* 2. 작성일 : 2017. 11. 1.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 선정기준동의서 사인 수정
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int updateAgreeSignSave(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.update("MyPage.updateAgreeSignSave", commandMap);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectAgreeSignViewInfo
+	* 2. 작성일 : 2017. 11. 1.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 선정기준동의서 사인 조회
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectAgreeSignViewInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.select("MyPage.selectAgreeSignViewInfo", commandMap);
+	}
+	
+    /**
+    * <pre>
+    * 1. 메소드명 : checkVisitTime
+    * 2. 작성일 : 2017. 10. 12.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 방문일 기존 등록 유무 확인
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    public int checkVisitTime (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+    	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+        return comnAbstractDAO.selectCount("MyPage.checkVisitTime", commandMap);
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : addVisitTime
+    * 2. 작성일 : 2017. 10. 12.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청 방문일 등록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	public int insertVisitTime(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+		return comnAbstractDAO.insert("MyPage.insertVisitTime", commandMap);
+	}
+	
+    /**
+    * <pre>
+    * 1. 메소드명 : updateVisitTime
+    * 2. 작성일 : 2017. 10. 10.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험신청 방문일 수정
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	public int updateVisitTime(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+		return comnAbstractDAO.update("MyPage.updateVisitTime", commandMap);
+	}
+
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMyExamProceedingCnt
+	* 2. 작성일 : 2017. 11. 13.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 현재 시험진행 존재 유무 확인
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+    public int selectMyExamProceedingCnt (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+    	Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+        return comnAbstractDAO.selectCount("MyPage.selectMyExamProceedingCnt", commandMap);
+    }
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMstMyInfo
+	* 2. 작성일 : 2017. 10. 17.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 :  마스터테이블 패널 상세정보
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectMstMyInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		Panel panel = new Panel();
+		panel.setUSER_ID(StringUtil.getString(panelInfo.get("SESSION_USER_ID"), ""));
+		
+		return (Map<String, Object>) comnAbstractDAO.select("MemberJoin.selectMstPanelInfo", panel);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMyInfo
+	* 2. 작성일 : 2017. 10. 10.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 페널 상세정보
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectMyInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		Panel panel = new Panel();
+		panel.setUSER_ID(StringUtil.getString(panelInfo.get("SESSION_USER_ID"), ""));
+		
+		return (Map<String, Object>) comnAbstractDAO.select("MemberJoin.selectPanelInfo", panel);
+	}
+    
+	/**
+	* <pre>
+	* 1. 메소드명 : updateMyInfo
+	* 2. 작성일 : 2017. 10. 11.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 패널 정보 수정
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int updateMyInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+		return comnAbstractDAO.update("MyPage.updateMyInfo", commandMap);
+	}
+
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMemberLeaveCnt
+	* 2. 작성일 : 2017. 10. 31.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원 탈퇴 정보 조회
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public int selectMemberLeaveCnt(HttpServletRequest request, Panel panel) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		panel.setUSER_ID(StringUtil.getString(panelInfo.get("SESSION_USER_ID"), ""));
+		
+		return (Integer) comnAbstractDAO.selectCount("MyPage.selectMemberLeaveCnt", panel);
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : insertMemberLeave
+	* 2. 작성일 : 2017. 10. 17.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원탈퇴 정보 등록 / 탈퇴회원 정보 삭제
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int insertMemberLeave(HttpServletRequest request, Panel panel) throws Exception 
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		panel.setUSER_ID(StringUtil.getString(panelInfo.get("SESSION_USER_ID"), ""));
+		
+		/*__________ 탈퇴회원 정보 삭제 __________*/
+		Map<String, Object> item = new HashMap<String, Object>();
+		item.put("USER_ID", StringUtil.getString(panelInfo.get("SESSION_USER_ID"), ""));
+		
+		// 2-1. 패널타입 지정이력 삭제
+		comnAbstractDAO.delete("MyPage.deleteRDPT101HT", item);
+		
+		// 2-2. 패널타입 관리 삭제
+		comnAbstractDAO.delete("MyPage.deleteRDPT101DT", item);
+		
+		// 2-3. 기초/팀 설문 답변 삭제
+		comnAbstractDAO.delete("MyPage.deleteRDSR101DT", item);
+		
+		// 2-4. 기초/팀 설문 답변 History 삭제
+		comnAbstractDAO.delete("MyPage.deleteRDSR101HT", item);
+		
+		// 2-5. 회원상세정보 삭제
+		comnAbstractDAO.delete("MyPage.deleteRDUR102DT", item);
+		
+		// 2-6. 회원정보 마스터 삭제
+		comnAbstractDAO.delete("MyPage.deleteRDUR101MT", item);
+		
+		// 3-1. 변경할 아이디 조회(탈퇴하는 회원아이디를 대체할 아이디 조회 - CRC000000)
+		String userId = comnAbstractDAO.select("MyPage.selectNewUserId").toString();
+		
+		item.put("NEW_USER_ID", userId);
+		
+		// 3-2. 패널현황 USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDEI102DT", item);
+		
+		// 3-3. 설문작성결과 현황 USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDEI105DT", item);
+		
+		// 3-4. 동의서 서명 관리 USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDEI106DT", item);
+		
+		// 3-5. 패널별 시험비 관리 USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDEI201DT", item);
+		
+		// 3-6. 패널별 방문일 관리 USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDEI301DT", item);
+		
+		// 3-6. 시험별 Q&A USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDEI401DT", item);
+		
+		// 3-7. 패널 답변 정보 USER_ID 수정
+		comnAbstractDAO.update("MyPage.updateRDSR201DT", item);
+		/*________________________________*/
+		
+		panel.setUSER_ID(userId); 
+		return (Integer) comnAbstractDAO.insertObj("MyPage.insertMemberLeave", panel);
+	}
+	
+	/**
+    * <pre>
+    * 1. 메소드명 : getQuestionList
+    * 2. 작성일 : 2017. 10. 19.
+    * 3. 작성자 : JeongHo
+    * 4. 설명 : 설문 질문 목록 조회
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> getQuestionList(Map<String, Object> commandMap) throws Exception {
+		return comnAbstractDAO.selectList("MyPage.getQuestionList", commandMap);
+	}
+	
+	/**
+    * <pre>
+    * 1. 메소드명 : getAnswerList
+    * 2. 작성일 : 2017. 10. 19.
+    * 3. 작성자 : JeongHo
+    * 4. 설명 : 설문 보기 목록 조회
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> getAnswerList(Map<String, Object> commandMap) throws Exception {
+		return comnAbstractDAO.selectList("MyPage.getAnswerList", commandMap);
+	}	
+    
+	/**
+	* <pre>
+	* 1. 메소드명 : getAnswerChooseList
+	* 2. 작성일 : 2017. 10. 26.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 설문 정답 선택한 목록 조회
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> getAnswerChooseList(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		Map<String, Object> panelInfo = null;
+		if(SessionsPanel.isJoinMem(request)){
+			panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_JOIN_MEM__");
+		}else{
+			panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		}
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		
+		List<Map<String, Object>> returnMap = null;
+		
+		// 상세설문: 03 / 결과설문: 04 / 선정설문: 05
+		if("03".equals(commandMap.get("SURVEY_GBN")) || "04".equals(commandMap.get("SURVEY_GBN")) || "05".equals(commandMap.get("SURVEY_GBN")))
+		{
+			returnMap = comnAbstractDAO.selectList("MyPage.getAnswerChooseList2", commandMap);
+		}
+		else
+		{
+			returnMap = comnAbstractDAO.selectList("MyPage.getAnswerChooseList", commandMap);
+		}
+		
+		return returnMap;
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : deleteMemberRecovery
+	* 2. 작성일 : 2017. 11. 13.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원탈퇴 복구
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public int deleteMemberRecovery(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
+	{
+		return comnAbstractDAO.delete("MyPage.deleteMemberRecovery", commandMap);
+	}
+	
+}

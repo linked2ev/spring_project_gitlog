@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Common">
+	
+    
+	<!-- 080 수신거부 할 패널 정보 조회 -->
+    <select id="selectUnsubscribePanelInfoCnt" parameterClass="HashMap" resultClass="Integer">
+        /* Common.selectUnsubscribePanelInfoCnt */
+		SELECT
+	    		COUNT(*)
+		FROM 
+		  		RDUR102DT
+		WHERE 
+		  		PHONE = #PHONE#
+    </select>
+
+    
+    <!-- 080 수신거부 할 패널 정보 수신거부 -->
+    <update id="updateUnsubscribePanelInfo" parameterClass="HashMap">
+        /* Common.updateUnsubscribePanelInfo */
+        UPDATE
+            	RDUR102DT 
+        SET
+            	BREAK_YN = 'Y'
+            	,BREAK_FROM = TO_CHAR(SYSDATE, 'YYYYMMDD')
+            	,BREAK_TO = '99991231'
+        WHERE
+             	PHONE = #PHONE#
+    </update>
+    
+    
+</sqlMap>

@@ -1,0 +1,11 @@
+<form name='frm' method='post'>
+    <input type='hidden' name='T_ID' value='<c:out value="${commandMap.T_ID }"/>'>
+    <input type='hidden' name='T_TIME' value='<c:out value="${commandMap.T_TIME }"/>'>
+    <input type='hidden' name='RESULT' value='<c:out value="${commandMap.RESULT }"/>'>
+    <input type='hidden' name='MENU_NAME' value='<c:out value="${commandMap.MENU_NAME }"/>'>
+    <input type='hidden' name='ACTION_TYPE' value='<c:out value="${commandMap.ACTION_TYPE }"/>'>
+    <input type='hidden' name='NEXT_MENU' value='<c:out value="${commandMap.NEXT_MENU }"/>'>
+    <input type='hidden' name='MENT_FLAG' value='<c:out value="${commandMap.MENT_FLAG }"/>'>
+    <input type='hidden' name='MENT_CNT' value='<c:out value="${commandMap.MENT_CNT }"/>'>
+    <input type='hidden' name='MENT_1' value='<c:out value="${commandMap.MENT_1 }"/>'> 
+</form>

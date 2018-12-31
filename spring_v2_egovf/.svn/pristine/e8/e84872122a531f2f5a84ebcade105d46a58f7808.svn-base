@@ -1,0 +1,707 @@
+package com.rdpanel.cmmn;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.sf.json.JSONArray;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class SurveyUtil {
+	
+	static final Logger logger = LoggerFactory.getLogger(SurveyUtil.class);
+	
+	//서베이 json String으로 리턴
+	public static String makeSurvey(List<Map<String, Object>> QueList, List<Map<String, Object>> ExamList) throws JsonGenerationException, JsonMappingException, IOException{
+		List<Map<String, Object>> rowResultList = new ArrayList();			//row를 담을 객체
+		Map<String, Object> questionMap = new HashMap<String, Object>();	//한 질문을 담을 객체
+		List<Map<String, Object>> questionsList = new ArrayList();			//여러 질문을 담을 객체
+		Map<String, Object> panelMap = new HashMap<String, Object>();		//여러 질문을 담을 객체(패널용)
+		List<Map<String, Object>> pageList = new ArrayList();				//페이지 별로 질문을 담을 객체
+		
+		boolean panelFlag = false;											//패널 여부
+		boolean questionInit = false;										//각 객체 초기화 여부
+		boolean pageInit = false;											//페이지 전환 여부
+
+		List<Map<String, Object>> resultList = new ArrayList();				//최종 결과값
+		
+		for(int i = 0; i < QueList.size();i++){
+			Map<String, Object> item = QueList.get(i);
+			String type = item.get("QUESTION_TYPE").toString();				//질문타입
+			String page = item.get("PAGE_NUM").toString();					//현재 페이지
+			boolean nextItemFlag = (i < QueList.size()-1) ? true : false; 	//다음객체 존재 여부
+			Map<String, Object> nextItem = nextItemFlag ? QueList.get(i+1) : new HashMap<String, Object>(); //다음객체
+
+			//질문 타입이 panel일때
+			if(type.equals("panel")){
+				panelMap.put("type", item.get("QUESTION_TYPE").toString());
+				panelMap.put("title", item.get("QUESTION_CONTENT").toString());
+				panelMap.put("name", item.get("SURVEY_SEQ").toString());
+
+				panelFlag = true;
+			}
+			//질문 타입이 row일때
+			else if(type.equals("row")){
+				rowResultList.add(setValNTxt("value", "text", item.get("MATRIX_ROW_RANK_SEQ").toString(), item.get("QUESTION_CONTENT").toString()));
+				
+				//다음 객체가 없을때
+				if(nextItemFlag == false){
+					questionMap.put("rows", rowResultList);
+					questionInit = true;
+					
+					//패널에 포함된 질문이라면
+					if(panelFlag){
+						questionsList.add(questionMap);
+						panelMap.put("questions", questionsList);
+						pageList.add(panelMap);
+						
+						panelFlag = false;
+					}else{
+						pageList.add(questionMap);
+					}
+
+				}
+				//다음 객체 타입이 row가 아닐때
+				else if(!nextItem.get("QUESTION_TYPE").toString().equals("row")){
+					//페이지 전환 여부
+					if(nextItemFlag && !page.equals(nextItem.get("PAGE_NUM").toString())){
+						pageInit = true;
+					}
+					questionMap.put("rows", rowResultList);
+					questionInit = true;
+					
+					//패널에 포함된 질문이라면
+					if(panelFlag){
+						questionsList.add(questionMap);
+						
+						//패널 질문이 끝났다면
+						if(nextItem.get("PANEL_ROW_RANK_SEQ").toString().equals("0")){
+							panelMap.put("questions", questionsList);
+							pageList.add(panelMap);
+							
+							panelFlag = false;
+						}	
+					}
+					//패널에 포함되지 않은 질문이라면
+					else{
+						pageList.add(questionMap);
+					}
+				}
+			}
+			//일반 질문 일때
+			else{
+				questionMap.put("type", item.get("QUESTION_TYPE").toString());
+				questionMap.put("title", item.get("QUESTION_CONTENT").toString());
+				questionMap.put("name", item.get("SURVEY_SEQ").toString());
+				
+				if(item.get("IMG_TOP") != null){
+					questionMap.put("imageTop", item.get("IMG_TOP").toString());
+				}
+				if(item.get("IMG_BOTTOM") != null){
+					questionMap.put("imageBottom", item.get("IMG_BOTTOM").toString());
+				}
+
+				//보기 있음
+				if(item.get("EXAMPLE_CNT") != null) {
+					//보기를 담을 객체
+					List<Map<String, Object>> exampleResult = new ArrayList();
+					
+					//CHOICE_CNT가 있다면(MatrixDropdown인 경우)
+					if(item.get("CHOICE_CNT") != null){
+						List<Map<String, Object>> choiceResult = new ArrayList();
+						
+						for(int j = 0; j < Integer.parseInt(item.get("CHOICE_CNT").toString()); j++) {
+							//순차적으로 보기를 가져오고 객체에 담은 후 삭제
+							Map<String, Object> obj =  ExamList.get(0);
+							
+							choiceResult.add(setValNTxt("value", "text", obj.get("EXAMPLE_SEQ").toString(), obj.get("EXAMPLE_CONTENT").toString()));
+							ExamList.remove(0);
+						}
+						questionMap.put("choices", choiceResult);
+					}
+
+					for(int j = 0; j < Integer.parseInt(item.get("EXAMPLE_CNT").toString()); j++) {
+						//순차적으로 보기를 가져오고 객체에 담은 후 삭제
+						Map<String, Object> obj =  ExamList.get(0);
+						
+						//MatrixDropdown인 경우
+						if(type.equals("matrixdropdown")){
+							exampleResult.add(setValNTxt("name", "title", obj.get("EXAMPLE_SEQ").toString(), obj.get("EXAMPLE_CONTENT").toString()));
+						}
+						else{
+							exampleResult.add(setValNTxt("value", "text", obj.get("EXAMPLE_SEQ").toString(), obj.get("EXAMPLE_CONTENT").toString()));
+						}
+						ExamList.remove(0);
+					}
+					
+					//matrix, matrixDropdown 일때
+					if(type.contains("matrix")){
+						questionMap.put("columns", exampleResult);
+					}
+					else{
+						//페이지 전환 여부
+						if(nextItemFlag && !page.equals(nextItem.get("PAGE_NUM").toString())){
+							pageInit = true;
+						}
+						questionMap.put("choices", exampleResult);
+						questionInit = true;
+						
+						//패널에 포함된 질문이라면
+						if(panelFlag){
+							questionsList.add(questionMap);
+							
+							//다음 질문이 없다면
+							if(nextItemFlag == false){
+								panelMap.put("questions", questionsList);
+								pageList.add(panelMap);
+
+								panelFlag = false;							
+							}
+							//패널 질문이 끝났다면
+							else if(nextItem.get("PANEL_ROW_RANK_SEQ").toString().equals("0")){
+								panelMap.put("questions", questionsList);
+								pageList.add(panelMap);
+
+								panelFlag = false;
+							}
+
+						}
+						//패널에 포함되지 않은 질문이라면
+						else{
+							pageList.add(questionMap);
+						}
+					}
+				}
+				//보기 없음
+				else {
+					List<Map<String, Object>> tempList = new ArrayList();
+					
+					if(item.get("COMMENT_NUMERIC_YN").toString().equals("TRUE")){
+						tempList.add(setValNTxt("type", "numeric"));
+						questionMap.put("validators", tempList);
+					}else{
+						tempList.add(setValNTxt("type", "mytextvalidator"));
+						questionMap.put("validators", tempList);
+					}
+					
+					
+					//페이지 전환 여부
+					if(nextItemFlag && !page.equals(nextItem.get("PAGE_NUM").toString())){
+						pageInit = true;
+					}
+					questionInit = true;
+					
+					//패널에 포함된 질문이라면
+					if(panelFlag){
+						questionsList.add(questionMap);
+						
+						//다음 질문이 없다면
+						if(nextItemFlag == false){							
+							panelMap.put("questions", questionsList);
+							pageList.add(panelMap);
+
+							panelFlag = false;
+						}
+						//패널 질문이 끝났다면
+						else if(nextItem.get("PANEL_ROW_RANK_SEQ").toString().equals("0")){
+							panelMap.put("questions", questionsList);
+							pageList.add(panelMap);
+
+							panelFlag = false;
+						}
+					}
+					//패널에 포함되지 않은 질문이라면
+					else{
+						pageList.add(questionMap);
+					}
+				}
+			}
+			//마지막일때
+			if(nextItemFlag == false){
+				questionInit = true;
+				pageInit = true;
+			}
+
+			//한 질문이 끝났을때
+			if(questionInit){
+				//페이지 전환
+				if(pageInit){
+					//각 페이지에 표시될 타이틀 설정
+					resultList.add(setValNTxt("questions", "name","title", pageList, page, ""));
+	
+			        pageList = new ArrayList();
+					pageInit = false;
+				}
+				// 패널 관련 객체 초기화
+				if(!panelFlag){
+					panelMap = new HashMap<String, Object>();
+					questionsList = new ArrayList();
+				}
+				questionMap = new HashMap<String, Object>();
+				rowResultList = new ArrayList();
+				questionInit = false;
+			}			
+		}
+		// Map or List Object 를 JSON 문자열로 변환
+		ObjectMapper om = new ObjectMapper();
+	    String jsonStr = om.writeValueAsString(resultList);
+		System.out.println("jsonStr___________" + jsonStr);
+		return jsonStr;
+	}
+	
+	//서베이(필터용) json String으로 리턴
+	public List<Object> makeSurveyFilter(List<Map<String, Object>> QueList, List<Map<String, Object>> ExamList) throws JsonGenerationException, JsonMappingException, IOException{
+		List<Map<String, Object>> rowResultList = new ArrayList();			//row를 담을 객체
+		Map<String, Object> questionMap = new HashMap<String, Object>();	//한 질문을 담을 객체
+		List<Map<String, Object>> questionsList = new ArrayList();			//여러 질문을 담을 객체
+		Map<String, Object> panelMap = new HashMap<String, Object>();		//여러 질문을 담을 객체(패널용)
+		List<Map<String, Object>> teamList = new ArrayList();				//페이지 별로 질문을 담을 객체
+		
+		boolean panelFlag = false;											//패널 여부
+		boolean questionInit = false;										//각 객체 초기화 여부
+		boolean teamInit = false;											//페이지 전환 여부
+
+		List<Object> resultList = new ArrayList();				//최종 결과값
+
+		for(int i = 0; i < QueList.size();i++){
+			Map<String, Object> item = QueList.get(i);
+			String type = item.get("QUESTION_TYPE").toString();				//질문타입
+			String team = item.get("TEAM_GBN").toString();					//현재 팀
+			boolean nextItemFlag = (i < QueList.size()-1) ? true : false; 	//다음객체 존재 여부
+			Map<String, Object> nextItem = nextItemFlag ? QueList.get(i+1) : new HashMap<String, Object>(); //다음객체
+
+			//질문 타입이 panel일때
+			if(type.equals("panel")){
+				panelMap.put("type", item.get("QUESTION_TYPE").toString());
+				panelMap.put("title", item.get("QUESTION_CONTENT").toString());
+				panelMap.put("name", item.get("SURVEY_SEQ").toString());
+
+				panelFlag = true;
+			}
+			//질문 타입이 row일때
+			else if(type.equals("row")){
+				rowResultList.add(setValNTxt("value", "text", item.get("MATRIX_ROW_RANK_SEQ").toString(), item.get("QUESTION_CONTENT").toString()));
+				
+				//다음 객체가 없을때
+				if(nextItemFlag == false){
+					questionMap.put("rows", rowResultList);
+					questionInit = true;
+					
+					//패널에 포함된 질문이라면
+					if(panelFlag){
+						questionsList.add(questionMap);
+						panelMap.put("questions", questionsList);
+						teamList.add(panelMap);
+						
+						panelFlag = false;
+					}else{
+						teamList.add(questionMap);
+					}
+				}
+				//다음 객체 타입이 row가 아닐때
+				else if(!nextItem.get("QUESTION_TYPE").toString().equals("row")){
+					//팀 전환 여부
+					if(nextItemFlag && !team.equals(nextItem.get("TEAM_GBN").toString())){
+						teamInit = true;
+					}
+					
+					questionMap.put("rows", rowResultList);
+					questionInit = true;
+					
+					//패널에 포함된 질문이라면
+					if(panelFlag){
+						questionsList.add(questionMap);
+						
+						//패널 질문이 끝났다면
+						if(nextItem.get("PANEL_ROW_RANK_SEQ").toString().equals("0")){
+							panelMap.put("questions", questionsList);
+							teamList.add(panelMap);
+							
+							panelFlag = false;
+						}	
+					}
+					//패널에 포함되지 않은 질문이라면
+					else{
+						teamList.add(questionMap);
+					}
+				}
+			}
+			//일반 질문 일때
+			else{
+				questionMap.put("title", item.get("QUESTION_CONTENT").toString());
+				questionMap.put("name", item.get("SURVEY_SEQ").toString());
+
+				//보기 있음
+				if(item.get("EXAMPLE_CNT") != null) {
+					//보기를 담을 객체
+					List<Map<String, Object>> exampleResult = new ArrayList();
+					
+					//CHOICE_CNT가 있다면(MatrixDropdown인 경우)
+					if(item.get("CHOICE_CNT") != null){
+						List<Map<String, Object>> choiceResult = new ArrayList();
+						
+						for(int j = 0; j < Integer.parseInt(item.get("CHOICE_CNT").toString()); j++) {
+							//순차적으로 보기를 가져오고 객체에 담은 후 삭제
+							Map<String, Object> obj =  ExamList.get(0);
+							
+							choiceResult.add(setValNTxt("value", "text", obj.get("EXAMPLE_SEQ").toString(), obj.get("EXAMPLE_CONTENT").toString()));
+							ExamList.remove(0);
+						}
+						questionMap.put("choices", choiceResult);
+					}else{
+						questionMap.put("choices", " ");
+					}
+
+					for(int j = 0; j < Integer.parseInt(item.get("EXAMPLE_CNT").toString()); j++) {
+						//순차적으로 보기를 가져오고 객체에 담은 후 삭제
+						Map<String, Object> obj =  ExamList.get(0);
+						
+						//MatrixDropdown인 경우
+						if(type.contains("matrix")){
+							exampleResult.add(setValNTxt("name", "title", "cellType", obj.get("EXAMPLE_SEQ").toString(), obj.get("EXAMPLE_CONTENT").toString(), "checkbox"));
+						}else{
+							exampleResult.add(setValNTxt("value", "text", obj.get("EXAMPLE_SEQ").toString(), obj.get("EXAMPLE_CONTENT").toString()));
+						}
+						ExamList.remove(0);
+					}
+					
+					//matrix, matrixDropdown 일때
+					if(type.contains("matrix")){
+						questionMap.put("type", "matrixdropdown");
+						questionMap.put("columns", exampleResult);
+					}
+					else{
+						questionMap.put("type", "checkbox");
+						//팀 전환 여부
+						if(nextItemFlag && !team.equals(nextItem.get("TEAM_GBN").toString())){
+							teamInit = true;
+						}
+						questionMap.put("choices", exampleResult);
+						questionInit = true;
+						
+						//패널에 포함된 질문이라면
+						if(panelFlag){
+							questionsList.add(questionMap);
+							
+							//다음 질문이 없다면
+							if(nextItemFlag == false){
+								panelMap.put("questions", questionsList);
+								teamList.add(panelMap);
+
+								panelFlag = false;							
+							}
+							//패널 질문이 끝났다면
+							else if(nextItem.get("PANEL_ROW_RANK_SEQ").toString().equals("0")){
+								panelMap.put("questions", questionsList);
+								teamList.add(panelMap);
+
+								panelFlag = false;
+							}
+						}
+						//패널에 포함되지 않은 질문이라면
+						else{
+							teamList.add(questionMap);
+						}
+					}
+				}
+			}
+			//마지막일때
+			if(nextItemFlag == false){
+				questionInit = true;
+				teamInit = true;
+			}
+
+			//한 질문이 끝났을때
+			if(questionInit){
+				//팀 전환
+				if(teamInit){
+					resultList.add(teamList);
+
+					teamList = new ArrayList();
+					teamInit = false;
+				}
+				// 패널 관련 객체 초기화
+				if(!panelFlag){
+					panelMap = new HashMap<String, Object>();
+					questionsList = new ArrayList();
+				}
+				questionMap = new HashMap<String, Object>();
+				rowResultList = new ArrayList();
+				questionInit = false;
+			}			
+		}
+
+		return resultList;
+	}
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : makeAnswer
+	* 2. 작성일 : 2017. 11. 16.
+	* 3. 작성자 : DODAM
+	* 4. 설명 : 답변 데이터 파싱 후 json String으로 리턴
+	* </pre>
+	* @param AnswerList
+	* @return
+	* @throws JsonGenerationException
+	* @throws JsonMappingException
+	* @throws IOException
+	 */
+	public String makeAnswer(List<Map<String, Object>> AnswerList) throws JsonGenerationException, JsonMappingException, IOException{
+		Map<String, Object> matrixMap = new HashMap<String, Object>();	//Matrix row를 담을 객체
+		Map<String, Object> answerMap = new HashMap<String, Object>();	//답변을 담을 객체
+		boolean matrixInit = false;										//matrixMap 초기화 여부
+
+		for(int i = 0; i < AnswerList.size();i++){
+			Map<String, Object> item = AnswerList.get(i);
+			boolean nextItemFlag = (i < AnswerList.size()-1) ? true : false; 	//다음객체 존재 여부
+			Map<String, Object> nextItem = nextItemFlag ? AnswerList.get(i+1) : new HashMap<String, Object>(); //다음객체
+			String answer = item.get("ANSWER").toString();		//답변
+
+			//Matrix row 인 경우
+			if(!item.get("MATRIX_ROW_RANK_SEQ").toString().equals("0")){
+				//MatrixDropdown일 경우 (MatrixDropdown은 답변을 '|'로 구분)
+				if(answer.contains("|")){
+					String[] answerArr = answer.split("\\|");
+					Map<String, Object> tempMap = new HashMap<String, Object>();	
+					
+					for(int j = 0;j < answerArr.length;j++){
+						tempMap.put((j+1)+"", answerArr[j]);
+					}
+					matrixMap.put(item.get("MATRIX_ROW_RANK_SEQ").toString(), tempMap);
+				}
+				//Matrix일 경우
+				else{				
+					matrixMap.put(item.get("MATRIX_ROW_RANK_SEQ").toString(), answer);
+				}
+				
+				//다음 객체가 없거나, 현재 마지막 Matrix row라면
+				if(nextItemFlag == false ||
+					nextItem.get("MATRIX_ROW_RANK_SEQ").toString().equals("0") || //다음객체가 Matrix가 아닌경우
+					nextItem.get("MATRIX_ROW_RANK_SEQ").toString().equals("1")){ //다음객체가 새로운 Matrix인 경우
+					
+					int matrixSEQ = Integer.parseInt(item.get("MATRIX_ROW_RANK_SEQ").toString());
+					int sueveySEQ = Integer.parseInt(item.get("SURVEY_SEQ").toString());
+					String questionSEQ = sueveySEQ - matrixSEQ + "";
+					
+					answerMap.put(questionSEQ, matrixMap);
+
+					matrixInit = true;
+				}
+			}
+			//체크박스 일때
+			else if(item.get("ANSWER").toString().contains("|"))
+			{
+				String[] chkArray = item.get("ANSWER").toString().split("\\|");
+				ArrayList<String> chkList = new ArrayList<String>();
+				for (int j = 0; j < chkArray.length; j++) {
+					chkList.add(chkArray[j]); 
+				} 
+				answerMap.put(item.get("SURVEY_SEQ").toString(), chkList); 
+			}
+			//일반 질문 일때
+			else{
+				answerMap.put(item.get("SURVEY_SEQ").toString(), item.get("ANSWER").toString());
+			}
+
+			//Matrix가 끝났을때
+			if(matrixInit){
+				matrixMap = new HashMap<String, Object>();
+				matrixInit = false;
+			}			
+		}
+		// Map or List Object 를 JSON 문자열로 변환
+		ObjectMapper om = new ObjectMapper();
+	    String jsonStr = om.writeValueAsString(answerMap);
+		System.out.println("makeAnswer___________" + jsonStr); 
+
+		return jsonStr;
+	}
+	
+	//value와 text를 설정후 Map 리턴 1
+	public static Map<String, Object> setValNTxt(String txt1, Object val1){
+		Map<String, Object> tempMap = new HashMap<String, Object>();
+		
+		tempMap.put(txt1, val1);
+
+		return tempMap;
+	}
+	
+	//value와 text를 설정후 Map 리턴 2
+	public static Map<String, Object> setValNTxt(String txt1, String txt2, Object val1, Object val2){
+		Map<String, Object> tempMap = new HashMap<String, Object>();
+		
+		tempMap.put(txt1, val1);
+		tempMap.put(txt2, val2);
+		
+		return tempMap;
+	}
+	
+	//value와 text를 설정후 Map 리턴 3
+	public static Map<String, Object> setValNTxt(String txt1, String txt2, String txt3, Object val1, Object val2, Object val3){
+		Map<String, Object> tempMap = new HashMap<String, Object>();
+		
+		tempMap.put(txt1, val1);
+		tempMap.put(txt2, val2);
+		tempMap.put(txt3, val3);
+		
+		return tempMap;
+	}
+	
+    /**
+    * <pre>
+    * 1. 메소드명 : getResultMap
+    * 2. 작성일 : 2017. 10. 24.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 서베이 설문조사 결과 값 String 형태를 Map 형태로 반환함
+    * </pre>
+    * @param getStr
+    * @return
+    * @throws JsonParseException
+    * @throws JsonMappingException
+    * @throws IOException
+     */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> getResultMap(String str) throws JsonParseException, JsonMappingException, IOException
+    {
+    	logger.info("\n =============================================================================================");
+    	logger.info("\n ============================== SurveyUtil :: getResultMap 시작 ==============================");
+    	
+    	List<Map<String, Object>> returnMap = new ArrayList<Map<String, Object>>();
+		ObjectMapper om = new ObjectMapper();
+		
+		// JSON String으로 받아온 결과값을 Map형태로 변환
+		String jsonString = str.replaceAll("&quot;", "\"");
+		
+		// JSON 문자열을 Map or List Object 로 변환
+		Map<String, Object> rs = om.readValue(jsonString, new TypeReference<HashMap<String, Object>>() {});
+		logger.info("\n >> [Map형태] rs: " +  rs);
+		
+		Map<String, Object> rowMap = new HashMap<String, Object>();
+		Map<String, Object> linkedMap = new LinkedHashMap<String, Object>();
+		
+		for(String key : rs.keySet()){
+			logger.info("\n >> [타입] instanceof: " +  rs.get(key).getClass());
+			
+			// ex >>  rs.get(key) : 3
+			if(rs.get(key) instanceof String){
+				logger.info("\n ==================== String ====================");
+				logger.info("\n >> SURVEY_SEQ : " + key);
+				logger.info("\n >> ANSWER     : " + rs.get(key));
+				
+				rowMap = new HashMap<String, Object>();
+				rowMap.put("SURVEY_SEQ", key);
+				rowMap.put("ANSWER", rs.get(key));
+				
+				returnMap.add(rowMap);
+			
+			// ex >> BMI data
+			}else if(rs.get(key) instanceof Integer){
+				logger.info("\n ==================== Integer ====================");
+				logger.info("\n >> SURVEY_SEQ : " + key);
+				logger.info("\n >> ANSWER     : " + rs.get(key).toString());
+				
+				rowMap = new HashMap<String, Object>();
+				rowMap.put("SURVEY_SEQ", key);
+				rowMap.put("ANSWER", rs.get(key).toString());
+				
+				returnMap.add(rowMap);
+				
+			// ex >>  checkbox : 6=[2, 1, 3] > 2|1|3
+			}else if(rs.get(key) instanceof java.util.ArrayList){
+				ArrayList<String> chkList = new ArrayList<String>();
+				chkList = (ArrayList<String>) rs.get(key);
+				 
+				String aStr = "";
+				for(int i=0; i < chkList.size(); i++){
+					aStr += chkList.get(i);
+					
+					if(i != chkList.size()-1){
+						aStr += "|";
+					}
+				}
+				logger.info("\n ==================== ArrayList ====================");
+				logger.info("\n >> SURVEY_SEQ : " + key);
+				logger.info("\n >> ANSWER     : " + aStr);
+				  
+				rowMap = new HashMap<String, Object>();  
+				rowMap.put("SURVEY_SEQ", key);
+				rowMap.put("ANSWER", aStr); 
+				   
+				returnMap.add(rowMap);
+				   
+			// ex >>  rs.get(key) : {1=4, 2=4, 3=4, 4=4, 5=4}
+			}else if(rs.get(key) instanceof java.util.LinkedHashMap){
+				int surveySeq = Integer.parseInt(key);
+				int matrixSeq = 0;
+				linkedMap = (Map<String, Object>) rs.get(key);
+				
+				Map<String, Object> multiMap = new LinkedHashMap<String, Object>();
+				
+				for(String linkKey : linkedMap.keySet()){
+					matrixSeq = Integer.parseInt(linkKey);
+					rowMap = new HashMap<String, Object>();
+
+					// ex) MATRIX DROPDOWN
+					if(linkedMap.get(linkKey) instanceof java.util.LinkedHashMap){
+						
+						String aStr = "";
+						int i = 1;
+						int k = 0;
+						
+						multiMap = (Map<String, Object>) linkedMap.get(linkKey);
+						
+						for(String multiKey : multiMap.keySet()){
+							int multiCnt = Integer.parseInt(multiKey);
+							if(i < multiCnt){
+								for(int j=i; j<multiCnt; j++){ 
+									aStr += " |";
+									k = k+1;
+								}
+							}
+							i = multiCnt+1;
+							aStr += multiMap.get(multiKey);
+							if(i <= multiMap.size() + k){
+								aStr += "|";
+							}
+						}  
+						logger.info("\n ==================== MATRIX DROPDOWN ====================");
+						logger.info("\n >> SURVEY_SEQ : " + (surveySeq + matrixSeq));
+						logger.info("\n >> ANSWER     : " + aStr);
+						rowMap.put("SURVEY_SEQ", (surveySeq + matrixSeq)); 
+						rowMap.put("ANSWER", aStr);
+						
+					}   
+					// MATRIX
+					else{  
+						logger.info("\n ==================== MATRIX ====================");
+						logger.info("\n >> SURVEY_SEQ : " + surveySeq);
+						logger.info("\n >> MATRIX_SEQ : " + (surveySeq + matrixSeq));
+						logger.info("\n >> ANSWER     : " + linkedMap.get(linkKey));
+						
+						rowMap.put("SURVEY_SEQ", (surveySeq + matrixSeq));
+						rowMap.put("ANSWER", linkedMap.get(linkKey));
+					}
+				
+					returnMap.add(rowMap);
+				}
+			}
+		}
+		
+		logger.info("\n >> returnMap : " + returnMap);
+		logger.info("\n ============================== SurveyUtil :: getResultMap 종료 ==============================");
+
+    	return returnMap;
+    }
+
+}

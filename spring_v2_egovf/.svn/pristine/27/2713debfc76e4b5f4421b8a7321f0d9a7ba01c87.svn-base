@@ -1,0 +1,146 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/WEB-INF/jsp/fo/include/head.jsp" />
+<script src="../../common/js_fo/jquery.placeholder.min.js"></script>
+<script src="<c:url value='/common/js_fo/sha512.js'/>"></script>
+<script>
+	$(window).load(function(){
+		/* ie8, ie9 placeholder 보이기 */
+		if( $("input").length > 0){
+			$("input").placeholder();
+		};
+		if( $("textarea").length > 0){
+			$("textarea").placeholder();
+		};
+
+		/* 아이디,비밀번호 미입력시 */
+		if($("input").length == 0){
+			$(this).next("p").show();
+		}
+
+		$('input[type=text],input[type=password]').keyup(function(){
+		   if ( $(this).val() == "" ){
+				$(this).next("p").show();
+				$(this).addClass("on");
+		   } else {
+				$(this).next("p").hide();
+				$(this).removeClass("on");
+		   }
+		});
+	});
+</script>
+</head>
+
+<body>
+	<div id="wrapper" class="login_wrap"> 
+		<div id="container" class="inner">
+			<div class="contents clear">
+				<!-- <ul class="language">
+					<li class="on"><a href="">KOREAN</a></li>
+					<li><a href="">ENGLISH</a></li>
+				</ul> -->
+				<div class="l_section">
+					<div class="logo_txt">
+						<h1><img src="<c:out value="/common/images/main/login_logo.png"/>" alt="<spring:message code="com.000"/>"></h1>
+					</div>
+					<fieldset> 
+						<legend class="hidden"><spring:message code="login.000"/></legend>
+						<form class="loginform" id="loginForm" name="loginForm" method="post">
+							<input type="hidden" id="returnUrl" name="returnUrl" value="<c:out value="${returnUrl}"/>"/>
+							 
+							<div class="input_wrap">
+								<div class="inp_group">
+									<div class="inp_line inp_id">
+										<label for="" class="screen_out"><spring:message code="login.003"/></label>
+										<input type="text" id="ID" name="ID" placeholder="<spring:message code="login.001"/>" class="inputform" value="<c:out value="${COOKIE_USER_ID }"/>" />
+										<p class="warning_label"><label for=""><spring:message code="login.005"/></label></p>
+									</div>
+									<div class="inp_line inp_pw">
+										<label for="" class="screen_out"><spring:message code="login.004"/></label>
+										<input type="password" id="PASSWORD" name="<spring:message code="login.002"/>" placeholder="PASSWORD" class="inputform" onkeypress="capLock(event)">
+										<input type="hidden" id="PSWD" name="PSWD">
+										<p class="warning_label"><label for=""><spring:message code="login.006"/></label></p>
+										<p id="capsLockChk" class="txtRed"> </p> 
+									</div>  
+								</div> 
+								<button type="button" id="fn_goLogin" class="main_btn btn_login"><span><spring:message code="login.007"/></span></button>
+
+								<div class="custom_ckbox">
+									<input type="checkbox" id="saveId" name="saveId" value="Y" <c:if test="${COOKIE_USER_ID ne null}">checked</c:if>> 
+									<label for="saveId"><spring:message code="login.008"/></label>
+									
+									<a href="https://www.beautypoint.co.kr/header/login.html" target="_target" style="text-decoration: underline; float: right;">
+										<spring:message code="login.013"/>
+									</a>
+								</div>
+								<div class="info_wrap">
+									<p>
+										<spring:message code="login.010"/>
+									</p>
+								</div> 
+							</div>
+							<!-- /.input_wrap -->
+						</form>
+					</fieldset>
+				</div>
+				<!-- /.l_section --> 
+				
+				<div class="r_section">
+					<div class="inner" style="height: 100%;">
+						<div class="introduce_wrap" style="height: 72%; padding-top: 16px;">
+							<font style="font-weight: bold; font-size: 23px;">
+								<spring:message code="login.014"/>
+							</font></br> 
+							<spring:message code="login.009"/>
+						</div>
+						<div class="introduce_wrap sub">
+							<spring:message code="login.010"/>
+						</div>  
+					</div> 
+				</div>
+				
+			</div>
+		</div>
+		<!-- /.login_inner -->
+
+		<!-- footer -->
+		<jsp:include page="/WEB-INF/jsp/fo/include/footer.jsp" />
+		<!-- // footer -->
+		
+	</div>
+	<!-- /.login_wrap -->
+
+<script>
+	$(document).ready(function(){
+		 
+		$(document).on("keyup", "#PASSWORD", function(e){
+			if (e.keyCode == 13) {
+				$("#PASSWORD").blur();
+				$("#fn_goLogin").click();
+			} 
+		}); 
+		
+		$(document).on("click", "#fn_goLogin", function(){
+
+			if(isScLogin("loginForm")){ 
+				$("input[name='PSWD']").val(CryptoJS.SHA512($("#PASSWORD").val()).toString());
+		        $("#loginForm").attr({"action":"<c:url value='/fo/sc/loginProc.do'/>", "target":"_self", "method":"post"}).submit(); 
+			}
+		});
+	});
+	
+	function capLock(e){
+		var keyCode = 0;
+		var shiftKey=false;
+		keyCode=e.keyCode;
+		shiftKey=e.shiftKey;
+		if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey)||((keyCode >= 97 && keyCode <= 122)&& shiftKey)){
+		    $("#capsLockChk").text("CapsLock이 켜져 있습니다");
+		}else{
+			$("#capsLockChk").text(""); 
+		}
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+package com.rdpanel.fo.sc.service;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.rdpanel.cmmn.security.Panel;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.sc.service
+* 2. 타입명 : PanelSecurityService.java
+* 3. 작성일 : 2017. 10. 26.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 로그인/로그아웃 보안 Servcice
+* </pre>
+ */
+public interface PanelSecurityService {
+
+	/**
+	* <pre>
+	* 1. 메소드명 : selectGetMstPanelInfo
+	* 2. 작성일 : 2017. 10. 24.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : [통합고객] 테이블에서 패널 상세정보를 가져온다.
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public Map<String, Object> selectGetMstPanelInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : loginMstPanelProc
+	* 2. 작성일 : 2017. 10. 26.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : [통합고객] 로그인 처리
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public Panel loginMstPanelProc (HttpServletRequest request, Panel panel) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : loginPanelProc
+	* 2. 작성일 : 2017. 10. 26.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : [R&D 패널] 로그인 처리
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public Panel loginPanelProc (HttpServletRequest request, Panel panel) throws Exception;
+	
+}

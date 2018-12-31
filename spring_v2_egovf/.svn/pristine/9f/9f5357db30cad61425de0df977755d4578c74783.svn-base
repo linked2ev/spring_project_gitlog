@@ -1,0 +1,1333 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]><html class="ie8" lang="ko"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="ko"><!--<![endif]-->
+
+<head>
+	<title>R&amp;D 패널 관리 시스템</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="shortcut icon" href="../images/favi/favicon.ico" type="image/x-icon"/>
+	<link rel="apple-touch-icon-precomposed" href="../images/favi/favicon57.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favi/favicon114.png"/>
+
+	<!--[if lt IE 9]><script src="../js/html5shiv.min.js"></script><![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- _____________Grid_____________ -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- jquery-custom-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/jquery-ui.css" />
+
+<!-- jquery-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap-ui.css" />
+
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/ui.multiselect.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/searchFilter.css" />
+
+<link rel="stylesheet" href="../css/panel_style.css" type="text/css">
+ 
+<script src="../../common/lib/jqGrid/js/jquery-1.11.0.min.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery-ui.js"></script>
+
+<script src="../../common/lib/jqGrid/js/grid.locale-kr.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.js"></script>
+<script src="../../common/lib/jqGrid/plugins/ui.multiselect.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.tablednd.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.contextmenu.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.searchFilter.js"></script>
+<script src="../../common/lib/jqGrid/src/grid.celledit.js"></script>
+
+<script src="../../common/lib/jqGrid/custom/ui-custom.js"></script>
+
+<script>
+	$(function() {
+		$('ul.tab-popup li').click(function() {
+			var activeTab = $(this).attr('data-tab');
+			$('ul.tab-popup li').removeClass('current');
+			$('.tabcontent-popup').removeClass('current');
+			$(this).addClass('current');
+			$('#' + activeTab).addClass('current');
+		})
+	});
+</script>
+
+</head>
+
+<body>
+
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+
+		<div class="pageWrap rndPanelSelectInside">
+
+			<div class="page-title">
+				<h2>시험 모집 공고 패널 선택</h2>
+			</div>
+			<div class="page-content respMobile">
+				<div class="respMobile-alert"><span>해당 업무는<br>PC와 태블릿을 이용해 주세요.</span></div>
+			</div>
+			<div class="page-content respPC">
+
+				<div class="searchWrap">
+					<div class="search-cont">
+
+						<div class="search-l">
+							<dl class="sch-multi">
+								<dt>나이</dt>
+								<dd>
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;세&nbsp;~&nbsp;
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;세
+								</dd>
+								<dt>키</dt>
+								<dd>
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;cm&nbsp;~&nbsp;
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;cm
+								</dd>
+							</dl>
+							<dl class="sch-multi">
+								<dt>몸무게</dt>
+								<dd>
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;kg&nbsp;~&nbsp;
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;kg
+								</dd>
+								<dt>BMI</dt>
+								<dd>
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;~&nbsp;
+									<input type="text" id="" name="" class="inputBox" style="width:80px;">&nbsp;
+								</dd>
+							</dl>
+							<dl class="sch-multi single">
+								<dt>성별</dt>
+								<dd>
+									<input type="radio" id="male" name="cond01">
+									<label for="male">남성</label>
+									<input type="radio" id="female" name="cond01">
+									<label for="female">여성</label>
+								</dd>
+							</dl>
+							<dl class="sch-multi single">
+								<dt>패널타입</dt>
+								<dd>
+									<input type="checkbox" id="cmpPn" name="">
+									<label for="cmpPn">사내패널 포함</label>
+									<input type="checkbox" id="blackC" name="">
+									<label for="blackC">블랙리스트 포함</label>
+								</dd>
+							</dl>
+							<dl class="sch-multi single">
+								<dt>필터 설정</dt>
+								<dd>
+									<button type="button" href="#layer11" class="btn btn-3rd btn-gray btn-popup">기초설문 필터</button>
+									<button type="button" href="#layer12" class="btn btn-3rd btn-gray btn-popup">팀별설문 필터</button>
+									<button type="button" href="#layer13" class="btn btn-3rd btn-gray btn-popup">패널타입 필터</button>	
+								</dd>
+							</dl>
+						</div>
+						<div class="search-r">
+							<div class="search-r-cont">							
+								<button type="submit" class="btn btn-search"><i class="ico-search"></i>조회</button>
+							</div>
+						</div>
+						<div class="search-r-mobile">
+							<div class="search-r-cont">
+								<button type="submit" class="btn btn-search"><i class="ico-search"></i>조회</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="list-total">전체 <em class="txtRed">55</em>명</div>
+				<div class="listWrap tbl-list">
+					<div class="tbl-scroll tbl-ht10"><!-- 기본 10개 기준 높이 -->
+						<table>
+							<colgroup>
+								<col width="6%">
+								<col width="14%">
+								<col width="18%">
+								<col width="22%">
+								<col width="22%">
+								<col width="18%">
+							</colgroup>							
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>이름</th>
+									<th>전화번호</th>
+									<th>이메일</th>
+									<th>패널타입</th>
+									<th>최근 시험 참가</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td>블랙리스트</td>
+									<td>65일 경과</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>나피디</td>
+									<td>010-1234-4567</td>
+									<td>1234567890@email.com</td>
+									<td></td>
+									<td>-</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>남반장</td>
+									<td>010-1234-4567</td>
+									<td>1234567890@email.com</td>
+									<td></td>
+									<td>65일 경과</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>여반장</td>
+									<td>010-1234-4567</td>
+									<td>abcdefghijk@email.com</td>
+									<td></td>
+									<td>타 시험 진행중</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td></td>
+									<td>40일 경과</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>우효</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td>블랙리스트</td>
+									<td>20일 경과</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td></td>
+									<td>10일 경과</td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td></td>
+									<td>-</td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td></td>
+									<td>65일 경과</td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td></td>
+									<td>타 시험 진행중</td>
+								</tr>
+								<tr>
+									<td>11</td>
+									<td>김반장</td>
+									<td>010-1234-4567</td>
+									<td>mailmail@email.com</td>
+									<td></td>
+									<td>타 시험 진행중</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="btn-wrap btnR"><button type="button" class="btn btn-prim btn-red">저장</button></div>
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+
+<!-- popup -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+	<!-- 기초설문 필터 -->
+    <div id="layer11" class="popupBoxWrap" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">기초설문 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+					<div class="tblWrap tbl-wm">
+						<div class="tbl-scroll tbl-ht10">
+							<table>
+								<caption>기초설문 데이터 설정 테이블</caption>
+								<colgroup>
+									<col width="25%">
+									<col width="75%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>피부타입</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp01" name="resch01">
+												<label for="grp01">건성</label>
+												<input type="radio" id="grp02" name="resch01">
+												<label for="grp02">중성</label>
+												<input type="radio" id="grp03" name="resch01">
+												<label for="grp03">지성</label>
+												<input type="radio" id="grp04" name="resch01">
+												<label for="grp04">복합성</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>주름</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp05" name="resch02">
+												<label for="grp05">이마</label>
+												<input type="radio" id="grp06" name="resch02">
+												<label for="grp06">미간</label>
+												<input type="radio" id="grp07" name="resch02">
+												<label for="grp07">눈가</label>
+												<input type="radio" id="grp08" name="resch02">
+												<label for="grp08">눈밑</label>
+												<input type="radio" id="grp09" name="resch02">
+												<label for="grp09">팔자</label>
+												<input type="radio" id="grp10" name="resch02">
+												<label for="grp10">목</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>처짐</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp11" name="resch03">
+												<label for="grp11">유</label>
+												<input type="radio" id="grp12" name="resch03">
+												<label for="grp12">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>모공(눈에 띄는)</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp13" name="resch04">
+												<label for="grp13">많음</label>
+												<input type="radio" id="grp14" name="resch04">
+												<label for="grp14">보통</label>
+												<input type="radio" id="grp15" name="resch04">
+												<label for="grp15">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>아이백</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp16" name="resch05">
+												<label for="grp16">유</label>
+												<input type="radio" id="grp17" name="resch05">
+												<label for="grp17">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>피부톤</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp18" name="resch06">
+												<label for="grp18">노란</label>
+												<input type="radio" id="grp19" name="resch06">
+												<label for="grp19">붉은</label>
+												<input type="radio" id="grp20" name="resch06">
+												<label for="grp20">밝은</label>
+												<input type="radio" id="grp21" name="resch06">
+												<label for="grp21">어두운</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>기미잡티</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp22" name="resch07">
+												<label for="grp22">많은</label>
+												<input type="radio" id="grp23" name="resch07">
+												<label for="grp23">보통</label>
+												<input type="radio" id="grp24" name="resch07">
+												<label for="grp24">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>다크서클</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp25" name="resch08">
+												<label for="grp25">심함</label>
+												<input type="radio" id="grp26" name="resch08">
+												<label for="grp26">보통</label>
+												<input type="radio" id="grp27" name="resch08">
+												<label for="grp27">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>여드름</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp28" name="resch09">
+												<label for="grp28">많음</label>
+												<input type="radio" id="grp29" name="resch09">
+												<label for="grp29">보통</label>
+												<input type="radio" id="grp30" name="resch09">
+												<label for="grp30">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>여드름 흔적, 흉터</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp31" name="resch10">
+												<label for="grp31">많음</label>
+												<input type="radio" id="grp32" name="resch10">
+												<label for="grp32">보통</label>
+												<input type="radio" id="grp33" name="resch10">
+												<label for="grp33">없음</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>민감성 피부</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp34" name="resch11">
+												<label for="grp34">유</label>
+												<input type="radio" id="grp35" name="resch11">
+												<label for="grp35">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>화장품 자극 경험</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp36" name="resch12">
+												<label for="grp36">유</label>
+												<input type="radio" id="grp37" name="resch12">
+												<label for="grp37">무</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>모발길이</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp38" name="resch13">
+												<label for="grp38">단발</label>
+												<input type="radio" id="grp39" name="resch13">
+												<label for="grp39">중단발</label>
+												<input type="radio" id="grp40" name="resch13">
+												<label for="grp40">장발</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>두피타입</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp41" name="resch14">
+												<label for="grp41">중성</label>
+												<input type="radio" id="grp42" name="resch14">
+												<label for="grp42">건성</label>
+												<input type="radio" id="grp43" name="resch14">
+												<label for="grp43">지성</label>
+												<input type="radio" id="grp44" name="resch14">
+												<label for="grp44">지루성</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>두피민감/트러블</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp45" name="resch15">
+												<label for="grp45">중성</label>
+												<input type="radio" id="grp46" name="resch15">
+												<label for="grp46">건성</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>모발손상</th>
+										<td>
+											<div class="divCheck">
+												<input type="radio" id="grp47" name="resch16">
+												<label for="grp47">정상</label>
+												<input type="radio" id="grp48" name="resch16">
+												<label for="grp48">손상</label>
+												<input type="radio" id="grp49" name="resch16">
+												<label for="grp49">극손상</label>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">적용</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script  src="../js/popup.js"></script>
+<!-- // popup -->
+
+<!-- popup -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+	<!-- 팀별설문 필터 -->
+    <div id="layer12" class="popupBoxWrap" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">팀별설문 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<ul class="tab-popup">
+						<li class="current" data-tab="tab1">효능</li>
+						<li data-tab="tab2">향</li>
+						<li data-tab="tab3">센서리</li>
+					</ul>
+					<div id="tab1" class="tabcontent-popup current">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>효능 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp01" name="resch01">
+													<label for="grp01">건성</label>
+													<input type="radio" id="grp02" name="resch01">
+													<label for="grp02">중성</label>
+													<input type="radio" id="grp03" name="resch01">
+													<label for="grp03">지성</label>
+													<input type="radio" id="grp04" name="resch01">
+													<label for="grp04">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp05" name="resch02">
+													<label for="grp05">이마</label>
+													<input type="radio" id="grp06" name="resch02">
+													<label for="grp06">미간</label>
+													<input type="radio" id="grp07" name="resch02">
+													<label for="grp07">눈가</label>
+													<input type="radio" id="grp08" name="resch02">
+													<label for="grp08">눈밑</label>
+													<input type="radio" id="grp09" name="resch02">
+													<label for="grp09">팔자</label>
+													<input type="radio" id="grp10" name="resch02">
+													<label for="grp10">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp11" name="resch03">
+													<label for="grp11">유</label>
+													<input type="radio" id="grp12" name="resch03">
+													<label for="grp12">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp13" name="resch04">
+													<label for="grp13">많음</label>
+													<input type="radio" id="grp14" name="resch04">
+													<label for="grp14">보통</label>
+													<input type="radio" id="grp15" name="resch04">
+													<label for="grp15">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp16" name="resch05">
+													<label for="grp16">유</label>
+													<input type="radio" id="grp17" name="resch05">
+													<label for="grp17">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp18" name="resch06">
+													<label for="grp18">노란</label>
+													<input type="radio" id="grp19" name="resch06">
+													<label for="grp19">붉은</label>
+													<input type="radio" id="grp20" name="resch06">
+													<label for="grp20">밝은</label>
+													<input type="radio" id="grp21" name="resch06">
+													<label for="grp21">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp22" name="resch07">
+													<label for="grp22">많은</label>
+													<input type="radio" id="grp23" name="resch07">
+													<label for="grp23">보통</label>
+													<input type="radio" id="grp24" name="resch07">
+													<label for="grp24">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp25" name="resch08">
+													<label for="grp25">심함</label>
+													<input type="radio" id="grp26" name="resch08">
+													<label for="grp26">보통</label>
+													<input type="radio" id="grp27" name="resch08">
+													<label for="grp27">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp28" name="resch09">
+													<label for="grp28">많음</label>
+													<input type="radio" id="grp29" name="resch09">
+													<label for="grp29">보통</label>
+													<input type="radio" id="grp30" name="resch09">
+													<label for="grp30">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름 흔적, 흉터</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp31" name="resch10">
+													<label for="grp31">많음</label>
+													<input type="radio" id="grp32" name="resch10">
+													<label for="grp32">보통</label>
+													<input type="radio" id="grp33" name="resch10">
+													<label for="grp33">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>민감성 피부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp34" name="resch11">
+													<label for="grp34">유</label>
+													<input type="radio" id="grp35" name="resch11">
+													<label for="grp35">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>화장품 자극 경험</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp36" name="resch12">
+													<label for="grp36">유</label>
+													<input type="radio" id="grp37" name="resch12">
+													<label for="grp37">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발길이</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp38" name="resch13">
+													<label for="grp38">단발</label>
+													<input type="radio" id="grp39" name="resch13">
+													<label for="grp39">중단발</label>
+													<input type="radio" id="grp40" name="resch13">
+													<label for="grp40">장발</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp41" name="resch14">
+													<label for="grp41">중성</label>
+													<input type="radio" id="grp42" name="resch14">
+													<label for="grp42">건성</label>
+													<input type="radio" id="grp43" name="resch14">
+													<label for="grp43">지성</label>
+													<input type="radio" id="grp44" name="resch14">
+													<label for="grp44">지루성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피민감/트러블</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp45" name="resch15">
+													<label for="grp45">중성</label>
+													<input type="radio" id="grp46" name="resch15">
+													<label for="grp46">건성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발손상</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp47" name="resch16">
+													<label for="grp47">정상</label>
+													<input type="radio" id="grp48" name="resch16">
+													<label for="grp48">손상</label>
+													<input type="radio" id="grp49" name="resch16">
+													<label for="grp49">극손상</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="tab2" class="tabcontent-popup">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>향 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp01" name="resch01">
+													<label for="grp01">건성</label>
+													<input type="radio" id="grp02" name="resch01">
+													<label for="grp02">중성</label>
+													<input type="radio" id="grp03" name="resch01">
+													<label for="grp03">지성</label>
+													<input type="radio" id="grp04" name="resch01">
+													<label for="grp04">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp05" name="resch02">
+													<label for="grp05">이마</label>
+													<input type="radio" id="grp06" name="resch02">
+													<label for="grp06">미간</label>
+													<input type="radio" id="grp07" name="resch02">
+													<label for="grp07">눈가</label>
+													<input type="radio" id="grp08" name="resch02">
+													<label for="grp08">눈밑</label>
+													<input type="radio" id="grp09" name="resch02">
+													<label for="grp09">팔자</label>
+													<input type="radio" id="grp10" name="resch02">
+													<label for="grp10">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp11" name="resch03">
+													<label for="grp11">유</label>
+													<input type="radio" id="grp12" name="resch03">
+													<label for="grp12">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp13" name="resch04">
+													<label for="grp13">많음</label>
+													<input type="radio" id="grp14" name="resch04">
+													<label for="grp14">보통</label>
+													<input type="radio" id="grp15" name="resch04">
+													<label for="grp15">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp16" name="resch05">
+													<label for="grp16">유</label>
+													<input type="radio" id="grp17" name="resch05">
+													<label for="grp17">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp18" name="resch06">
+													<label for="grp18">노란</label>
+													<input type="radio" id="grp19" name="resch06">
+													<label for="grp19">붉은</label>
+													<input type="radio" id="grp20" name="resch06">
+													<label for="grp20">밝은</label>
+													<input type="radio" id="grp21" name="resch06">
+													<label for="grp21">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp22" name="resch07">
+													<label for="grp22">많은</label>
+													<input type="radio" id="grp23" name="resch07">
+													<label for="grp23">보통</label>
+													<input type="radio" id="grp24" name="resch07">
+													<label for="grp24">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp25" name="resch08">
+													<label for="grp25">심함</label>
+													<input type="radio" id="grp26" name="resch08">
+													<label for="grp26">보통</label>
+													<input type="radio" id="grp27" name="resch08">
+													<label for="grp27">없음</label>
+												</div>
+											</td>
+										</tr>
+										<!-- <tr>
+											<th>여드름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp28" name="resch09">
+													<label for="grp28">많음</label>
+													<input type="radio" id="grp29" name="resch09">
+													<label for="grp29">보통</label>
+													<input type="radio" id="grp30" name="resch09">
+													<label for="grp30">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름 흔적, 흉터</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp31" name="resch10">
+													<label for="grp31">많음</label>
+													<input type="radio" id="grp32" name="resch10">
+													<label for="grp32">보통</label>
+													<input type="radio" id="grp33" name="resch10">
+													<label for="grp33">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>민감성 피부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp34" name="resch11">
+													<label for="grp34">유</label>
+													<input type="radio" id="grp35" name="resch11">
+													<label for="grp35">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>화장품 자극 경험</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp36" name="resch12">
+													<label for="grp36">유</label>
+													<input type="radio" id="grp37" name="resch12">
+													<label for="grp37">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발길이</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp38" name="resch13">
+													<label for="grp38">단발</label>
+													<input type="radio" id="grp39" name="resch13">
+													<label for="grp39">중단발</label>
+													<input type="radio" id="grp40" name="resch13">
+													<label for="grp40">장발</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp41" name="resch14">
+													<label for="grp41">중성</label>
+													<input type="radio" id="grp42" name="resch14">
+													<label for="grp42">건성</label>
+													<input type="radio" id="grp43" name="resch14">
+													<label for="grp43">지성</label>
+													<input type="radio" id="grp44" name="resch14">
+													<label for="grp44">지루성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피민감/트러블</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp45" name="resch15">
+													<label for="grp45">중성</label>
+													<input type="radio" id="grp46" name="resch15">
+													<label for="grp46">건성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발손상</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp47" name="resch16">
+													<label for="grp47">정상</label>
+													<input type="radio" id="grp48" name="resch16">
+													<label for="grp48">손상</label>
+													<input type="radio" id="grp49" name="resch16">
+													<label for="grp49">극손상</label>
+												</div>
+											</td>
+										</tr> -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="tab3" class="tabcontent-popup">
+						<div class="tblWrap tbl-wm">
+							<div class="tbl-scroll tbl-ht10">
+								<table>
+									<caption>센서리 설문 테이블</caption>
+									<colgroup>
+										<col width="25%">
+										<col width="75%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>피부타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp01" name="resch01">
+													<label for="grp01">건성</label>
+													<input type="radio" id="grp02" name="resch01">
+													<label for="grp02">중성</label>
+													<input type="radio" id="grp03" name="resch01">
+													<label for="grp03">지성</label>
+													<input type="radio" id="grp04" name="resch01">
+													<label for="grp04">복합성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>주름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp05" name="resch02">
+													<label for="grp05">이마</label>
+													<input type="radio" id="grp06" name="resch02">
+													<label for="grp06">미간</label>
+													<input type="radio" id="grp07" name="resch02">
+													<label for="grp07">눈가</label>
+													<input type="radio" id="grp08" name="resch02">
+													<label for="grp08">눈밑</label>
+													<input type="radio" id="grp09" name="resch02">
+													<label for="grp09">팔자</label>
+													<input type="radio" id="grp10" name="resch02">
+													<label for="grp10">목</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>처짐</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp11" name="resch03">
+													<label for="grp11">유</label>
+													<input type="radio" id="grp12" name="resch03">
+													<label for="grp12">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모공(눈에 띄는)</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp13" name="resch04">
+													<label for="grp13">많음</label>
+													<input type="radio" id="grp14" name="resch04">
+													<label for="grp14">보통</label>
+													<input type="radio" id="grp15" name="resch04">
+													<label for="grp15">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>아이백</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp16" name="resch05">
+													<label for="grp16">유</label>
+													<input type="radio" id="grp17" name="resch05">
+													<label for="grp17">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>피부톤</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp18" name="resch06">
+													<label for="grp18">노란</label>
+													<input type="radio" id="grp19" name="resch06">
+													<label for="grp19">붉은</label>
+													<input type="radio" id="grp20" name="resch06">
+													<label for="grp20">밝은</label>
+													<input type="radio" id="grp21" name="resch06">
+													<label for="grp21">어두운</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>기미잡티</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp22" name="resch07">
+													<label for="grp22">많은</label>
+													<input type="radio" id="grp23" name="resch07">
+													<label for="grp23">보통</label>
+													<input type="radio" id="grp24" name="resch07">
+													<label for="grp24">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>다크서클</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp25" name="resch08">
+													<label for="grp25">심함</label>
+													<input type="radio" id="grp26" name="resch08">
+													<label for="grp26">보통</label>
+													<input type="radio" id="grp27" name="resch08">
+													<label for="grp27">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp28" name="resch09">
+													<label for="grp28">많음</label>
+													<input type="radio" id="grp29" name="resch09">
+													<label for="grp29">보통</label>
+													<input type="radio" id="grp30" name="resch09">
+													<label for="grp30">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>여드름 흔적, 흉터</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp31" name="resch10">
+													<label for="grp31">많음</label>
+													<input type="radio" id="grp32" name="resch10">
+													<label for="grp32">보통</label>
+													<input type="radio" id="grp33" name="resch10">
+													<label for="grp33">없음</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>민감성 피부</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp34" name="resch11">
+													<label for="grp34">유</label>
+													<input type="radio" id="grp35" name="resch11">
+													<label for="grp35">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>화장품 자극 경험</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp36" name="resch12">
+													<label for="grp36">유</label>
+													<input type="radio" id="grp37" name="resch12">
+													<label for="grp37">무</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발길이</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp38" name="resch13">
+													<label for="grp38">단발</label>
+													<input type="radio" id="grp39" name="resch13">
+													<label for="grp39">중단발</label>
+													<input type="radio" id="grp40" name="resch13">
+													<label for="grp40">장발</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피타입</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp41" name="resch14">
+													<label for="grp41">중성</label>
+													<input type="radio" id="grp42" name="resch14">
+													<label for="grp42">건성</label>
+													<input type="radio" id="grp43" name="resch14">
+													<label for="grp43">지성</label>
+													<input type="radio" id="grp44" name="resch14">
+													<label for="grp44">지루성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>두피민감/트러블</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp45" name="resch15">
+													<label for="grp45">중성</label>
+													<input type="radio" id="grp46" name="resch15">
+													<label for="grp46">건성</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>모발손상</th>
+											<td>
+												<div class="divCheck">
+													<input type="radio" id="grp47" name="resch16">
+													<label for="grp47">정상</label>
+													<input type="radio" id="grp48" name="resch16">
+													<label for="grp48">손상</label>
+													<input type="radio" id="grp49" name="resch16">
+													<label for="grp49">극손상</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" href="#layer1" class="btn btn-prim btn-red btn-popup">적용</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+	<!-- // 팀별설문 필터 -->
+</div>
+<script  src="../js/popup.js"></script>
+<!-- // popup -->
+
+<!-- popup -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+	<!-- 패널타입 필터 -->
+    <div id="layer13" class="popupBoxWrap" style="width:700px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">패널타입 필터</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>패널타입 데이터 설정 테이블</caption>
+							<colgroup>
+								<col width="25%">
+								<col width="75%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>민감 여부</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp31" name="resch01">
+											<label for="grp31">건성</label>
+											<input type="radio" id="grp32" name="resch01">
+											<label for="grp32">중성</label>
+											<input type="radio" id="grp33" name="resch01">
+											<label for="grp33">지성</label>
+											<input type="radio" id="grp34" name="resch01">
+											<label for="grp34">복합성</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>고관여 여부</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp35" name="resch02">
+											<label for="grp35">이마</label>
+											<input type="radio" id="grp36" name="resch02">
+											<label for="grp36">미간</label>
+											<input type="radio" id="grp37" name="resch02">
+											<label for="grp37">눈가</label>
+											<input type="radio" id="grp38" name="resch02">
+											<label for="grp38">눈밑</label>
+											<input type="radio" id="grp39" name="resch02">
+											<label for="grp39">팔자</label>
+											<input type="radio" id="grp40" name="resch02">
+											<label for="grp40">목</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>처짐</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp11" name="resch03">
+											<label for="grp11">유</label>
+											<input type="radio" id="grp12" name="resch03">
+											<label for="grp12">무</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>향 민감성</th>
+									<td>
+										<div class="divCheck">
+											<input type="radio" id="grp13" name="resch04">
+											<label for="grp13">많음</label>
+											<input type="radio" id="grp14" name="resch04">
+											<label for="grp14">보통</label>
+											<input type="radio" id="grp15" name="resch04">
+											<label for="grp15">없음</label>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">적용</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script  src="../js/popup.js"></script>
+<!-- // popup -->
+
+
+
+</body>
+</html>

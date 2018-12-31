@@ -1,0 +1,136 @@
+@charset "utf-8";
+
+table.table thead tr th span {
+	/* 		white-space:nowrap;	 */	
+}
+
+th.matrixElse {
+	width: 72px;
+	max-width: 72px !important;
+	word-break: break-all;
+	text-align: center !important;
+	vertical-align: middle !important;
+}
+
+div.panel-body table.table>tbody>tr>td>label {
+	position: relative !important;
+}
+
+div.customWidth {
+	width: 19px;
+	padding: 0px;
+}
+
+div.col-lg-1 span.svd_toolbox_item_text {
+	background: #F3F3F4;
+	padding: 11px 11px 10px 15px;
+	right: 17px;
+}
+
+div.questionEditor-dialog {
+	padding: 10px;
+}
+
+div.customPadding {
+	padding: 10px 0px 0px 25px !important;
+}
+
+div.questionEditor-header {
+	display: none;
+}
+
+/* 수정 프로퍼티 */
+div.col-lg-3 {
+	width: 44%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+/* 수정박스 */
+div.col-lg-8 {
+	width: 50%;
+}
+
+/* 페이지 */
+div.svd_pages_editor {
+	padding-left: 33px;
+	width: 50%;
+}
+
+div.col-lg-8 .svd_questions_editor {
+	overflow-y: auto !important;
+}
+
+div.svd_content .nav>li>a {
+	padding: 5px 10px;
+}
+
+table.table th,table.table td {
+	border-left: none;
+	background-color: transparent;
+}
+
+.svd_container .svd_content .svd_survey_designer .svd_properties .table td{
+	padding: 0px;
+}
+
+div.questionEditor-footer {
+	padding-top: 10px;
+	padding-left: 5px;
+}
+
+div.row btn-toolbar {
+	text-align: center;
+}
+
+input.imagefile {
+	width: 235px;	
+	height: 40px;
+	padding-right: 0px;
+}
+
+input.imageDeleteBtn {
+	width: 40px;
+	height: 35px;
+	padding: 4px;
+}
+
+input.imageText{
+	width: 170px;
+	display: inline-block;
+	border-radius: 4px !important;
+}
+
+input.imageSelectBtn{
+	width: 60px;
+	height: 35px;
+	padding: 4px;
+}
+
+input[type=file]{
+	border : none;
+	display: none;
+	box-shadow: none;
+}
+
+.surveyWrap form > div{
+	width: 98% !important;
+}
+.surveyWrap .table td.txtC {
+	vertical-align: middle !important;
+}
+.surveyWrap .txtC div.checkbox{
+	margin: 0px !important;
+}
+
+.surveyWrap .table td.txtC label{
+	margin-top: 0px !important;
+}
+
+.surveyWrap .table td.txtC input[type='checkbox'] + label:before{
+	margin-right: 0px !important;
+}
+
+.editPropertyLabel{
+	width: 100%;
+}

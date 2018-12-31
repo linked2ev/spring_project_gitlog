@@ -1,0 +1,64 @@
+package com.rdpanel.fo.mn.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.rdpanel.fo.mn.service.PanelMainService;
+
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.mn.controller
+* 2. 타입명 : panelMainController.java
+* 3. 작성일 : 2017. 9. 27.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 패널 메인 Controller
+* </pre>
+ */
+@Controller
+public class PanelMainController {
+
+    @Resource(name="panelMainService") 
+    private PanelMainService panelMainService;   
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : panelMainIndex
+    * 2. 작성일 : 2017. 9. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 패널 메인 페이지
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping("/fo/mn/panelMainIndex.do")
+	public ModelAndView panelMainIndex(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+        
+        List<Map<String, Object>> list = null;
+        
+    	// 신규시험 모집 공고 목록
+		list = this.panelMainService.selectNewTestAnnounceList(request, commandMap);
+		mv.addObject("newTestList", list);
+		
+		// 나의 스케줄 현황 목록
+		list = this.panelMainService.selectMyScheduleList(request, commandMap);
+		mv.addObject("myScheduleList", list);
+        
+        mv.addObject("commandMap", commandMap);
+		 
+		return mv;
+	}
+}

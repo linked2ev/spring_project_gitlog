@@ -1,0 +1,205 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/WEB-INF/jsp/fo/include/head.jsp" />
+</head>
+
+<body>
+
+<!-- header -->
+<jsp:include page="/WEB-INF/jsp/fo/include/header/headerPanel${panelAuth }.jsp" flush="true" />
+<!-- // header -->
+
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+	
+	<!-- leftNav -->  
+	<jsp:include page="/WEB-INF/jsp/fo/include/left/leftPanel${panelAuth }.jsp" flush="true" />
+	<!-- // leftNav --> 
+
+		<div class="pageWrap rndRecrView">
+
+			<div class="page-title">
+				<h2><spring:message code="menu.014"/></h2>
+				<div class="page-location">
+					<span class="home"><spring:message code="menu.010"/></span> -
+					<c:choose> 
+						<c:when test="${fn:indexOf(commandMap.refererUrl, '/mp/testApplicationStatusList') > -1}">
+							<spring:message code="menu.004"/>
+						</c:when>
+						<c:when test="${fn:indexOf(commandMap.refererUrl, '/mp/testApplicationHistoryList') > -1}">
+							<spring:message code="menu.005"/>
+						</c:when>
+						<c:when test="${fn:indexOf(commandMap.refererUrl, '/ta/testAnnounceList') > -1}">
+							<spring:message code="menu.011"/>
+						</c:when>
+						<c:otherwise>
+							<spring:message code="menu.011"/>
+						</c:otherwise>
+					</c:choose>
+					- <b><spring:message code="menu.014"/></b>
+				</div>
+			</div>
+			
+			<div class="page-content">
+				<form id="searchForm" name="searchForm">
+					<input type="hidden" name="cPageNo" value="<c:out value="${commandMap.cPageNo }"/>"/>
+					<input type="hidden" name="searchTeamGbn" value="<c:out value="${commandMap.searchTeamGbn }"/>"/>
+					<input type="hidden" name="searchExamWay" value="<c:out value="${commandMap.searchExamWay }"/>"/>
+					<input type="hidden" name="searchVisitArea" value="<c:out value="${commandMap.searchVisitArea }"/>"/>
+					<input type="hidden" name="searchExamTitle" value="<c:out value="${commandMap.searchExamTitle }"/>"/>
+				</form>
+				<form id="form" name="form">
+					<input type="hidden" name="EXAM_MNG_NO" value="<c:out value="${commandMap.EXAM_MNG_NO }"/>"/>
+					<input type="hidden" name="EXAM_WAY_CD" value="<c:out value="${commandMap.EXAM_WAY_CD }"/>"/>
+					<input type="hidden" name="refererUrl" value="<c:out value="${commandMap.refererUrl }"/>"/>
+				</form>
+				
+				<div class="listWrap">
+					<div class="recruit-view">
+						<div class="recruit-content">
+							<div class="recruit-l"> 
+								<div class="recruit-r">
+									<div class="recruit-label">
+									    <c:if test="${info.STATUS eq 'selection'}"><c:set var="STATUS" value="green" /></c:if>
+									    <c:if test="${info.STATUS eq 'applying'}"><c:set var="STATUS" value="red" /></c:if>
+									    <c:if test="${info.STATUS eq 'available'}"><c:set var="STATUS" value="blue" /></c:if>
+									    <c:if test="${info.STATUS eq 'standby'}"><c:set var="STATUS" value="red" /></c:if>
+										<span class="label-<c:out value="${STATUS}"/> ">
+											<c:if test="${info.STATUS eq 'selection'}"><spring:message code="com.001"/></c:if>
+											<c:if test="${info.STATUS eq 'applying'}"><spring:message code="com.002"/></c:if>
+											<c:if test="${info.STATUS eq 'available'}"><spring:message code="com.003"/></c:if>
+											<c:if test="${info.STATUS eq 'standby'}"><spring:message code="com.016"/></c:if>
+										</span>
+									</div>
+								</div>
+								<div class="recuit-title">
+									<a href="#">
+										<em><c:out value="${info.TEAM_GBN }" /></em>
+										<c:out value="${info.EXAM_TITLE }" />
+									</a>
+								</div>
+								<div class="recruit-period">
+									<span class="recruit-date">
+										<em><spring:message code="com.004"/></em> : <c:out value="${info.APP_PERIOD }" />
+									</span>
+									<span class="exam-date">
+										<em><spring:message code="com.009"/></em> : <c:out value="${info.EXAM_PERIOD }" />
+									</span>
+								</div>
+							</div>
+							<div class="recruit-detail">
+								<dl>
+									<dt><spring:message code="com.010"/></dt>
+									<dd><c:out value="${info.DUP_APP }" /></dd>
+									<dt><spring:message code="com.011"/></dt> 
+									<dd><c:out value="${info.RECRUIT_WAY }" /></dd>
+									<dt><spring:message code="com.012"/></dt>
+									<c:choose>
+										<c:when test="${info.EXAM_WAY_CD eq '01'}">
+											<dd><c:out value="${info.EXAM_WAY }" /> / <c:out value="${info.VISIT_PLACE }" /></dd>
+											<c:if test="${not empty visit_list }">
+												<dt><spring:message code="com.013"/></dt>
+												<dd>
+													<c:forEach var="row" items="${visit_list}" varStatus="i">
+														<p>
+															<c:out value="${row.EXAM_ORDER }" /><spring:message code="com.015"/>&nbsp;&nbsp;&nbsp;
+															<c:out value="${row.VISIT }" />
+														</p>				
+													</c:forEach>
+												</dd>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+											<dd><c:out value="${info.EXAM_WAY }" /></dd>
+											<c:if test="${not empty online_list }">
+												<dt><spring:message code="com.014"/></dt>
+												<dd>
+													<c:forEach var="row" items="${online_list}" varStatus="i">
+														<p>
+															<c:out value="${row.SURVEY_PERIOD }" />
+														</p>				
+													</c:forEach>
+												</dd>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+								</dl>
+							</div>
+						</div>
+						<div class="recruit-context">
+						
+							<c:out value="${info.EXAM_OUTLINE }" escapeXml="false"/>
+						
+						</div>
+						<div class="recruit-btn btnC">
+							<c:if test="${info.EXAM_APP_YN eq 'N' && info.EXAM_APP_YN2 eq 'Y' || info.STATUS eq 'standby'}">
+								<button type="button" class="btn btn-prim btn-red wd100 <c:if test="${info.STATUS eq 'standby' }">btn-dis"</c:if> id="fn_goApplicationStep1"><spring:message code="button.010"/></button>
+							</c:if>
+							<c:if test="${info.APP_CANCEL_YN eq 'Y'}">
+								<button type="button" class="btn btn-prim btn-gray wd100" id="fn_cancel"><spring:message code="button.011"/></button>
+							</c:if>
+							
+						</div>  
+					</div> 
+				</div>
+				<div class="btn-wrap btnR">
+					<button type="button" class="btn btn-prim btn-white wd100" id="fn_goList"><spring:message code="button.012"/></button>
+				</div>				
+
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+
+<!-- footer -->
+<jsp:include page="/WEB-INF/jsp/fo/include/footer.jsp" />
+<!-- // footer -->
+
+<script>
+	var status = '${info.STATUS}';
+	$(function(){
+		
+		// 참가신청 버튼 클릭 이벤트
+		$(document).on("click", "#fn_goApplicationStep1", function(){
+			var $form = $("#form");
+			
+			if(status == 'standby'){ 
+				returnMsg.alertMsg("참여신청은 '신청가능' 상태에서만<br>신청이 가능합니다.");
+				return;
+			}   
+			
+			$form.attr({"action":"<c:url value='/fo/ta/testAnnounceApplicationStep1.do'/>", "target":"_self", "method":"post"}).submit();
+		});
+		
+	 	// 취소 버튼 클릭 이벤트
+	    $(document).on("click", "#fn_cancel", function(){		
+			if($("#finishBtn").hasClass("btn-dis") < 1){
+				returnMsg.confirmMsg(fnLang("정말로 신청취소하겠습니까?", "LC00"), "confirm");			
+			}
+		});
+	 	
+		// 취소 버튼 클릭 이벤트 > confirm 
+		$(document).on("click", "#confirmY", function () {
+			var $el = $("#confirmMsg");
+			var isDim = $el.prev().hasClass('dimBack');
+			
+			isDim ? $el.parents('.popupWrap').fadeOut() : $el.fadeOut(); // 레이어 닫기
+			
+			var $form = $("#form");
+			$form.attr({"action":"<c:url value='/fo/ta/testAnnounceDelete.do'/>", "target":"_self", "method":"post"}).submit();
+		});
+		
+		// 목록 버튼 클릭 이벤트
+		$(document).on("click", "#fn_goList", function(){
+			var $searchForm = $("#searchForm");
+			$searchForm.attr({"action":"<c:url value='${commandMap.refererUrl}'/>", "target":"_self", "method":"post"}).submit();
+		});
+		
+	});
+</script>
+</body>
+</html>

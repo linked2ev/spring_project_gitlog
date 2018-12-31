@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]><html class="ie8" lang="ko"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="ko"><!--<![endif]-->
+
+<head>
+	<title>아모레퍼시픽 고객연구센터</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="shortcut icon" href="../images/favi/favicon.ico" type="image/x-icon"/>
+	<link rel="apple-touch-icon-precomposed" href="../images/favi/favicon57.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favi/favicon114.png"/>
+
+	<!--[if lt IE 9]><script src="../js/html5shiv.min.js"></script><![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- _____________Grid_____________ -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- jquery-custom-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/jquery-ui.css" />
+
+<!-- jquery-ui style css -->
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/custom/ui.jqgrid-bootstrap-ui.css" />
+
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/ui.multiselect.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../common/lib/jqGrid/plugins/searchFilter.css" />
+
+<link rel="stylesheet" href="../css/panel_style.css" type="text/css">
+ 
+<script src="../../common/lib/jqGrid/js/jquery-1.11.0.min.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery-ui.js"></script>
+
+<script src="../../common/lib/jqGrid/js/grid.locale-kr.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.js"></script>
+<script src="../../common/lib/jqGrid/plugins/ui.multiselect.js"></script>
+<script src="../../common/lib/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.tablednd.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.contextmenu.js"></script>
+<script src="../../common/lib/jqGrid/plugins/jquery.searchFilter.js"></script>
+<script src="../../common/lib/jqGrid/src/grid.celledit.js"></script>
+
+<script src="../../common/lib/jqGrid/custom/ui-custom.js"></script>
+
+<script src="../js/jquery.simpler-sidebar.min.js"></script>
+<script src="../js/sidebar.js"></script>
+
+</head>
+
+<body>
+
+<!-- skip navigation -->
+<a href="#main" class="skip">본문바로가기</a>
+<!-- // skip navigation -->
+
+<!-- header -->
+<header id="header" class="header respWidth">
+
+	<div class="header-pc">
+		<h1><a href="#">아모레퍼시픽 고객연구센터</a></h1>
+		<div class="util">
+			<span class="user-name"><em>김아모레</em>님</span>
+			<span class="btn-logout"><button type="submit">LOGOUT</button></span>
+		</div>
+	</div>
+	<div class="header-mobile">
+		<h1><a href="#">아모레퍼시픽 고객연구센터</a></h1>
+		<a href="#" id="sidebar-main-trigger" class="mob-all-menu"><span class="screen_out">전체메뉴</span></a>
+	</div>
+	<aside id="sidebar-main" class="sidebar-mobile">
+
+		<div class="sidebar-close">
+			<span><i class="screen_out">닫기</i></span>
+		</div>
+		<div class="sidebar-container">
+			<div class="sidebar-logo">
+				<h1>아모레퍼시픽 고객연구센터</h1>
+			</div>
+			<div class="sidebar-nav">
+				<ul class="sideNav-list">
+					<li><a href="#">시험 모집 안내</a></li>
+					<li><a href="#">시험 모집 공고</a></li>
+					<li class="on">
+						<a href="#">마이 페이지</a>
+						<ul class="sub">
+							<li><a href="#">시험 신청 이력 조회</a></li>
+							<li class="on"><a href="#">시험 신청 현황</a></li>
+							<li><a href="#">회원 정보 변경</a></li>
+							<li><a href="#">회원 탈퇴</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Q&amp;A</a></li>
+				</ul>
+			</div>
+			<div class="sidebar-util">
+				<div class="sidebar-util-container">
+					<span class="user-name"><em>김아모레</em>님</span>
+					<span class="btn-logout"><button type="submit">LOGOUT</button></span>
+				</div>
+			</div>
+		</div>
+	</aside>
+
+</header>
+<!-- // header -->
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+
+		<div class="leftNav">
+			<ul class="leftNav-list">
+				<li><a href="#">시험 모집 안내</a></li>
+				<li><a href="#">시험 모집 공고</a></li>
+				<li class="on">
+					<a href="#">마이 페이지</a>
+					<ul class="sub">
+						<li><a href="#">시험 신청 이력 조회</a></li>
+						<li class="on"><a href="#">시험 신청 현황</a></li>
+						<li><a href="#">회원 정보 변경</a></li>
+						<li><a href="#">회원 탈퇴</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">소통광장</a>
+					<ul class="sub">
+						<li><a href="#">1&#58;1 Q&amp;A</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>		
+		<div class="pageWrap rndRecrCurr">
+
+			<div class="page-title">
+				<h2>시험 신청 현황</h2>
+				<div class="page-location">
+					<span class="home">홈</span> - 마이 페이지 - <b>시험 신청 현황</b>
+				</div>
+			</div>
+			<div class="page-content">
+
+				<div class="searchWrap">
+					<div class="search-cont">
+
+						<div class="search-l">
+							<dl class="sch-multi">
+								<dt>시험구분</dt>
+								<dd>
+									<select id="" name="" title="시험구분" class="inputBox">
+										<option value>전체</option>
+										<option value>01</option>
+										<option value>02</option>
+										<option value>03</option>
+										<option value>04</option>
+									</select>					
+								</dd>
+								<dt>시험방식</dt>
+								<dd>
+									<ul class="divForm wd50">
+										<li>
+											<select id="" name="" title="시험방식" class="inputBox">
+												<option value>전체</option>
+												<option value selected>방문</option>
+												<option value>온라인</option>
+											</select>	
+										</li>
+										<li>
+											<select id="" name="" title="방문위치" class="inputBox">
+												<option value>전체</option>
+												<option value>서울</option>
+												<option value selected>용인</option>
+											</select>								
+										</li>
+									</ul>			
+								</dd>
+							</dl>
+							<dl class="sch-multi single">
+								<dt>시험제목</dt>
+								<dd><input type="text" id="" name="" placeholder="시험제목을 입력하세요" class="inputBox"></dd>
+							</dl>
+						</div>
+						<div class="search-r">
+							<div class="search-r-cont">
+								<button type="submit" class="btn btn-search"><i class="ico-search"></i>조회</button>
+							</div>
+						</div>
+						<div class="search-r-mobile">
+							<div class="search-r-cont">
+								<button type="submit" class="btn btn-search"><i class="ico-search"></i>조회</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="listWrap">
+					<ul class="recruit-list recruit-history">
+						<li>
+							<div class="recruit-content">
+								<div class="recruit-l">
+									<div class="recruit-r">
+										<div class="recruit-label">
+											<span class="label-green">진행중</span>
+										</div>
+									</div>
+									<div class="recuit-title"><a href="#"><em>01</em> 수분 마스크팩 첩포 시험</a></div>
+									<div class="recruit-period">
+										<span class="recruit-date">신청기간 : 2017.12.01 ~ 2017.12.15</span>
+										<span class="exam-date">시험기간 : 2017.12.26 ~ 2018.01.31</span>
+									</div>
+									<div class="recruit-tag">
+										<span>방문</span>
+										<span>용인</span>
+										<span>선착순</span>
+									</div>
+									<div class="recruit-buttons">
+										<button type="button" href="#layer001" class="btn btn-3rd btn-gray btn-popup">방문예약</button>
+										<button type="button" href="#layer003" class="btn btn-3rd btn-gray btn-popup">설문작성</button>
+										<button type="button" class="btn btn-3rd btn-gray">Q&amp;A</button>
+										<button type="button" href="#layer002" class="btn btn-3rd btn-gray btn-popup">동의서 서명</button>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="recruit-content">
+								<div class="recruit-l">
+									<div class="recruit-r">
+										<div class="recruit-label">
+											<span class="label-green">진행중</span>
+										</div>
+									</div>
+									<div class="recuit-title"><a href="#"><em>02</em> 수분 마스크팩 첩포 시험</a></div>
+									<div class="recruit-period">
+										<span class="recruit-date">신청기간 : 2017.12.01 ~ 2017.12.15</span>
+										<span class="exam-date">시험기간 : 2017.12.26 ~ 2018.01.31</span>
+									</div>
+									<div class="recruit-tag">
+										<span>방문</span>
+										<span>서울</span>
+										<span>용인</span>
+										<span>선착순</span>
+									</div>
+									<div class="recruit-buttons">
+										<button type="button" class="btn btn-3rd btn-gray">방문예약</button>
+										<button type="button" class="btn btn-3rd btn-gray">Q&amp;A</button>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="recruit-content">
+								<div class="recruit-l">
+									<div class="recruit-r">
+										<div class="recruit-label">
+											<span class="label-purple">선정</span>
+										</div>
+									</div>
+									<div class="recuit-title"><a href="#"><em>04</em> 이니스프리 그린티 오 드 퍼퓸</a></div>
+									<div class="recruit-period">
+										<span class="recruit-date">신청기간 : 2017.12.01 ~ 2017.12.15</span>
+										<span class="exam-date">시험기간 : 2017.12.26 ~ 2018.01.31</span>
+									</div>
+									<div class="recruit-tag">
+										<span>온라인</span>
+										<span>모집 후 선정</span>
+									</div>
+									<div class="recruit-buttons">
+										<button type="button" class="btn btn-3rd btn-gray">방문예약</button>
+										<button type="button" class="btn btn-3rd btn-gray">설문작성</button>
+										<button type="button" class="btn btn-3rd btn-gray">Q&amp;A</button>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="recruit-content">
+								<div class="recruit-l">
+									<div class="recruit-r">
+										<div class="recruit-label">
+											<span class="label-purple">선정</span>
+										</div>
+									</div>
+									<div class="recuit-title"><a href="#"><em>03</em> 수분 마스크팩 첩포 시험</a></div>
+									<div class="recruit-period">
+										<span class="recruit-date">신청기간 : 2017.12.01 ~ 2017.12.15</span>
+										<span class="exam-date">시험기간 : 2017.12.26 ~ 2018.01.31</span>
+									</div>
+									<div class="recruit-tag">
+										<span>방문</span>
+										<span>서울</span>
+										<span>용인</span>
+										<span>선착순</span>
+									</div>
+									<div class="recruit-buttons">
+										<button type="button" class="btn btn-3rd btn-gray">방문예약</button>
+										<button type="button" class="btn btn-3rd btn-gray">Q&amp;A</button>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="pageNavi">
+					<a href="#" class="page-first"><em class="page-arrow first"></em><span class="screen_out">처음 페이지</span></a>
+					<a href="#" class="page-prev"><em class="page-arrow prev"></em><span class="screen_out">이전 페이지</span></a>
+					<span class="pageNumbering">
+						<a href="#" class="page">1</a>
+						<a href="#" class="page">2</a>
+						<a href="#" class="page current">3</a>
+						<a href="#" class="page">4</a>
+						<a href="#" class="page">5</a>
+					</span>
+					<a href="#" class="page-next"><em class="page-arrow next"></em><span class="screen_out">다음 페이지</span></a>
+					<a href="#" class="page-end"><em class="page-arrow end"></em><span class="screen_out">마지막 페이지</span></a>
+				</div>
+
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+<!-- footer -->
+<footer id="footer" class="footer footer-intro respWidth">
+	<copyright>&#169; Since2017 Amorepacific, All Rights Reserved.</copyright>
+</footer>
+<!-- // footer -->
+
+<!-- popup : 방문일자 지정 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer001" class="popupBoxWrap" style="width:400px !important;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">방문일자 지정</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>방문 예약 정보 입력 테이블</caption>
+							<colgroup>
+								<col width="28%">
+								<col width="72%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>방문일</th>
+									<td>
+										<select id="" name="" class="inputBox">
+											<option value>2017-12-31 10:00 ~ 11:00</option>
+											<option value>2017-12-31 13:00 ~ 17:30</option>
+											<option value>2018-01-10 10:00 ~ 11:00</option>
+											<option value>2018-01-10 13:00 ~ 17:30</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+	<!-- // 방문일자 지정 -->
+</div>
+<!-- // popup -->
+
+<!-- popup : 임상연구 참가 동의서 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer002" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">동의서 서명</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="hr-top"></div>
+					<div class="page-title-sub">
+						<h3>임상연구 참가 동의서</h3>
+					</div>
+					<div class="rsch-consent consent-box">
+						<div class="consent-box-scroll">
+							<div class="consent-text">
+<b>1. 임사연구 배경 및 목적</b><br><br>
+임상연구 명 : 인체피부 일차자극첩포시험을 통한 화장품 및 화장품 원료에 대한 안정성 평가<br><br>
+본 연구의 목적<br>
+1) 새로 개발되었거나 기존에 개발된 화장품 및 화장품 원료의 첩포 시험을 통하여 그 반응을 검증한다.<br>
+2) 새로운 화장품의 개발을 위하여 인체피부 일차자극첩포시험을 시행함으로써 화장품으로 인한 접촉 피부염의 발생을 최소화하고 한국인의
+  정상 피부에 대한 자극 및 알러지성을 연구하는데 기초자료로 활용코자 합니다.<br>
+<br><br><br><br>
+<b>8. 임상연구 참여 동의</b><br><br>
+본인은 연구 담당자로부터 본 연구 물질의 특징 및 효과, 연구방법, 목적을 상세히 설명을 듣고 충분히 이해하였으며, 자유로운 의사에 본 연구에
+참여할 것을 동의합니다.
+							</div>
+						</div>
+						<div class="agree-area">
+							<input type="checkbox" id="rschAgree" name="rschAgree">
+							<label for="rschAgree">위 내용에 동의합니다.</label>
+						</div>
+					</div>					
+					
+					<div class="page-title-sub mgtp20">
+						<h3>개인정보 수집 &middot; 이용 동의서</h3>
+					</div>
+					<div class="info-consent consent-box">
+						<div class="consent-box-scroll">
+							내용 어케요??
+						</div>
+						<div class="agree-area">
+							<input type="checkbox" id="infoAgree" name="infoAgree">
+							<label for="infoAgree">위 내용에 동의합니다.</label>
+						</div>
+					</div>
+					<div class="rsch-signWarp">
+						<div class="rsch-sign-date">2017년 10월 31일</div>
+						<div class="rsch-sign-name">성명 <a href="#">김태평양</a> (인)</div>
+					</div>		
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+	<!-- // 임상연구 참가 동의서 -->
+</div>
+<!-- // popup -->
+
+<!-- popup : 설문작성 -->
+<div class="popupWrap">
+    <div class="dimBack"></div>
+    <div id="layer003" class="popupBoxWrap" style="width:800px;">
+		<div class="popupBox">
+			<div class="popup-container">
+				<div class="popup-header">
+					<div class="popup-title">결과 설문 작성</div>
+					<div class="popup-close">
+						<button class="btn-closePop"><i class="ico-close"></i><span class="screen_out">닫기</span></button>
+					</div>
+				</div>
+				<div class="popup-content">
+
+					<div class="tblWrap tbl-wm">
+						<table>
+							<caption>결과 설문 작성 테이블</caption>
+							<colgroup>
+								<col width="15%">
+								<col width="35%">
+								<col width="15%">
+								<col width="35%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>시험제목</th>
+									<td>수분마스크팩 첩포 시험</td>
+									<th>시험차수</th>
+									<td>1차</td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td>김태평양</td>
+									<th>작성일</th>
+									<td>2017-12-23</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="tbl-reset">
+										결과 설문 내용 표시 자리<br><br><br><br><br><br><br><br><br><br>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td colspan="3">
+										<div class="divForm file-box">
+											<input type="text" class="fileName inputBox" readonly="readonly" style="width:340px;">
+											<label for="upload-name" class="btn btn-5th btn-blue btn_file">찾아보기</label>
+											<input type="file" id="upload-name" class="upload-name">
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+					<div class="btn-wrap btnC">
+						<button type="button" class="btn btn-prim btn-white btn-closePop">닫기</button>
+						<button type="button" class="btn btn-prim btn-gray">임시저장</button>
+						<button type="button" class="btn btn-prim btn-red">저장</button>
+					</div>
+
+				</div><!-- // popup-content -->
+			</div><!-- // popup-container -->
+		</div><!-- // popupBox -->
+    </div>
+	<!-- // 설문작성 -->
+</div>
+<!-- // popup -->
+<script  src="../js/popup.js"></script>
+
+</body>
+</html>

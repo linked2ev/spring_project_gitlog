@@ -1,0 +1,328 @@
+package com.rdpanel.fo.sc.controller;
+
+import java.util.Locale;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import com.rdpanel.cmmn.security.Panel;
+import com.rdpanel.cmmn.security.Panel.PANELAUTH;
+import com.rdpanel.cmmn.security.SessionsPanel;
+import com.rdpanel.cmmn.service.CmmnService;
+import com.rdpanel.fo.sc.service.PanelSecurityService;
+import com.webiz.util.StringUtil;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.sc.controller
+* 2. 타입명 : PanelSecurityController.java
+* 3. 작성일 : 2017. 10. 16.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 로그인/로그아웃 보안 Controller
+* </pre>
+ */
+@Controller
+public class PanelSecurityController {
+
+	static final Logger logger = LoggerFactory.getLogger(PanelSecurityController.class);
+	
+	@Autowired SessionLocaleResolver localeResolver;
+
+	@Autowired MessageSource messageSource;
+	
+    @Resource(name="cmmnService") 
+    private CmmnService cmmnService;  
+    
+    @Resource(name="panelSecurityService") 
+    private PanelSecurityService panelSecurityService;   
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : login
+    * 2. 작성일 : 2017. 10. 16.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 로그인
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping("/fo/sc/login.do")
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+        
+		Cookie[] cookies = request.getCookies();
+	     
+	    if(cookies != null)
+	    {
+	        for(int i=0; i < cookies.length; i++)
+	        {
+	            Cookie c = cookies[i];
+	            String cName = c.getName(); 
+	            if(cName.equals("PANEL_USER_ID"))
+	            {
+	            	String cValue = c.getValue();
+	            	mv.addObject("COOKIE_USER_ID", cValue);
+	            }
+	        }
+	    }
+	    
+	    SessionLocaleResolver resolver = new SessionLocaleResolver();
+
+	    //원하는 나라의 로케일 가져옴 en:미국 ko:한국 중국:zh(?)
+	    Locale locale = new Locale("ko");
+	    
+	    //가져온 로케일을 세션리졸버에 셋팅
+//	    resolver.setLocale(request, response, locale);
+	    
+	    //세션리졸버의 기본 국가 설정
+	    resolver.setDefaultLocale(locale);
+	    
+		mv.addObject("returnUrl", StringUtil.getString(commandMap.get("returnUrl"), ""));
+		
+		return mv;
+	}
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : loginProc
+    * 2. 작성일 : 2017. 10. 25.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 로그인 처리
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	@RequestMapping(value="/fo/sc/loginProc.do", method = RequestMethod.POST)
+    public ModelAndView loginProc(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, Object> commandMap) throws Exception 
+    {
+		logger.info("\n =====================================================================================");
+		logger.info("\n ==================================== 로그인 시작 ====================================");
+		
+		//System.out.println(">> msg test : " + messageSource.getMessage("return.error.000", null, "대체 글자", (Locale) request.getAttribute("LOCALE_LANG")) ); 
+		 
+    	ModelAndView mv = new ModelAndView();
+    	
+        Panel panel = new Panel();
+        
+        String webRootDomain = (String) request.getAttribute("webRootDomain");
+        
+        String loginReqState = "";
+        String alertMsg   = "";
+        String confirmMsg = "";
+        String returnUrl  = "";
+        
+        String loginId = StringUtil.getString(commandMap.get("ID"), "");
+        String loginPw = StringUtil.getString(commandMap.get("PSWD"), "");
+        String saveId  = StringUtil.getString(commandMap.get("saveId"), "");
+        String userGbn = "panel";
+        
+        boolean loginCheck = false;
+        
+        /**
+         * STEP 1 . 패널 로그인
+         */
+        if("panel".equals(userGbn))
+        {
+        	/**
+        	 * STEP 1-1 . 아이디 NULL 확인
+        	 */
+            if("".equals(loginId))
+            {
+            	panel.setLoginReqState("ID_NULL");
+            } 
+            /**
+             * STEP 1-2 . 비밀번호 NULL 확인
+             */
+            else if("".equals(loginPw))
+            {
+            	panel.setLoginReqState("PW_NULL");
+            }
+            else
+            {
+            	panel.setPANEL_AUTH(PANELAUTH.panel);
+            	panel.setCSTMID(loginId);
+            	panel.setSECPSWD(loginPw);
+                loginCheck = true;
+            }
+        }
+        
+        /**
+         * STEP 2 . [통합고객] 로그인 처리
+         */
+        if(loginCheck)
+        {
+            panel = this.panelSecurityService.loginMstPanelProc(request, panel);
+            loginReqState = StringUtil.getString(panel.getLoginReqState(), "");
+        }
+        
+        /**
+         * STEP 3 . [통합고객] 로그인 성공 시 > [R&D 패널] 로그인 처리
+         */
+        if("MST_LOGIN_SUCCESS".equals(loginReqState))
+        {
+        	panel = this.panelSecurityService.loginPanelProc(request, panel);
+        	loginReqState = StringUtil.getString(panel.getLoginReqState(), ""); 
+        }
+        logger.info("\n ==================================== 로그인 처리 후 메시지 코드 ====================================");
+        logger.info("\n >> loginReqState: " + loginReqState);
+  
+        /**
+         * STEP 4 . [통합고객] / [R&D 패널] 로그인 성공
+         */
+        if("PANEL_LOGIN_SUCCESS".equals(loginReqState))
+        {
+        	// saveID 쿠키 저장 
+        	if("Y".equals(saveId))
+        	{
+        	    Cookie c = new Cookie("PANEL_USER_ID", loginId);
+        	     
+        	    // 초단위 : 60*60*24= 1일
+        	    c.setMaxAge(60*60*24*30);
+        	    response.addCookie(c);
+        	}
+        	else
+        	{
+        	    Cookie c = new Cookie("PANEL_USER_ID", null);
+        	    c.setMaxAge(0) ;
+        	    response.addCookie(c);
+        	}
+        	
+        	// login 후 returnlUrl 페이지 이동
+        	if("".equals(StringUtil.getString(commandMap.get("returnUrl"), "")))
+        	{
+        		returnUrl = webRootDomain + "/fo/mn/panelMainIndex.do";
+        	}
+        	else
+        	{
+        		returnUrl = webRootDomain + commandMap.get("returnUrl");
+        	}
+            
+        	// [통합고객] 세션 삭제
+        	SessionsPanel.setSessionDelete(request, "__SESSION_JOIN_MEM__");
+        }
+        /**
+         * STEP 5 . 로그인 실패 시 메시지 설정
+         */
+        else
+        {
+	        // [통합고객] 아이디 NULL / 비밀번호 NULL > 로그인 화면
+	    	if("ID_NULL".equals(loginReqState) || "PW_NULL".equals(loginReqState) || "PANEL_ID_NULL".equals(loginReqState))
+	    	{
+	    		alertMsg = "일치하는 아모레퍼시픽 통합 계정이 없습니다.";
+	    		returnUrl = webRootDomain + "/fo/sc/login.do";
+	    	}
+	    	// [통합고객] 정보 불일치 > 로그인 화면
+	    	else if("IF_INCORRECT".equals(loginReqState))
+	    	{
+	    		alertMsg = "비밀번호가 일치하지 않습니다.";
+	    		returnUrl = webRootDomain + "/fo/sc/login.do";
+	    	}
+	    	// [통합고객] 휴면아이디 > 휴면해제 화면
+	    	else if("IF_INACTIVE".equals(loginReqState))
+	    	{
+	    		alertMsg = "현재 휴면고객입니다.</br>휴면해제 화면으로 이동합니다.";
+	    		returnUrl = "https://www.beautypoint.co.kr/header/sign-up.restore.html?ucstmid=" + panel.getCSTMID().toString();
+	    		mv.addObject("location", "Y");
+	    	}
+	    	// [통합고객] 회원 정보 NULL > 뷰티포인트몰
+	    	else if("IF_NULL".equals(loginReqState))
+	    	{
+	    		//alertMsg = "통합고객에 일치하는 회원이 없습니다.</br>뷰티포인트몰 회원가입 화면으로 이동합니다.";
+	    		//returnUrl = "https://join-on.amorepacific.com/member/step1.do?siteCd=BAK&returnUrl=https://www.beautypoint.co.kr/main.html";
+	    		//mv.addObject("location", "Y");
+	    		alertMsg = "일치하는 아모레퍼시픽 통합 아이디가 없습니다.";
+	    		returnUrl = webRootDomain + "/fo/sc/login.do";
+	    	}
+	      	// [통합고객] 미성년자 일 경우
+	    	else if("IF_MINOR_MEM".equals(loginReqState))
+	    	{
+	    		alertMsg = "아모레퍼시픽 고객연구센터 사이트의 정책 및 미성년자의 개인정보를 특별히 보호하기 위하여 만 19세 미만의 미성년자의 회원가입을 제한하고 있습니다.";
+	    		returnUrl = webRootDomain + "/fo/sc/login.do";
+	    	}
+	    	// [R&D 패널] 정보 NULL > R&D 패널 회원가입 STEP1 화면 이동
+	    	else if("PANEL_GO_STEP1".equals(loginReqState))
+	    	{
+	    		alertMsg = "아모레퍼시픽 고객연구센터</br>회원가입 화면으로 이동합니다.";
+	    		returnUrl = webRootDomain + "/fo/mj/memberJoinStep1.do";
+	    	}
+	    	// [R&D 패널] 임시저장 > R&D 패널 회원가입 STEP3 화면 이동
+	    	else if("PANEL_GO_STEP3".equals(loginReqState))
+	    	{
+	    		alertMsg = "아모레퍼시픽 고객연구센터</br>기초설문 화면으로 이동합니다.";
+	    		returnUrl = webRootDomain + "/fo/mj/memberJoinStep3.do";
+	    	}
+	    	// [R&D 패널] 기초설문/팀별설문 1년 후 재설문 조사 필요 > R&D 패널 회원가입 STEP3 화면 이동
+	    	else if("PANEL_GO_SURVEY".equals(loginReqState))
+	    	{
+	    		alertMsg = "고객님께서는 기초설문 작성하신지 1년이</br>지났습니다. 재설문 조사가 필요합니다.</br>기초설문 화면으로 이동합니다.";
+	    		returnUrl = webRootDomain + "/fo/mj/memberJoinStep3.do";
+	    		// 임시저장 및 STEP2 이동 불가
+	    		mv.addObject("returnKey", "SURVEY_REG_FLAG");
+	    		mv.addObject("returnVal", panel.getSURVEY_REG_FLAG());
+	    	}
+	    	// [R&D 패널] 회원탈퇴 계정 > R&D 패널 회원가입 화면 이동
+	    	else if("PANEL_STATE_LEAVE".equals(loginReqState))
+	    	{
+	    		confirmMsg = "이 아이디는 회원탈퇴 계정입니다.";
+	    		returnUrl = webRootDomain + "/fo/mp/memberRecoveryProc.do";
+	    		mv.addObject("returnKey", "LEAVE_USER_ID");
+	    		mv.addObject("returnVal", panel.getUSER_ID());
+	    	}
+        }
+        logger.info("\n ==================================== 로그인 종료 ====================================");
+         
+    	mv.addObject("alertMsg", alertMsg);
+    	mv.addObject("confirmMsg", confirmMsg);
+    	mv.addObject("returnUrl", returnUrl);
+        mv.setViewName("/fo/common/result");
+    	
+    	return mv;
+    }
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : logout
+    * 2. 작성일 : 2017. 10. 16.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 로그아웃
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @RequestMapping(value="/fo/sc/logout.do", method = RequestMethod.POST)
+	public ModelAndView logout(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+        session.invalidate();
+		
+    	mv.addObject("returnUrl", request.getAttribute("webRootDomain") + "/fo/sc/login.do");
+        mv.setViewName("/fo/common/result");
+        
+		return mv;
+	}
+    
+}

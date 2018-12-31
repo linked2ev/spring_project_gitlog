@@ -1,0 +1,247 @@
+package com.rdpanel.cmmn.security;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rdpanel.cmmn.interceptor.SecurityInterceptor;
+import com.webiz.util.StringUtil;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.cmmn.security
+* 2. 타입명 : SessionsPanel.java
+* 3. 작성일 : 2017. 10. 30.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : [R&D 패널] 세션 클래스
+* </pre>
+ */
+public class SessionsPanel {
+
+	
+	static final Logger logger = LoggerFactory.getLogger(SessionsPanel.class);
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : setSessionMstPanel
+	* 2. 작성일 : 2017. 10. 16.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : [통합고객] 통합고객 상세정보를 세션에 저장
+	* </pre>
+	* @param request
+	* @param userMap
+	 */
+    public static void setSessionMstPanel(HttpServletRequest request, Map<String, Object> mstPanelMap){
+    	
+        HttpSession session = request.getSession();
+        Map<String, Object> sessionPanelMstInfoMap = new HashMap<String, Object>();
+
+        /************************ 통합고객 상세정보 ************************/
+        sessionPanelMstInfoMap.put("SESSION_USER_ID", StringUtil.getString(mstPanelMap.get("CSTMID"), ""));
+        
+        sessionPanelMstInfoMap.put("SESSION_CSTMID", StringUtil.getString(mstPanelMap.get("CSTMID"), ""));
+        sessionPanelMstInfoMap.put("SESSION_CSTMNM", StringUtil.getString(mstPanelMap.get("CSTMNM"), ""));
+        sessionPanelMstInfoMap.put("SESSION_MOBILENO1", StringUtil.getString(mstPanelMap.get("MOBILENO1"), ""));
+        sessionPanelMstInfoMap.put("SESSION_MOBILENO2", StringUtil.getString(mstPanelMap.get("MOBILENO2"), ""));
+        sessionPanelMstInfoMap.put("SESSION_MOBILENO3", StringUtil.getString(mstPanelMap.get("MOBILENO3"), ""));
+        sessionPanelMstInfoMap.put("SESSION_EMAIL1", StringUtil.getString(mstPanelMap.get("EMAIL1"), ""));
+        sessionPanelMstInfoMap.put("SESSION_EMAIL2", StringUtil.getString(mstPanelMap.get("EMAIL2"), ""));
+        sessionPanelMstInfoMap.put("SESSION_BRTHDATE", StringUtil.getString(mstPanelMap.get("BRTHDATE"), ""));
+        sessionPanelMstInfoMap.put("SESSION_YEAR", StringUtil.getString(mstPanelMap.get("YEAR"), ""));
+        sessionPanelMstInfoMap.put("SESSION_MONTH", StringUtil.getString(mstPanelMap.get("MONTH"), ""));
+        sessionPanelMstInfoMap.put("SESSION_DAY", StringUtil.getString(mstPanelMap.get("DAY"), ""));
+        sessionPanelMstInfoMap.put("SESSION_AGE", StringUtil.getString(mstPanelMap.get("AGE"), ""));
+        sessionPanelMstInfoMap.put("SESSION_AGE_YN", StringUtil.getString(mstPanelMap.get("AGE_YN"), ""));
+        sessionPanelMstInfoMap.put("SESSION_UCSTMID", StringUtil.getString(mstPanelMap.get("UCSTMID"), ""));
+        sessionPanelMstInfoMap.put("SESSION_DORMANCYYN", StringUtil.getString(mstPanelMap.get("DORMANCYYN"), ""));
+    	
+        session.setAttribute("__SESSION_MST_PANEL_INFO__", sessionPanelMstInfoMap);
+    }
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : setSessionPanel
+    * 2. 작성일 : 2017. 10. 26.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : [R&D 패널] 패널 상세정보를 세션에 저장
+    * </pre>
+    * @param request
+    * @param mstPanelMap
+     */
+    public static void setSessionPanel(HttpServletRequest request, Map<String, Object> panelMap)
+    {
+    	HttpSession session = request.getSession();
+        session.invalidate();
+        
+        session = request.getSession();
+        Map<String, Object> sessionPanelInfoMap = new HashMap<String, Object>();
+
+        /************************ R&D 패널 상세정보 ************************/
+        sessionPanelInfoMap.put("SESSION_PANEL_AUTH", StringUtil.getString(panelMap.get("auths"), "00")); // [R&D 패널] 권한
+        
+        sessionPanelInfoMap.put("SESSION_USER_ID", StringUtil.getString(panelMap.get("USER_ID"), ""));
+        sessionPanelInfoMap.put("SESSION_NAME", StringUtil.getString(panelMap.get("NAME"), ""));
+        sessionPanelInfoMap.put("SESSION_PHONE", StringUtil.getString(panelMap.get("PHONE"), ""));
+        sessionPanelInfoMap.put("SESSION_BIRTH", StringUtil.getString(panelMap.get("BIRTH"), ""));
+        sessionPanelInfoMap.put("SESSION_EMAIL", StringUtil.getString(panelMap.get("EMAIL"), ""));
+        sessionPanelInfoMap.put("SESSION_GENDER_CD", StringUtil.getString(panelMap.get("GENDER_CD"), ""));
+        sessionPanelInfoMap.put("SESSION_OCCU_AREA_CD", StringUtil.getString(panelMap.get("OCCU_AREA_CD"), ""));
+        sessionPanelInfoMap.put("SESSION_VISIT_PREFER_CD", StringUtil.getString(panelMap.get("VISIT_PREFER_CD"), ""));
+    	
+        session.setAttribute("__SESSION_PANEL_INFO__", sessionPanelInfoMap);
+    }
+    
+    
+    /**
+     * <pre>
+     * 1. 메소드명 : setSessionJoinMem
+     * 2. 작성일 : 2017. 10. 26.
+     * 3. 작성자 : JAMUGE
+     * 4. 설명 : [R&D 패널] 회원가입을 위한 세션
+     * </pre>
+     * @param request
+     * @param mstPanelMap
+     */
+    public static void setSessionJoinMem(HttpServletRequest request, Map<String, Object> panelMap)
+    {
+    	logger.info("\n ===============================================================================");
+    	logger.info("\n ============== setSessionJoinMem :: R&D 패널 회원가입 정보 시작 =============== \n\n\n\n");
+    	
+    	HttpSession session = request.getSession();
+    	Map<String, Object> sessionJoinMemMap = new HashMap<String, Object>();
+    	
+    	/************************ R&D 패널 회원가입 정보 ************************/
+    	sessionJoinMemMap.put("SESSION_UCSTMID", StringUtil.getString(panelMap.get("UCSTMID"), ""));  // [통합고객] 아이디
+    	sessionJoinMemMap.put("SESSION_CSTMID", StringUtil.getString(panelMap.get("CSTMID"), ""));    // [R&D 패널] 아이디
+    	
+    	sessionJoinMemMap.put("SESSION_PANEL_AUTH", StringUtil.getString(panelMap.get("auths"), "")); // [R&D 패널] 권한
+    	sessionJoinMemMap.put("SESSION_USER_ID", StringUtil.getString(panelMap.get("USER_ID"), ""));  // [R&D 패널] 아이디
+    	sessionJoinMemMap.put("SESSION_NAME", StringUtil.getString(panelMap.get("NAME"), ""));
+    	sessionJoinMemMap.put("SESSION_PHONE1", StringUtil.getString(panelMap.get("PHONE1"), ""));
+    	sessionJoinMemMap.put("SESSION_PHONE2", StringUtil.getString(panelMap.get("PHONE2"), ""));
+    	sessionJoinMemMap.put("SESSION_PHONE3", StringUtil.getString(panelMap.get("PHONE3"), ""));
+    	sessionJoinMemMap.put("SESSION_YEAR", StringUtil.getString(panelMap.get("YEAR"), ""));
+    	sessionJoinMemMap.put("SESSION_MONTH", StringUtil.getString(panelMap.get("MONTH"), ""));
+    	sessionJoinMemMap.put("SESSION_DAY", StringUtil.getString(panelMap.get("DAY"), ""));
+    	sessionJoinMemMap.put("SESSION_EMAIL", StringUtil.getString(panelMap.get("EMAIL"), ""));
+    	sessionJoinMemMap.put("SESSION_EMAIL1", StringUtil.getString(panelMap.get("EMAIL1"), ""));
+    	sessionJoinMemMap.put("SESSION_EMAIL2", StringUtil.getString(panelMap.get("EMAIL2"), ""));
+    	sessionJoinMemMap.put("SESSION_GENDER_CD", StringUtil.getString(panelMap.get("GENDER_CD"), ""));
+    	sessionJoinMemMap.put("SESSION_OCCU_AREA_CD", StringUtil.getString(panelMap.get("OCCU_AREA_CD"), ""));
+    	sessionJoinMemMap.put("SESSION_VISIT_PREFER_CD", StringUtil.getString(panelMap.get("VISIT_PREFER_CD"), ""));
+    	
+    	logger.info("\n >> sessionJoinMemMap: " + sessionJoinMemMap);
+    	logger.info("\n ============== setSessionJoinMem :: R&D 패널 회원가입 정보 종료 ===============");
+    	
+    	session.setAttribute("__SESSION_JOIN_MEM__", sessionJoinMemMap);
+    }
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : getSessionMap
+    * 2. 작성일 : 2017. 10. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 세션을 맵 형태로 가져온다. sessionName : 가져 올 세션맵 이름
+    * </pre>
+    * @param request
+    * @param sessionGbn
+    * @return
+     */
+    @SuppressWarnings("unchecked")
+	public static Map<String, Object> getSessionMap(HttpServletRequest request, String sessionName)
+	{
+        return (Map<String, Object>) request.getSession().getAttribute(sessionName);
+    }
+     
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : getSessionValue
+    * 2. 작성일 : 2017. 10. 30.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 :
+    * </pre>
+    * @param request
+    * @return
+     */
+    @SuppressWarnings("unchecked")
+	public static Map<String, Object> getSessionUserValue(HttpServletRequest request, String sessionName)
+    {
+        try
+        {
+            return (Map<String, Object>)request.getSession().getAttribute(sessionName);
+        }
+        catch (Exception e)
+        {
+            return new HashMap<String, Object>();
+        }
+    }
+
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : isJoinMem
+    * 2. 작성일 : 2017. 10. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 패널 회원가입 step 페이지 접근을 확인한다.
+    * </pre>
+    * @param request
+    * @return
+     */
+    public static boolean isJoinMem(HttpServletRequest request){
+    	
+    	Map<String, Object> sessionMap = getSessionMap(request, "__SESSION_JOIN_MEM__");
+    	if(sessionMap != null){
+    		if(!"".equals(StringUtil.getString(sessionMap.get("SESSION_UCSTMID"), ""))){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : isLogin
+    * 2. 작성일 : 2017. 10. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 패널 로그인 확인
+    * </pre>
+    * @param request
+    * @return
+     */
+    public static boolean isLogin(HttpServletRequest request){
+    	
+    	Map<String, Object> sessionMap = getSessionMap(request, "__SESSION_PANEL_INFO__");
+    	if(sessionMap != null){
+    		if(!"".equals(StringUtil.getString(sessionMap.get("SESSION_USER_ID"), ""))){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+   
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : setSessionDelete
+    * 2. 작성일 : 2017. 10. 31.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 해당 세션을 삭제한다.
+    * </pre>
+    * @param request
+    * @param sessionName : 가져 올 세션맵 이름
+     */
+    public static void setSessionDelete(HttpServletRequest request, String sessionName){
+        HttpSession session = request.getSession();
+        session.setAttribute(sessionName, null);
+    }
+    
+}

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QnaBoard">
+	
+    
+	<!-- 시험별 Q&A 목록 갯수 -->
+    <select id="selectQnaBoardListCnt" parameterClass="HashMap" resultClass="Integer">
+        /* QnaBoard.selectQnaBoardListCnt */
+     	SELECT
+	    		COUNT(A.BOARD_MNG_NO)
+	  	FROM 
+	  			RDEI401DT A
+	 			LEFT OUTER JOIN RDEI401DT B ON B.ORG_BOARD_MNG_NO = A.BOARD_MNG_NO
+	 	WHERE 
+	 			A.EXAM_MNG_NO = #EXAM_MNG_NO#
+	   			AND (A.CATEGORY_CD = '00' OR A.REGI_USER_ID  = #USER_ID#)
+	   			AND A.CATEGORY_CD IS NOT NULL
+    </select>
+    
+    
+	<!-- 시험별 Q&A 목록 -->
+    <select id="selectQnaBoardList" parameterClass="HashMap" resultClass="HashMap">
+        /* QnaBoard.selectQnaBoardList */
+        SELECT
+        		S2.*
+     	FROM
+     			(
+		        SELECT
+		        		ROWNUM AS RNUM
+		                ,S1.*
+                FROM
+                		(
+					    SELECT
+					    		A.CATEGORY_CD
+					    		,CASE 
+					    				A.CATEGORY_CD WHEN '00' THEN '[공지사항]'
+					            		ELSE (SELECT X.VALUE FROM RDCM102DT X WHERE X.CODE = A.CATEGORY_CD AND X.COMM_CD = 'CTEGORY')
+					        	END AS CATEGORY
+					      		,A.TITLE
+					      		,CASE 
+					      				WHEN A.REGI_DATE + 1 > SYSDATE THEN 'Y'
+					            		WHEN B.REGI_DATE + 1 > SYSDATE THEN 'Y'
+					            		ELSE 'N'
+					       		END AS NEW_YN
+					      		,CASE
+										WHEN B.REGI_ID IS NOT NULL THEN 'Y'
+					            		ELSE 'N'
+				       			END AS ANSWER_YN
+					      		,A.CONTENT
+					      		,B.ANSWER
+					      		,CASE 
+					      				A.QNA_GBN WHEN '01' THEN (
+					      												SELECT 
+																				CASE LENGTH(X.NAME) WHEN 2 THEN SUBSTR(X.NAME, 1, 1) || '*'
+								                            							WHEN 3 THEN SUBSTR(X.NAME, 1, 1) || '*' || SUBSTR(X.NAME, LENGTH(X.NAME))
+								                           								WHEN 4 THEN SUBSTR(X.NAME, 1, 1) || '**' || SUBSTR(X.NAME, LENGTH(X.NAME))
+								                            							ELSE SUBSTR(X.NAME, 1, 1) || '***' || SUBSTR(X.NAME, LENGTH(X.NAME))
+        																		END AS NAME /* 이름 */
+					      												FROM 
+					      														RDUR102DT X 
+			      														WHERE 
+			      																X.USER_ID = A.REGI_USER_ID
+     															 )
+					                    ELSE (SELECT X.SNAME FROM RDUR301DT X WHERE X.PERNR = A.REGI_ID)
+					       		END AS REGI_NAME
+					      		,TO_CHAR(A.REGI_DATE, 'YYYY-MM-DD HH24:MI') AS REGI_DATE
+					      		,(SELECT X.SNAME FROM RDUR301DT X WHERE X.PERNR = B.REGI_ID) AS ANSWER_NAME
+					      		,TO_CHAR(B.REGI_DATE, 'YYYY-MM-DD HH24:MI') AS ANSWER_DATE
+							    ,CASE A.CATEGORY_CD WHEN '00' THEN '0'
+							        ELSE '1'
+							    END AS CATEGORY_ORDER
+					  	FROM 
+					  			RDEI401DT A
+					 			LEFT OUTER JOIN RDEI401DT B ON B.ORG_BOARD_MNG_NO = A.BOARD_MNG_NO
+					 	WHERE 
+					 			A.EXAM_MNG_NO = #EXAM_MNG_NO#
+					   			AND (A.CATEGORY_CD = '00' OR A.REGI_USER_ID = #USER_ID#)
+					   			AND A.CATEGORY_CD IS NOT NULL
+					 	ORDER BY 
+					 			CATEGORY_ORDER, A.ORG_BOARD_MNG_NO, A.BOARD_MNG_NO DESC
+			 			)
+			 			S1
+				)
+				S2
+		WHERE
+            	S2.RNUM BETWEEN #firstRecordIdx# AND #lastRecordIdx#
+    </select>
+    
+    
+    <!-- 시험별 Q&A 상세정보 -->
+    <select id="selectQnaBoardInfo" parameterClass="HashMap" resultClass="HashMap">
+        /* QnaBoard.selectQnaBoardInfo */
+        SELECT
+            	EXAM_MNG_NO
+            	,EXAM_TITLE
+            	,RESEARCHER_NAME
+            	,RECEIVE_EMAIL
+        FROM
+            	RDEI101MT
+        WHERE
+            	EXAM_MNG_NO = #EXAM_MNG_NO#
+    </select>
+    
+    
+    <!-- 시험별 Q&A 글쓰기 등록 -->
+    <insert id="insertQnaBoardAdd" parameterClass="HashMap">
+        <selectKey keyProperty="BOARD_MNG_NO" resultClass="Integer">
+            SELECT RDEI401DT_SEQ.NEXTVAL AS BOARD_MNG_NO FROM DUAL
+        </selectKey>
+        /* QnaBoard.insertQnaBoardAdd */
+        INSERT INTO
+            RDEI401DT
+            (
+                BOARD_MNG_NO
+                ,EXAM_MNG_NO
+                ,CATEGORY_CD
+                ,QNA_GBN
+                ,TITLE
+                ,CONTENT
+                ,REGI_DATE
+                ,REGI_USER_ID
+            )
+        VALUES
+            (
+                #BOARD_MNG_NO#
+                ,#EXAM_MNG_NO#
+                ,#CATEGORY_CD#
+                ,#QNA_GBN#
+                ,#TITLE#
+                ,#CONTENT#
+                ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+                ,#USER_ID#
+            )
+    </insert>
+    
+
+</sqlMap>

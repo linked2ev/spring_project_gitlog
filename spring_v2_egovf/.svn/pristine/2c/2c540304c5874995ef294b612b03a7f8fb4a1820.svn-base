@@ -1,0 +1,314 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/WEB-INF/jsp/fo/include/headSurvey.jsp" />
+</head>
+
+<body>
+
+<!-- header -->
+<jsp:include page="/WEB-INF/jsp/fo/include/header/headerPanel${panelAuth }.jsp" flush="false" />
+<!-- // header -->
+
+<!-- main -->
+<main id="main" class="main respWidth">
+	<div class="containerWrap">
+
+		<div class="pageWrap rndBaseSurvey">
+		
+			<div class="page-title">
+				<h2><spring:message code="menu.019"/></h2>
+				<div class="page-location">
+					<span class="home"><spring:message code="menu.010"/></span> - <spring:message code="menu.017"/> - <b><spring:message code="menu.019"/></b>
+				</div>
+			</div>
+			
+			<div class="page-content">
+				<form id="form" name="form">
+					<input type="hidden" name="PENRNR_CERT_FLAG" id="PENRNR_CERT_FLAG" value="<c:out value="${commandMap.PENRNR_CERT_FLAG}"/>"><!-- 패널 인증 -->
+					<input type="hidden" name="surveyResult" id="surveyResult" value="<c:out value="${commandMap.surveyResult}"/>">
+					<input type="hidden" name="termAgree" id="termAgree" value="<c:out value="${commandMap.termAgree}"/>">
+					<input type="hidden" name="termAgree2" id="termAgree2" value="<c:out value="${commandMap.termAgree2}"/>">
+					<input type="hidden" name="HEIGHT" id="HEIGHT" value="<c:out value="${commandMap.HEIGHT}"/>">
+					<input type="hidden" name="WEIGHT" id="WEIGHT" value="<c:out value="${commandMap.WEIGHT}"/>">
+					<input type="hidden" name="NAME" id="NAME" value="<c:out value="${commandMap.NAME}"/>">
+					<input type="hidden" name="EXAM_TYPE" id="EXAM_TYPE" value="BASIC_TYPE">
+					<input type="hidden" name="SAVE_TYPE" id="SAVE_TYPE" value="TEMP">
+					
+					<input type="hidden" name="SURVEY_REG_FLAG" id="SURVEY_REG_FLAG" value="<c:out value="${SURVEY_REG_FLAG}"/>">
+					
+				<div class="page-desc-box">
+					<p><spring:message code="joinStep.005"/></p>
+					<p><span class="txtRed"><spring:message code="joinStep.006"/></span></p>
+				</div>
+				 
+				<div class="tblWrap tbl-wm surveyWrap" id="surveyElement">
+					<!-- 기초설문/팀별설문 Survey 영역 -->
+				</div>
+				
+				<div class="btn-wrap btnC">
+					<c:if test="${empty SURVEY_REG_FLAG}">
+						<button type="button" class="btn btn-prim btn-gray wd100" id="fn_goTempStorage"><spring:message code="button.002"/></button>
+						<button type="button" class="btn btn-prim btn-white wd100" id="fn_goMemberJoinStep2"><spring:message code="button.003"/></button>
+					</c:if>
+					<button type="button" class="btn btn-prim btn-white wd100" id="fn_goPrevious"><spring:message code="button.003"/></button>
+					<button type="button" class="btn btn-prim btn-red wd100" id="fn_goNext"><spring:message code="button.004"/></button>
+					<button type="button" class="btn btn-prim btn-red wd100" id="fn_goMemberJoinStep4"><spring:message code="button.004"/></button>
+				</div>
+
+			</form>
+			</div><!-- // page-content -->
+		</div><!-- // pageWrap -->
+
+	</div><!-- // container -->
+</main>
+<!-- // main -->
+
+<!-- footer -->
+<jsp:include page="/WEB-INF/jsp/fo/include/footer.jsp" />
+<!-- // footer -->
+	
+<script>
+	Survey.Survey.cssType = "bootstrap";
+
+	//_____특수기호 '|' 사용 제한_____
+	var MyTextValidator = (function (_super) {
+	    Survey.__extends(MyTextValidator, _super);
+	    function MyTextValidator() { 
+	        _super.call(this);
+	    }
+	    MyTextValidator.prototype.getType = function () { return "mytextvalidator"; };
+	    MyTextValidator.prototype.validate = function (value, name) {
+	        if(value.indexOf("|") >= 0) {
+	            return new Survey.ValidatorResult(null, new Survey.CustomError(this.getErrorText(name)));
+	        }
+	        return null;
+	    };
+	    MyTextValidator.prototype.getDefaultErrorText = function(name) {
+	        return fnLang("'|'는 사용하실 수 없습니다.", "LC00");
+	    }
+	    return MyTextValidator;
+	})(Survey.SurveyValidator);
+	Survey.MyTextValidator = MyTextValidator;
+
+	Survey.JsonObject.metaData.addClass("mytextvalidator", [], function () { return new MyTextValidator(); }, "surveyvalidator");
+	//__________________________________
+	 
+	/* survey create */   
+	var survey = new Survey.Model('{"pages":'+ jsonStrReturn(${basicSurveyTxt}) + '}'); 
+	survey.requiredText = "";
+	survey.showNavigationButtons = false;
+	survey.showCompletedPage = false;
+	survey.questionTitleTemplate = "{no}) {title}";
+	
+	/* rendering */
+	survey.onRendered.add(function() {
+        jQuery('#Load').css('display','');
+    });
+    survey.onAfterRenderSurvey.add(function() {
+        jQuery('#Load').css('display','none');
+    });
+    
+	/* data binding */
+	survey.data = jsonParseReturn(jsonStrReturn(${AnswerTxt})); 
+
+	var tPage = survey.pagesValue.length;  // 전체 페이지
+	var cPage = 0;
+	
+	setRequiredAll(survey, true, "surveyElement");
+	
+	//서베이 필수체크 여부 설정   
+	function setRequiredAll(item, required, surveyElement){
+		var q = item.getAllQuestions(true);
+		for(var i = 0; i < q.length; i++){
+			var conIdx = parseInt(i)+1;
+			//console.log(">> ["+conIdx+"] q item : ", q[i]);
+			//console.log(">> ["+conIdx+"] q name : ", q[i].constructor.name);
+			
+			// 키, 몸무게 삭제
+			//if(conIdx == 29 || conIdx == 30){
+			//	q[i].validators[0].maxValue = "999";
+			//}
+			if(typeof q[i].isAllRowRequired != "undefinded" && q[i].isAllRowRequired == false){
+				q[i].isAllRowRequired = required;
+			}else{
+				q[i].isRequired = required;
+			}
+		}
+		item.render(surveyElement);
+	}
+	
+$(function(){
+
+	// surveyPaging
+	surveyPaging = function(){
+		
+		cPage = survey.currentPageValue.visibleIndex + 1;
+		//console.log(">> cPage :" , cPage);
+		if(cPage == 1){
+			$("#fn_goMemberJoinStep2").show();
+			$("#fn_goPrevious").hide();
+		}
+		if(cPage > 1){
+			$("#fn_goMemberJoinStep2").hide();
+			$("#fn_goPrevious").show();
+		} 
+		if(tPage <= cPage){
+			$("#fn_goNext").hide();
+			$("#fn_goMemberJoinStep4").show();
+		}else{
+			$("#fn_goNext").show();
+			$("#fn_goMemberJoinStep4").hide();
+		}
+		
+		$( 'html, body' ).animate( { scrollTop : 0 }, 300 );
+	}
+	$("#fn_goPrevious").hide();  
+	$("#fn_goMemberJoinStep4").hide();
+	
+// 	// 키, 몸무게
+// 	dataTrigger = function(){ 
+// 		var result = true;
+// 		if($("#sq_128i").length > 0){
+// 			// 키
+// 			if(isCheckNum($("#sq_128i").val())){
+// 				$("#HEIGHT").val($("#sq_128i").val());
+// 			}else{
+// 				returnMsg.alertMsg(fnLang("키, 몸무게는 숫자만 입력해주세요.", "LC04"));
+// 				$("#sq_128i").val("");
+// 				$("#sq_128i").focus();
+// 				result = false;
+// 			}
+// 			// 몸무게
+// 			if(isCheckNum($("#sq_129i").val())){
+// 				$("#WEIGHT").val($("#sq_129i").val());
+// 			}else{
+// 				returnMsg.alertMsg(fnLang("키, 몸무게는 숫자만 입력해주세요.", "LC04"));
+// 				$("#sq_129i").val("");
+// 				$("#sq_129i").focus();
+// 				result = false;
+// 			}
+// 		}
+// 		return result;
+// 	} 
+	
+	var pageNum = '<c:out value="${answerPageNum}"/>';
+	for(var p=1; p<pageNum; p++){
+		//dataTrigger();
+		$(".sv_next_btn").trigger("click");
+	}
+	
+	// 이전 버튼 클릭 이벤트(설문조사)
+	$(document).on("click", "#fn_goPrevious", function(){
+		//if(dataTrigger()){
+			$(".sv_prev_btn").trigger("click");
+			surveyPaging();
+		//}
+	});
+	
+	// 다음 버튼 클릭 이벤트(설문조사)
+	$(document).on("click", "#fn_goNext", function(){
+		//if(dataTrigger()){
+			$(".sv_next_btn").trigger("click");
+			surveyPaging();
+		//}
+	});
+	
+	// 이전 버튼 클릭 이벤트
+	$(document).on("click", "#fn_goMemberJoinStep2", function(){
+        $("#form").attr({"action":"<c:url value='/fo/mj/memberJoinStep2.do'/>", "target":"_self", "method":"post"}).submit();
+	});
+	 
+	// 임시저장 버튼 클릭 이벤트
+	$(document).on("click", "#fn_goTempStorage", function(){
+		// surveyJS complete 전
+		//if(dataTrigger()){
+			// 임시 저장 시 requried 해제
+			setRequiredAll(survey, false, "surveyElement");
+			
+			$(".sv_complete_btn").trigger("click");
+			
+	 		if(JSON.stringify(survey.data) != "{}"){
+				$('#surveyResult').val(JSON.stringify(survey.data));
+	 		}
+	 		 
+			if(survey.isCompleted == true){
+				// 설문조사 저장 호출
+				fn_surveyResultSave("TEMP");
+			}
+		//}
+
+	});
+	 
+	// step1. 완료 버튼 클릭 이벤트
+	$(document).on("click", "#fn_goMemberJoinStep4", function(){
+		// surveyJS complete 전
+		//if(dataTrigger()){
+			$(".sv_complete_btn").trigger("click");
+			 
+	 		if(JSON.stringify(survey.data) != "{}"){
+				$('#surveyResult').val(JSON.stringify(survey.data));
+	 		}
+	 		
+			if(survey.isCompleted == true){
+				// 설문조사 저장 호출
+				fn_surveyResultSave("COMPLETE");
+			}
+		//}
+	});
+
+	// step2. 설문조사 저장
+	function fn_surveyResultSave(type){
+		$("#SAVE_TYPE").val(type);
+		var saveType = type;
+		var $form    = $("#form");
+		var examType = $("#EXAM_TYPE").val();
+		
+		$("#surveyCpage").val(cPage);
+		
+		if(examType != null && examType != ""){
+			
+			 $.ajax({
+		            async : false,
+		            type : "POST",
+		            dataType: "json",
+		            data : {"EXAM_TYPE" : examType},
+		            url : "<c:url value='/fo/mj/surveyResultDelete.do'/>",
+		            success : function (data){
+		            	//console.log(">> step1. survey Delete: ", data);
+		                if(data.resultYn != null || data.resultYn != ""){
+			
+		                	$.ajax({
+		        	        	async : false,
+		        	            type : "POST",
+		        	            dataType: "json",
+		        	            data : $form.serialize(),
+		        	            url : "<c:url value='/fo/mj/surveyResultInsert.do'/>",
+		        	            success : function (data){
+		        	            	// 회원가입 저장
+        	                		$form.attr({"action":"<c:url value='/fo/mj/memberJoinSave.do'/>", "target":"_self", "method":"post"}).submit();
+		        	            },
+		        	            error : function (err){
+		        	            	returnMsg.alertMsg(fnLang("데이터 처리 중 시스템 오류가 발생했습니다.", err.status), "reload");
+		        	            }
+		        	        });
+		                       
+		                }else{
+		                	returnMsg.alertMsg(fnLang("회원가입 중에 오류가 발생했습니다.", "LC02"), "reload");
+		                }
+		                $(".btn-closePop").click();
+		                return;
+		            },
+		            error : function (err){
+		            	returnMsg.alertMsg(fnLang("데이터 처리 중 시스템 오류가 발생했습니다.", err.status), "reload");
+		            } 
+		        });
+		}
+	}
+	
+	surveyPaging();
+	 
+});
+</script>
+
+</body>
+</html>

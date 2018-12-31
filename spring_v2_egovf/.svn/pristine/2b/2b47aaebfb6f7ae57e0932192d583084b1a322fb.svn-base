@@ -1,0 +1,162 @@
+package com.rdpanel.fo.ta.service;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.am.testing.service
+* 2. 타입명 : TestAnnounceService.java
+* 3. 작성일 : 2017. 9. 22.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 시험모집공고 Service
+* </pre>
+ */
+public interface TestAnnounceService {
+
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectTestAnnounceListCnt
+	* 2. 작성일 : 2017. 9. 22.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험모집공고 목록 갯수
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+    public int selectTestAnnounceListCnt (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+	/**
+	* <pre>
+	* 1. 메소드명 : selectTestAnnounceList
+	* 2. 작성일 : 2017. 9. 22.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 시험모집공고 목록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+    public List<Map<String, Object>> selectTestAnnounceList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+
+    /**
+    * <pre>
+    * 1. 메소드명 : selectTestAnnounceView
+    * 2. 작성일 : 2017. 9. 28.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험모집공고 상세 보기
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception 
+     */
+    public Map<String, Object> selectTestAnnounceView(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectTestAnnounceVisitList
+    * 2. 작성일 : 2017. 10. 11.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험모집공고 상세 보기 > 방문 목록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    public List<Map<String, Object>> selectTestAnnounceVisitList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectTestAnnounceOnlineList
+    * 2. 작성일 : 2017. 10. 12.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험모집공고 상세 보기 > 온라인 설문
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    public List<Map<String, Object>> selectTestAnnounceOnlineList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : updateTestAnnounce
+    * 2. 작성일 : 2017. 9. 28.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 시험 참가/취소 신청
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception 
+     */
+	public int updateTestAnnounce(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : updateMyInfo
+	* 2. 작성일 : 2017. 10. 17.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 개인정보 수정
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int updateMyInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+
+	/**
+	* <pre>
+	* 1. 메소드명 : insertSurveyResearch
+	* 2. 작성일 : 2017. 10. 17.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 설문조사 등록
+	* </pre>
+	* @param commandMap
+	* @return
+	 */
+	public int insertSurveyResearch(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+
+	/**
+	* <pre>
+	* 1. 메소드명 : deleteSurveyResearchDelete
+	* 2. 작성일 : 2017. 10. 16.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 설문조사 삭제
+	* </pre>
+	* @param commandMap
+	* @return
+	 */
+	public int deleteSurveyResearchDelete(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+	/**
+	* <pre>
+	* 1. 메소드명 : selectDetailAgreeHtml
+	* 2. 작성일 : 2017. 11. 8.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 상세설문 동의서
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public Map<String, Object> selectDetailAgreeHtml(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	 
+	/**
+	* <pre>
+	* 1. 메소드명 : selectAppAvailableYn
+	* 2. 작성일 : 2017. 12. 15.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 참가신청 전 시험신청 가능 여부 확인
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public Map<String, Object> selectAppAvailableYn(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+}

@@ -1,0 +1,97 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<header id="header" class="header <c:if test="${fn:indexOf(REQUEST_URI,'fo/mn/panelMainIndex') > -1}">header-intro</c:if> respWidth">
+ 
+	<div class="header-pc">
+		<h1><a href="<c:out value="/fo/mn/panelMainIndex.do"/>"><spring:message code="com.000"/></a></h1>
+		<div class="util">
+			<span class="user-name"><em><c:out value="${SESSION_NAME}"/></em><spring:message code="login.011"/></span>
+			<span class="btn-logout"><button type="button" onclick="fn_logout();"><spring:message code="login.012"/></button></span>
+		</div>
+	</div>
+	<div class="header-mobile">
+		<h1><a href="<c:out value="/fo/mn/panelMainIndex.do"/>"><spring:message code="com.000"/></a></h1>
+		<a href="#" id="sidebar-main-trigger" class="mob-all-menu"><span class="screen_out"><spring:message code="menu.000"/></span></a>
+	</div>
+	<aside id="sidebar-main" class="sidebar-mobile">
+
+		<div class="sidebar-close">
+			<span><i class="screen_out"><spring:message code="button.005"/></i></span>
+		</div>
+		<div class="sidebar-container">
+			<div class="sidebar-logo">
+				<a href="/fo/mn/panelMainIndex.do">
+					<h1><spring:message code="com.000"/></h1>
+				</a>
+			</div>
+			<div class="sidebar-nav">
+				<ul class="sideNav-list">
+					<li <c:if test="${fn:indexOf(REQUEST_URI,'/site/siteInfo') > -1}">class="on"</c:if>>
+						<a href="<c:out value="/fo/site/siteInfo.do"/>">
+							<spring:message code="menu.001"/>
+						</a>
+					</li>
+					<li <c:if test="${fn:indexOf(REQUEST_URI,'/ta/testAnnounceList') > -1}">class="on"</c:if>>
+						<a href="<c:out value="/fo/ta/testAnnounceList.do"/>">
+							<spring:message code="menu.002"/>
+						</a>
+					</li>
+					<li <c:if test="${fn:indexOf(REQUEST_URI,'/fo/mp/') > -1}">class="on"</c:if>>
+						<a href="#"><spring:message code="menu.003"/></a>
+						<ul class="sub">
+							<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/testApplicationStatusList') > -1 || fn:indexOf(REQUEST_URI,'/mp/qnaBoardList') > -1}">class="on"</c:if>>
+								<a href="<c:out value="/fo/mp/testApplicationStatusList.do"/>">
+									<spring:message code="menu.004"/>
+								</a>
+							</li>
+							<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/testApplicationHistoryList') > -1}">class="on"</c:if>>
+								<a href="<c:out value="/fo/mp/testApplicationHistoryList.do"/>">
+									<spring:message code="menu.005"/>
+								</a>
+							</li>
+							<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/myInfo') > -1}">class="on"</c:if>>
+								<a href="<c:out value="/fo/mp/myInfo.do"/>">
+									<spring:message code="menu.006"/>
+								</a>
+							</li>
+							<li <c:if test="${fn:indexOf(REQUEST_URI,'/mp/memberLeave') > -1}">class="on"</c:if>>
+								<a href="<c:out value="/fo/mp/memberLeave.do"/>">
+									<spring:message code="menu.007"/>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li <c:if test="${fn:indexOf(REQUEST_URI,'/fo/qna/') > -1}">class="on"</c:if>>
+						<a href="#"><spring:message code="menu.008"/></a>
+						<ul class="sub">
+							<li <c:if test="${fn:indexOf(REQUEST_URI,'/qna/oneQnaSendForm') > -1}">class="on"</c:if>>
+								<a href="<c:out value="/fo/qna/oneQnaSendForm.do"/>">
+									<spring:message code="menu.009"/>
+								</a>
+							</li>
+						</ul>
+					</li>
+
+				</ul>
+			</div>
+			<div class="sidebar-util">
+				<div class="sidebar-util-container">
+					<span class="user-name"><em><c:out value="${SESSION_NAME}"/></em><spring:message code="login.011"/></span>
+					<span class="btn-logout"><button type="button" onclick="fn_logout();"><spring:message code="login.012"/></button></span>
+				</div>
+			</div>
+
+		</div>
+	</aside>
+	
+	<script>
+		function fn_logout(){
+			var form = document.createElement("form");
+			form.id = "logoutForm";
+			form.method = "post";
+			form.action = "/fo/sc/logout.do";
+			document.getElementById("header").appendChild(form);
+			document.getElementById("logoutForm").submit();
+		} 
+	</script>
+
+</header>

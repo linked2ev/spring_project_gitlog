@@ -1,0 +1,69 @@
+package com.rdpanel.fo.mn.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+
+import com.rdpanel.cmmn.dao.ComnAbstractDAO;
+import com.rdpanel.cmmn.security.SessionsPanel;
+import com.rdpanel.fo.mn.service.PanelMainService;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.mn.service.impl
+* 2. 타입명 : panelMainServiceImpl.java
+* 3. 작성일 : 2017. 9. 27.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 패널 메인 ServiceImpl
+* </pre>
+ */
+@Service("panelMainService")
+public class PanelMainServiceImpl implements PanelMainService {
+
+    @Resource(name="comnAbstractDAO") 
+    private ComnAbstractDAO comnAbstractDAO;
+    
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : selectNewTestAnnounceList
+    * 2. 작성일 : 2017. 9. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 신규시험 모집 공고 목록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> selectNewTestAnnounceList (HttpServletRequest request, Map<String, Object> commandMap) throws Exception
+    {
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+        return comnAbstractDAO.selectList("PanelMain.selectNewTestAnnounceList", commandMap);
+    }
+
+    /**
+    * <pre>
+    * 1. 메소드명 : selectMyScheduleList
+    * 2. 작성일 : 2017. 9. 27.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 나의 스케줄 현황 목록
+    * </pre>
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectMyScheduleList(HttpServletRequest request,  Map<String, Object> commandMap) throws Exception
+	{
+		Map<String, Object> panelInfo = SessionsPanel.getSessionMap(request, "__SESSION_PANEL_INFO__");
+		commandMap.put("USER_ID", panelInfo.get("SESSION_USER_ID"));
+		return comnAbstractDAO.selectList("PanelMain.selectMyScheduleList", commandMap);
+	}
+	
+}

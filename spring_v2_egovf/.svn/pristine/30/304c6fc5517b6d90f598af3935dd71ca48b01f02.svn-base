@@ -1,0 +1,252 @@
+package com.rdpanel.fo.mj.service;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.rdpanel.cmmn.security.Panel;
+
+/**
+* <pre>
+* 1. 패키지명 : com.rdpanel.fo.mj.service
+* 2. 타입명 : memberJoinService.java
+* 3. 작성일 : 2017. 10. 24.
+* 4. 작성자 : JAMUGE
+* 5. 설명 : 회원가입 Service
+* </pre>
+ */
+public interface MemberJoinService {
+
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMstPanelCnt
+	* 2. 작성일 : 2017. 10. 30.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 마스터 패널 정보 조회 (CNT)
+	* </pre>
+	* @param request
+	* @param panel
+	 * @throws Exception 
+	 */
+	public int selectMstPanelCnt(HttpServletRequest request, Panel panel) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectMstMyInfo
+	* 2. 작성일 : 2017. 11. 22.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 패널 상세정보
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public Map<String, Object> selectPanelInfo(HttpServletRequest request, Panel panel) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : insertMstMyInfo
+	* 2. 작성일 : 2017. 10. 25.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 마스터 패널 정보 등록
+	* </pre>
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public int insertMstMyInfo(HttpServletRequest request, Panel panel) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectCertPernrId
+	* 2. 작성일 : 2017. 12. 8.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원가입 > 사내 패널이 이메일 인증 후 사내 PERNR 조회
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public Map<String, Object> selectCertPernrId (HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : insertMyInfo
+	* 2. 작성일 : 2017. 10. 25.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원가입 > 패널 정보 등록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int insertMyInfo(HttpServletRequest request, Panel panel) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : updateMyInfo
+	* 2. 작성일 : 2017. 11. 22.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원가입 > 패널 정보 수정
+	* </pre>
+	* @param request
+	* @param panel
+	* @return
+	* @throws Exception
+	 */
+	public int updateMyInfo(HttpServletRequest request, Panel panel) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : selectSurveyTablePanelIDCnt
+	* 2. 작성일 : 2017. 10. 30.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 패널서베이 테이블에 패널 아이디 조회 (CNT)
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int selectSurveyTablePanelIDCnt(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 1. 메소드명 : insertPanelID
+	 * 2. 작성일 : 2017. 10. 25.
+	 * 3. 작성자 : JAMUGE
+	 * 4. 설명 : 패널서베이 테이블에 패널 아이디 등록
+	 * </pre>
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertPanelID(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+    /**
+	* <pre>
+	* 1. 메소드명 : getQuestionList
+	* 2. 작성일 : 2017. 10. 19.
+	* 3. 작성자 : JeongHO
+	* 4. 설명 : 회원가입 시 > 설문 질문 목록 조회(기초설문/팀별설문)
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+     */
+    public List<Map<String, Object>> getQuestionList (Map<String, Object> commandMap) throws Exception;
+    
+    /**
+	* <pre>
+	* 1. 메소드명 : getAnswerList
+	* 2. 작성일 : 2017. 10. 19.
+	* 3. 작성자 : JeongHO
+	* 4. 설명 : 회원가입 시 > 설문 보기 목록 조회(기초설문/팀별설문)
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+     */
+    public List<Map<String, Object>> getAnswerList (Map<String, Object> commandMap) throws Exception;   
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : getAnswerChooseList
+    * 2. 작성일 : 2017. 10. 26.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 회원가입 시 > 설문 정답 선택한 목록 조회
+    * </pre>
+     * @param request 
+    * @param commandMap
+    * @return
+     */
+	public List<Map<String, Object>> getAnswerChooseList(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : getAnswerChoosePageNum
+	* 2. 작성일 : 2017. 12. 7.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 설문 정답 선택한 임시저장 마지막 페이지 넘버
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public Map<String, Object> getAnswerChoosePageNum(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : insertSurveyResult
+	* 2. 작성일 : 2017. 10. 24.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원가입 > 설문조사 등록
+	* </pre>
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int insertSurveyResult(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+
+	/**
+	* <pre>
+	* 1. 메소드명 : deleteSurveyResult
+	* 2. 작성일 : 2017. 10. 27.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원가입 > 설문조사 삭제
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+	public int deleteSurveyResult(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	
+	/**
+	* <pre>
+	* 1. 메소드명 : sendSmsMessage
+	* 2. 작성일 : 2018. 1. 30.
+	* 3. 작성자 : JAMUGE
+	* 4. 설명 : 회원가입 후 안내 메시지 > SMS 전송 정보 입력
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
+	 */
+    public int sendSmsMessage(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : sendLmsMessage
+    * 2. 작성일 : 2018. 1. 30.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : 회원가입 후 안내 메시지 > LMS 전송 정보 입력
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    public int sendLmsMessage(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+    /**
+    * <pre>
+    * 1. 메소드명 : insertPanelID
+    * 2. 작성일 : 2018. 2. 5.
+    * 3. 작성자 : JAMUGE
+    * 4. 설명 : SMS, Email 전송 이력
+    * </pre>
+    * @param request
+    * @param commandMap
+    * @return
+    * @throws Exception
+     */
+    public int insertSmsHistory(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+    
+}

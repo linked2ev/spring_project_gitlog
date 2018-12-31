@@ -1,0 +1,65 @@
+package com.rdpanel.fo.ta.controller;
+
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.rdpanel.cmmn.service.CmmnService;
+import com.rdpanel.fo.ta.service.EditTestService;
+
+
+@Controller
+public class editTest {
+	
+    @Resource(name="cmmnService") 
+    private CmmnService cmmnService;   
+    
+    @Resource(name="editTestService") 
+    private EditTestService editTestService;  
+    
+    @RequestMapping("/fo/ta/editTest.do")
+    public ModelAndView editTest(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+    	
+    	ModelAndView mv = new ModelAndView();
+    	
+    	return mv;
+    }
+    
+    @RequestMapping("/fo/ta/insertEdit.do")
+    public ModelAndView insertEdit(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+    	
+    	ModelAndView mv = new ModelAndView("jsonView");
+    	
+    	String content1 = (String) commandMap.get("content1");
+    	String content2 = (String) commandMap.get("content2");
+    	
+    	int result = editTestService.insertEdit(commandMap);    	
+    	    	
+    	mv.addObject("result", result);
+    	
+    	return mv;
+    	    	
+    }
+    
+    @RequestMapping("/fo/ta/selectEdit.do")
+    public ModelAndView selectEdit(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception {
+    	
+    	ModelAndView mv = new ModelAndView("jsonView");    	    	    	    	
+    	
+    	Map<String, Object> map = null;
+    	map = editTestService.selectEdit(commandMap);
+//    	String content = (String) map.get("EXAM_OUTLINE");
+    	mv.addObject("result", map);    	    
+    	
+    	return mv;
+    	    	
+    }
+    
+  
+}

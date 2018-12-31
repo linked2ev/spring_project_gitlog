@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<footer id="footer" class="footer respWidth">
+	<div class="footer-menu">
+		<a href="https://www.beautypoint.co.kr/footer/privacy/personal.html" target="_blank">
+			<spring:message code="footer.000"/>
+		</a>
+	</div>
+	<copyright>
+		<spring:message code="footer.001"/>
+	</copyright>
+</footer>
