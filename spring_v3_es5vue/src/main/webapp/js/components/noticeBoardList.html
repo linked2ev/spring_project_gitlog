@@ -1,0 +1,48 @@
+<template>
+	<table class="table table-striped">
+	  	<thead>
+	    	<tr>
+	      		<th scope="col">#</th>
+	      		<th scope="col">제목</th>
+	      		<th scope="col">내용</th>
+	      		<th scope="col">공지타입</th>
+	    	</tr>
+	  	</thead>
+	  	<tbody>
+		    <tr>
+		    	<th scope="row">1</th>
+		      	<td>제목 1</td>
+		      	<td>내용입니다 1</td>
+		      	<td>TOP</td>
+		    </tr>
+		    <tr>
+		      	<th scope="row">2</th>
+		      	<td>제목 2</td>
+		      	<td>내용입니다 2</td>
+		      	<td>NOMAL</td>
+		    </tr>
+		    <tr>
+		      	<th scope="row">3</th>
+		      	<td>제목 3</td>
+		      	<td>내용입니다 3</td>
+		      	<td>NOMAL</td>
+		    </tr>
+	  	</tbody>
+	</table>
+</template>
+
+<script>
+define(["Vue"], function(Vue) {
+    var result = {
+        template: template,
+        data: function() {
+            var time = new Date();
+            return {
+                loaded: time
+            };
+        }
+    };
+    Vue.component("noticeBoardList", result);
+    return result;
+});
+</script>

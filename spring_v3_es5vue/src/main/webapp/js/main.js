@@ -20,8 +20,8 @@ require(['Vue', 'VueRouter'], function(Vue, VueRouter){
     var router = new VueRouter({
     	mode: 'history',
     	routes: [
-	        { path: "/component" , component: asyncComp("vue!/js/components/component.html")},
-	        { path: "/async", component: asyncComp("vue!/js/components/async.html")}
+	        { path: "/noticeBoardList" , component: asyncComp("vue!/js/components/noticeBoardList.html")},
+	        { path: "/noticeBoard", component: asyncComp("vue!/js/components/noticeBoard.html")}
 	    ]
     });
 
