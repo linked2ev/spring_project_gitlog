@@ -14,7 +14,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 * 1. 패키지명 : com.cmmn.interceptor
 * 2. 타입명 : WebAccessInterceptor.java
 * 3. 작성일 : 2017. 12. 14.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 : WebAccessInterceptor
 * </pre>
  */

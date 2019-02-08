@@ -5,6 +5,6 @@
 	<settings useStatementNamespaces="true" />
     
     <sqlMap resource="egovframework/sqlmap/oracle/sqlmappers/bo/Cmmn_SQL.xml"/>
-    <sqlMap resource="egovframework/sqlmap/oracle/sqlmappers/bo/Sample_SQL.xml"/>
+    <sqlMap resource="egovframework/sqlmap/oracle/sqlmappers/bo/NoticeBoard_SQL.xml"/>
     
 </sqlMapConfig>

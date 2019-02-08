@@ -7,7 +7,7 @@ import java.text.MessageFormat;
 * 1. 패키지명 : com.cmmn.pagination
 * 2. 타입명 : ImgPaginationRenderer.java
 * 3. 작성일 : 2017. 9. 26.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 :
  * firstPageLabel = [<<]
  * previousPageLabel = [<]

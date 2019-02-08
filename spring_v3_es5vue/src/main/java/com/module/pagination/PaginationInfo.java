@@ -9,7 +9,7 @@ import com.cmmn.util.StringUtil;
 * 1. 패키지명 : com.cmmn.pagination
 * 2. 타입명 : PaginationInfo.java
 * 3. 작성일 : 2017. 9. 26.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 :
 * 페이징 처리를 위한 데이터가 담기는 빈
 * 페이징 Custom 태그인 ui 사용시에 paginationInfo 필드에 PaginationInfo 객체를 값으로 주어야 한다.

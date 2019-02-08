@@ -23,7 +23,7 @@ import com.cmmn.util.StringUtil;
 * 1. 패키지명 : com.module.file
 * 2. 타입명 : FileDownload.java
 * 3. 작성일 : 2017. 12. 27.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 : 파일을 다운로드 하는 클래스
 * </pre>
  */
@@ -36,7 +36,7 @@ public class FileDownload {
 	* <pre>
 	* 1. 메소드명 : FileDownload
 	* 2. 작성일 : 2017. 12. 27.
-	* 3. 작성자 : JAMUGE
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 파일 다운로드
 	* </pre>
 	* @param request
@@ -46,14 +46,12 @@ public class FileDownload {
 	 */
 	public void FileDownload(HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap) throws Exception
 	{
-		logger.debug("\n=====================================================================================");
 		logger.debug("\n================================= FileDownload 시작 =================================");
 		
 		/* *** 데이터 바인딩 *** */
 		String saveurl  = StringUtil.getString(commandMap.get("SAVE_URL"), "");          // 저장된 파일 절대경로
 		String filename = StringUtil.getString(commandMap.get("ORIGIN_FILE_NAME"), "");  // 저장된 파일명
 		String filetype = StringUtil.getString(commandMap.get("FILE_TYPE"), "");         // 저장된 파일타입
-		/* ********************* */
         
         OutputStream outputStream = null;
         

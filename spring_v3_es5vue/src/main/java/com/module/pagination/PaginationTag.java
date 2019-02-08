@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 * 1. 패키지명 : com.cmmn.pagination
 * 2. 타입명 : PaginationTag.java
 * 3. 작성일 : 2017. 9. 26.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 :
 *  ImgPaginationRenderer가 반환한 String 데이터를 출력을 하는 태그 역할을 한다.
 * </pre>

@@ -11,19 +11,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 /**
 * <pre>
 * 1. 패키지명 : egovf.bo.board.service
-* 2. 타입명 : NtcBoardService.java
-* 3. 작성일 : 2018. 1. 9.
-* 4. 작성자 : JAMUGE
+* 2. 타입명 : NoticeBoardService
+* 3. 작성일 : 2019. 2. 8.
+* 4. 작성자 : linked2ev
 * 5. 설명 : 공지사항 interface
 * </pre>
  */
-public interface NtcBoardService {
+public interface NoticeBoardService {
 
 	/**
 	* <pre>
-	* 1. 메소드명 : getSampleListCnt
-	* 2. 작성일 : 2018. 1. 9.
-	* 3. 작성자 : JAMUGE
+	* 1. 메소드명 : getNoticeBoardListCnt
+	* 2. 작성일 : 2019. 2. 8.
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 공지사항 목록 갯수
 	* </pre>
 	* @param request
@@ -31,13 +31,13 @@ public interface NtcBoardService {
 	* @return
 	* @throws Exception
 	 */
-	public int getNtcBoardListCnt(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	public int getNoticeBoardListCnt(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
 
 	/**
 	* <pre>
-	* 1. 메소드명 : getNtcBoardList
-	* 2. 작성일 : 2018. 1. 9.
-	* 3. 작성자 : JAMUGE
+	* 1. 메소드명 : getNoticeBoardList
+	* 2. 작성일 : 2019. 2. 8.
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 공지사항 목록
 	* </pre>
 	* @param request
@@ -45,31 +45,34 @@ public interface NtcBoardService {
 	* @return
 	* @throws Exception
 	 */
-	public List<Map<String, Object>> getNtcBoardList(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	public List<Map<String, Object>> getNoticeBoardList(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
 
 	/**
 	* <pre>
-	* 1. 메소드명 : getSampleView
-	* 2. 작성일 : 2017. 12. 26.
-	* 3. 작성자 : JAMUGE
-	* 4. 설명 : 상세정보
+	* 1. 메소드명 : getNoticeBoardInfo
+	* 2. 작성일 : 2019. 2. 8.
+	* 3. 작성자 : linked2ev
+	* 4. 설명 : 공지사항 상세정보
 	* </pre>
 	* @param request
 	* @param commandMap
 	* @return
+	* @throws Exception
 	 */
-	public Map<String, Object> getSampleView(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	public Map<String, Object> getNoticeBoardInfo(HttpServletRequest request, Map<String, Object> commandMap) throws Exception;
 
 	/**
 	* <pre>
-	* 1. 메소드명 : insertSample
-	* 2. 작성일 : 2017. 12. 27.
-	* 3. 작성자 : JAMUGE
-	* 4. 설명 : 등록(첨부파일)
+	* 1. 메소드명 : insertNoticeBoard
+	* 2. 작성일 : 2019. 2. 8.
+	* 3. 작성자 : linked2ev
+	* 4. 설명 : 공지사항 등록
 	* </pre>
 	* @param request
 	* @param commandMap
+	* @return
+	* @throws Exception
 	 */
-	public int insertSample(MultipartHttpServletRequest request, Map<String, Object> commandMap) throws Exception;
+	public int insertNoticeBoard(MultipartHttpServletRequest request, Map<String, Object> commandMap) throws Exception;
 
 }

@@ -39,7 +39,7 @@ import com.cmmn.util.StringUtil;
 * 1. 패키지명 : com.module.email
 * 2. 타입명 : SendSMPT.java
 * 3. 작성일 : 2017. 11. 3.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 : SMPT 메일 서비스는 클래스
 * </pre>
  */
@@ -48,16 +48,13 @@ public class SendSMPT {
 	static final Logger logger = LoggerFactory.getLogger(SendSMPT.class);
 	
 	/* 이메일 KEY 상수 */
-	// ID : AC919540
-	final String emailId = "consumerresearch@amorepacific.com";
-	final String emailPw = "amorecrc2017";
-	//final String emailId = "jamuge@amorepacific.com";
-	//final String emailPw = "1q2w3e4r5t!@";
+	final String emailId = "emailId";
+	final String emailPw = "emailPw";
 	
-	/* SMTP amorepacific config */
+	/* SMTP config */
 	final String auth              = "false";
 	final String enable            = "true";
-	final String host              = "spam.amorepacific.com";
+	final String host              = "spam.test.com";
 	final String port              = "25";
 	final String connectiontimeout = "10000";
 	final String timeout           = "12000";
@@ -67,7 +64,7 @@ public class SendSMPT {
 	* <pre>
 	* 1. 메소드명 : SendSMTP
 	* 2. 작성일 : 2017. 12. 27.
-	* 3. 작성자 : JAMUGE
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : SMPT 이메일 (첨부파일 포함)
 	* </pre>
 	* @param request
@@ -79,8 +76,7 @@ public class SendSMPT {
 	@SuppressWarnings("unused") 
 	public Map<String, Object> SendSMTP(MultipartHttpServletRequest request, Map<String, Object> commandMap, String dirName) throws Exception
 	{
-		logger.debug("\n=====================================================================================");
-		logger.debug("\n=================================== SendMail 시작 ===================================");
+		logger.debug("=================================== SendMail 시작 =====================================");
 	
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("SUCCESS", "Y");
@@ -235,7 +231,7 @@ public class SendSMPT {
 	* <pre>
 	* 1. 메소드명 : SendSMTP
 	* 2. 작성일 : 2017. 12. 27.
-	* 3. 작성자 : JAMUGE
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : SMPT 이메일
 	* </pre>
 	* @param request
@@ -245,7 +241,6 @@ public class SendSMPT {
 	 */
 	public Map<String, Object> SendSMTP(HttpServletRequest request, Map<String, Object> commandMap) throws Exception
 	{
-		logger.debug("\n=====================================================================================");
 		logger.debug("\n=================================== CertMail 시작 ===================================");
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -287,8 +282,8 @@ public class SendSMPT {
 			
 			// 발신자 이메일 정보
 			fromEmail = StringUtil.getString(commandMap.get("EMAIL"), "");    // 보내는 사람 이메일
-			title     = "[아모레퍼시픽 고객연구센터] 사내패널 인증";
-			contents += "아모레퍼시픽 고객연구센터 웹사이트에 인증번호를 입력해주세요.</br>";
+			title     = "[제목] 인증번호를 입력해주세요.";
+			contents += "인증번호를 입력해주세요.</br>";
 			contents += "[인증번호] :" + randomNum;
 			
 			// 이메일 수신자: 본인
@@ -334,7 +329,7 @@ public class SendSMPT {
 	* <pre>
 	* 1. 메소드명 : fileSizeCheck
 	* 2. 작성일 : 2017. 11. 3.
-	* 3. 작성자 : JAMUGE
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 첨부파일 사이즈 체크
 	* </pre>
 	* @param filename
@@ -353,7 +348,7 @@ public class SendSMPT {
 	* 1. 패키지명 : com.webiz.smpt
 	* 2. 타입명 : SendMail.java
 	* 3. 작성일 : 2017. 11. 3.
-	* 4. 작성자 : JAMUGE
+	* 4. 작성자 : linked2ev
 	* 5. 설명 : 시스템에서 사용하는 인증정보
 	* </pre>
 	 */

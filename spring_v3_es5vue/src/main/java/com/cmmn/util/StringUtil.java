@@ -5,7 +5,7 @@ package com.cmmn.util;
 * 1. 패키지명 : com.cmmn.util
 * 2. 타입명 : StringUtil.java
 * 3. 작성일 : 2017. 9. 26.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 : StringUtil
 * </pre>
  */
@@ -16,7 +16,7 @@ public class StringUtil {
 	* <pre>
 	* 1. 메소드명 : getInt
 	* 2. 작성일 : 2017. 9. 26.
-	* 3. 작성자 : JAMUGE
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : String형을 int형으로 변환한다. null 또는 ""이면 0으로 return
 	* </pre>
 	* @param obj
@@ -34,7 +34,7 @@ public class StringUtil {
     * <pre>
     * 1. 메소드명 : getInt
     * 2. 작성일 : 2017. 9. 26.
-    * 3. 작성자 : JAMUGE
+    * 3. 작성자 : linked2ev
     * 4. 설명 : String형을 int형으로 변환한다. null 또는 ""이면 defaultNum(임의값)으로 return
     * </pre>
     * @param obj
@@ -51,15 +51,15 @@ public class StringUtil {
 
     /**
     * <pre>
-    * 1. 메소드명 : getIsValue
+    * 1. 메소드명 : isNull
     * 2. 작성일 : 2017. 12. 15.
-    * 3. 작성자 : JAMUGE
+    * 3. 작성자 : linked2ev
     * 4. 설명 : 특정 값이 null 또는 ""이면 false 아니면 true return
     * </pre>
     * @param obj
     * @return
      */
-    public static boolean getIsValue(Object obj){
+    public static boolean isNull(Object obj){
     	if(obj == null || "".equals(obj.toString())){
     		return false;
     	}else{

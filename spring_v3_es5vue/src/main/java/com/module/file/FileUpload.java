@@ -27,7 +27,7 @@ import egovframework.rte.fdl.property.EgovPropertyService;
 * 1. 패키지명 : com.module.file
 * 2. 타입명 : FileUpload.java
 * 3. 작성일 : 2017. 12. 27.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 : 파일을 업로드하는 클래스
 * </pre>
  */
@@ -43,7 +43,7 @@ public class FileUpload {
 	* <pre>
 	* 1. 메소드명 : FileUpload
 	* 2. 작성일 : 2017. 12. 27.
-	* 3. 작성자 : JAMUGE
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 파일 업로드
 	* </pre>
 	* @param request
@@ -54,7 +54,6 @@ public class FileUpload {
 	 */
 	public Map<String, Object> FileUpload(MultipartHttpServletRequest request, Map<String, Object> commandMap, String dirName) throws Exception
 	{
-		logger.debug("\n=====================================================================================");
 		logger.debug("\n================================== FileUpload 시작 ==================================");
 	
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -84,16 +83,13 @@ public class FileUpload {
 	         
 	        // 파일 업로드
 	    	Iterator<String> iterator = request.getFileNames();
-	    	System.out.println(">> iterator: " + iterator);
 	    	while(iterator.hasNext())
 	    	{
 	    		multipartFile = request.getFile(iterator.next());
 	    		List<CommonsMultipartFile> fileList = (List) request.getFiles(multipartFile.getName());
-	    		System.out.println(">> file Name : " + multipartFile);
 	    		
 	    		if(multipartFile.isEmpty() == false)
 	    		{
-	    			System.out.println(">> fileList.size() : " + fileList.size());
 	    			for(int i=0; i<fileList.size(); i++){
 	    				CommonsMultipartFile sFile = fileList.get(i);
 	    				
@@ -113,20 +109,6 @@ public class FileUpload {
                     returnMap.put("FILE_EXT", originalFileExt.replace(".", ""));                                   // 파일 확장자
                     returnMap.put("SAVE_URL", storedFileName);                                                     // 저장경로
                     
-                    String sss = propertiesService.getString("file.permitExt.image");
-                       
-                    System.out.println(">> image : " + sss);
-                     
-                    
-//                    returnMap.put("CMN_FLE_WEB_PATH", uploadFile.getSystemPath());
-//                    returnMap.put("CMN_FLE_SAVE_PATH", uploadFile.getAttachPath());
-//                    returnMap.put("CMN_FLE_ORG_NM", uploadFile.getOriginalFileName());
-//                    returnMap.put("CMN_FLE_NM", uploadFile.getFileName());
-//                    returnMap.put("CMN_FLE_SIZE", Long.toString(uploadFile.getFileSize()));
-//                    returnMap.put("CMN_FLE_EXT", uploadFile.getExt());
-//                    returnMap.put("CMN_FLE_TYPE", "Y");
-                    
-		   
 	    			// 파일 업로드
 	    			file = new File(storedFileName);
 	    			multipartFile.transferTo(file);

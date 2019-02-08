@@ -17,27 +17,35 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.module.pagination.PaginationInfo;
 
-import egovf.bo.board.service.NtcBoardService;
+import egovf.bo.board.service.NoticeBoardService;
 import egovf.bo.cmmn.service.CmmnService;
 
 
-
+/**
+* <pre>
+* 1. 패키지명 : egovf.bo.board.controller
+* 2. 타입명 : NoticeBoardController
+* 3. 작성일 : 2019. 2. 8.
+* 4. 작성자 : linked2ev
+* 5. 설명 : 공지사항 Controller
+* </pre>
+ */
 @Controller
-public class NtcBoardController {
+public class NoticeBoardController {
 	
-	static final Logger logger = LoggerFactory.getLogger(NtcBoardController.class);
+	static final Logger logger = LoggerFactory.getLogger(NoticeBoardController.class);
 	
 	@Resource(name="cmmnService")
 	private CmmnService cmmnService;
 	
 	@Resource(name="ntcBoardService")
-	private NtcBoardService ntcBoardService;
+	private NoticeBoardService ntcBoardService;
 	
 	/**
 	* <pre>
-	* 1. 메소드명 : ntcBoardList
-	* 2. 작성일 : 2018. 1. 9.
-	* 3. 작성자 : JAMUGE
+	* 1. 메소드명 : noticeBoardList
+	* 2. 작성일 : 2019. 2. 8.
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 기본 게시판 목록
 	* </pre>
 	* @param request
@@ -45,8 +53,8 @@ public class NtcBoardController {
 	* @return
 	* @throws Exception
 	 */
-	@RequestMapping("/bo/board/ntcBoardList")
-	public ModelAndView ntcBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
+	@RequestMapping("/bo/board/noticeBoardList")
+	public ModelAndView noticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
         
@@ -71,23 +79,21 @@ public class NtcBoardController {
 	}
 	
 	/**
-	 * <pre>
-	 * 1. 메소드명 : getNtcBoardList
-	 * 2. 작성일 : 2018. 1. 9.
-	 * 3. 작성자 : JAMUGE
-	 * 4. 설명 : 기본 게시판 목록 get
-	 * </pre>
-	 * @param request
-	 * @param commandMap
-	 * @return
-	 * @throws Exception
+	* <pre>
+	* 1. 메소드명 : getNoticeBoardList
+	* 2. 작성일 : 2019. 2. 8.
+	* 3. 작성자 : linked2ev
+	* 4. 설명 : 공지사항 목록 가져오기
+	* </pre>
+	* @param request
+	* @param commandMap
+	* @return
+	* @throws Exception
 	 */
-	@RequestMapping("/bo/board/getNtcBoardList")
-	public ModelAndView getNtcBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
+	@RequestMapping("/bo/board/getNoticeBoardList")
+	public ModelAndView getNoticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
 		
 		ModelAndView mv = new ModelAndView("jsonView");
-		commandMap.put("USER_ID", "dgtest001");
-		System.out.println(">> getNtcBoardList: ");
 		String [] COMM_CD = new String [] { "SURVEY_GBN" };
 		
 		// 코드 목록
@@ -105,7 +111,7 @@ public class NtcBoardController {
 		// 목록
 		List<Map<String, Object>> list = null;
 		if(listCnt > 0){
-			list = this.ntcBoardService.getNtcBoardList(request, commandMap);
+			list = this.ntcBoardService.getNoticeBoardList(request, commandMap);
 		}
 		
 		mv.addObject("commandMap", commandMap);

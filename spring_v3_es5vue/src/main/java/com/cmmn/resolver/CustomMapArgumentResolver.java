@@ -17,7 +17,7 @@ import com.cmmn.resolver.CommandMap;
 * 1. 패키지명 : com.cmmn.resolver
 * 2. 타입명 : CustomMapArgumentResolver.java
 * 3. 작성일 : 2017. 12. 16.
-* 4. 작성자 : JAMUGE
+* 4. 작성자 : linked2ev
 * 5. 설명 : Controller에 가기 전 Parameter를 handling
 * </pre>
  */

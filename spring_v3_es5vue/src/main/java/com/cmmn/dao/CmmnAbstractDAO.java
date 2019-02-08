@@ -20,7 +20,7 @@
 //* 1. 패키지명 : com.cmmn.dao
 //* 2. 타입명 : cmmnAbstractDAO.java
 //* 3. 작성일 : 2017. 12. 15.
-//* 4. 작성자 : JAMUGE
+//* 4. 작성자 : linked2ev
 //* 5. 설명 : Data Access Object (ibatis)
 //* </pre>
 // */

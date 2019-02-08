@@ -22,7 +22,7 @@ import com.cmmn.util.StringUtil;
 * 1. 패키지명 : com.module.etc
 * 2. 타입명 : simpleUrl.java
 * 3. 작성일 : 2017. 11. 8.
-* 4. 작성자 : JeongHo
+* 4. 작성자 : linked2ev
 * 5. 설명 : 단축 URL 생성하는 클래스  (NAVER API 관련 문서 확인)
 * </pre>
  */
@@ -34,7 +34,7 @@ public class SimpleUrl {
 	* <pre>
 	* 1. 메소드명 : getSimpleUrl
 	* 2. 작성일 : 2017. 11. 8.
-	* 3. 작성자 : JeongHo
+	* 3. 작성자 : linked2ev
 	* 4. 설명 : 단축 URL 생성
 	* </pre>
 	* @param request
@@ -44,21 +44,20 @@ public class SimpleUrl {
 	 */
     public Map<String, Object> getSimpleUrl(HttpServletRequest request, Map<String, Object> commandMap) throws Exception 
     {
-    	logger.debug("\n ===============================================================================");
-    	logger.debug("\n ============================== getSimpleUrl 시작 ==============================");
+    	logger.debug("============================== getSimpleUrl 시작 ==============================");
     	
     	Map<String, Object> returnMap = new HashMap<String, Object>();
     	
-    	String EXAM_MNG_NO = StringUtil.getString(commandMap.get("EXAM_MNG_NO"), "");
+    	String id = StringUtil.getString(commandMap.get("id"), "");
     	
     	// NAVER KEY 값
-        String clientId     = "P0XHMVFMGrhjlbjbSPLA";  // 애플리케이션 클라이언트 아이디값";
-        String clientSecret = "JNx7ypq6Pl";            // 애플리케이션 클라이언트 시크릿값";
+        String clientId     = "P0SZCBFMGrhjlbjbSPLA";  // 애플리케이션 클라이언트 아이디값";
+        String clientSecret = "JNx9cpq6uh";            // 애플리케이션 클라이언트 시크릿값";
         
         try 
         {
         	// 단축 URL
-        	String text = "https://consumerresearch.amorepacific.com/fo/mp/qnaBoardList.do?EXAM_MNG_NO=" + EXAM_MNG_NO;
+        	String text = "https://test.com/test.do?id=" + id;
         	
             String apiURL = "https://openapi.naver.com/v1/util/shorturl";
             URL url = new URL(apiURL);
