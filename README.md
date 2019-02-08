@@ -2,7 +2,7 @@
 
 ---
 
-> Spring4 + egovf + es5/vue
+> Spring4 + requirejs + vuejs
 
 - Spring MVC 패턴
 - 전자정부프레임워크 기반 Spring4
@@ -10,9 +10,10 @@
 - mysql/oracle 등 properties 관리 설정
 - `Spring4 이상부터 기본 commandMap 기능 지원 중단`
 - 커스텀 commandMap 추가 및 `HandlerMethodArgumentResolver`기반 CustomMapArgumentResolver역할 추가
-- Angularjs 처럼 `vuejs`를 `requirejs`로 적용하여 `SPA방식` 적용
-- 공지사항 기능
+- Angularjs 처럼 `vuejs`를 `requirejs`로 적용하여 `SPA방식` 구조만 확인 
 - 2018.01
+
+> requirejs를 이용해서 vuejs로 SPA구현하기에는 활용도 및 오픈소스에 대한 확장성이 떨어져서 의미가 없음. 그리고 번들러로 빌드방식이 아니기에 이슈에 대한 정보도 부족
 
 <br>
 
