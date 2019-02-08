@@ -10,7 +10,7 @@
 - mysql/oracle 등 properties 관리 설정
 - `Spring4 이상부터 기본 commandMap 기능 지원 중단`
 - 커스텀 commandMap 추가 및 `HandlerMethodArgumentResolver`기반 CustomMapArgumentResolver역할 추가
-- Angularjs 처럼 `vuejs`를 `requirejs`로 적용하여 SPA방식 개발
+- Angularjs 처럼 `vuejs`를 `requirejs`로 적용하여 `SPA방식` 적용
 - 공지사항 기능
 - 2018.01
 
