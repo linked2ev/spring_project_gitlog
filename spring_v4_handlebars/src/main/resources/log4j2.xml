@@ -3,8 +3,7 @@
  
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d %5p [%c] %m%n" />
-            <!--PatternLayout pattern="[%5p] %m%n%n" /-->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%X{sessionID}] (%-35c{1}:%-3L) %m%n" />
         </Console>
     </Appenders>
     

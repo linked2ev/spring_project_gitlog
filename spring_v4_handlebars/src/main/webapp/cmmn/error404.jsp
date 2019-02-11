@@ -8,14 +8,10 @@
 <body>
     <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <td width="100%" height="100%" align="center" valign="middle" style="padding-top: 150px;"><table border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td class="<spring:message code='image.errorBg' />">
-                            <span style="font-family: Tahoma; font-weight: bold; color: #000000; line-height: 150%; width: 440px; height: 70px;"></span>
-                            404 에러페이지 작업중입니다.
-                        </td>
-                    </tr>
-                </table>
+            <td width="100%" height="100%" align="center" valign="middle" style="padding-top: 150px;">
+               <tr>
+                      404 에러페이지 작업중입니다.
+               </tr>
             </td>
         </tr>
     </table>

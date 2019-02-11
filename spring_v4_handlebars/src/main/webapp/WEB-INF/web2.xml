@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>mallstore</display-name>
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <!-- 
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    -->
+    <filter-class>apps.interceptor.MallEncodingFilter</filter-class>
+     
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+    	<param-name>ko_encoding</param-name>
+      	<param-value>EUC-KR</param-value>
+    </init-param>
+    <!-- 
+    <init-param>
+      <param-name>ko_encoding</param-name>
+      <param-value>EUC-KR</param-value>
+    </init-param>
+     -->
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>CustomCORSFilter</filter-name>
+    <filter-class>apps.utils.CustomCORSFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>CustomCORSFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>httpsAndhttpSession</filter-name>
+    <filter-class>apps.utils.HttpsFilter</filter-class>
+  </filter>    
+  <filter-mapping>
+    <filter-name>httpsAndhttpSession</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>xssFilter</filter-name>
+    <filter-class>apps.utils.XSSFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>xssFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+    
+  <filter>
+    <filter-name>logSessionIdFilter</filter-name>
+    <filter-class>apps.utils.LogSessionIdFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>logSessionIdFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+ </filter-mapping>
+    
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>  
+
+    <context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value> 
+	    /WEB-INF/applicationContext.xml 
+	    /WEB-INF/security-context.xml 
+	    </param-value>
+	</context-param>
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.xml</param-value>
+    </context-param>
+	
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>/kakaoplus/*</url-pattern>
+	</servlet-mapping>
+	
+    <!-- captcha servlet
+    <servlet>
+        <servlet-name>jcaptcha</servlet-name>
+        <servlet-class>apps.utils.Captcha</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jcaptcha</servlet-name>
+        <url-pattern>/jcaptcha</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+            <servlet-name>audiojcaptcha</servlet-name>
+            <servlet-class>com.octo.captcha.module.servlet.SimpleSoundCaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+            <servlet-name>audiojcaptcha</servlet-name>
+            <url-pattern>/jcaptcha.wav</url-pattern>
+    </servlet-mapping>
+     -->
+<!--     
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.html</location>
+    </error-page>
+    <error-page>
+           <error-code>500</error-code>
+        <location>/error/500.html</location>
+    </error-page>    
+ -->    
+    <!-- captcha servlet -->
+
+<!-- 
+     <servlet-mapping>
+          <servlet-name>spring</servlet-name>
+          <url-pattern>*.html</url-pattern>
+     </servlet-mapping>
+ -->
+
+<!-- 
+    <servlet> 
+        <servlet-name>listing</servlet-name> 
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class> 
+        <load-on-startup>1</load-on-startup> 
+    </servlet>
+
+    <servlet-mapping> 
+        <servlet-name>listing</servlet-name> 
+        <url-pattern>/</url-pattern> 
+    </servlet-mapping> 
+ -->
+            
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+      
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    </jsp-property-group>
+  </jsp-config>      
+  
+  <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
