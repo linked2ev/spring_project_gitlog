@@ -4,7 +4,7 @@
 <sqlMapConfig>
 	<settings useStatementNamespaces="true" />
     
-    <sqlMap resource="egovframework/sqlmap/oracle/sqlmappers/bo/Cmmn_SQL.xml"/>
-    <sqlMap resource="egovframework/sqlmap/oracle/sqlmappers/bo/Sample_SQL.xml"/>
+    <sqlMap resource="sqlmapper/oracle/sqlmappers/bo/Cmmn_SQL.xml"/>
+    <sqlMap resource="sqlmapper/oracle/sqlmappers/bo/Sample_SQL.xml"/>
     
 </sqlMapConfig>

@@ -55,26 +55,7 @@ public class NoticeBoardController {
 	 */
 	@RequestMapping("/bo/board/noticeBoardList")
 	public ModelAndView noticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
-		
 		ModelAndView mv = new ModelAndView();
-        
-		// 목록 갯수
-        int listCnt = 0;
-		//int listCnt = this.ntcBoardService.getNtcBoardListCnt(request, commandMap);
-        PaginationInfo paginationInfo = new PaginationInfo(listCnt, commandMap);
-        mv.addObject("paginationInfo", paginationInfo);
-        
-//        
-//        // 목록
-//        List<Map<String, Object>> list = null;
-//		if(listCnt > 0){
-//			list = this.ntcBoardService.getNtcBoardList(request, commandMap);
-//		}
-		
-		mv.addObject("commandMap", commandMap);
-//		mv.addObject("listCnt", listCnt);
-//		mv.addObject("list", list);
-		
 		return mv;
 	}
 	

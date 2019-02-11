@@ -7,7 +7,7 @@
 	<bean id="egov.propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:/egovframework/properties/common.properties</value>
+                <value>classpath:/local/properties/common.properties</value>
             </list>
         </property>
     </bean>    

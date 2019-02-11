@@ -36,9 +36,6 @@ public class FileUpload {
 
 	static final Logger logger = LoggerFactory.getLogger(FileUpload.class);
 	
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertiesService;
-	
 	/**
 	* <pre>
 	* 1. 메소드명 : FileUpload

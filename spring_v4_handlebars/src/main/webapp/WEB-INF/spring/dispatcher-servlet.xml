@@ -33,18 +33,6 @@
         <property name="paramName" value="language" />
     </bean>
 
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView" value="cmmn/egovError"/>
-        <property name="exceptionMappings">
-            <props>
-                <prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop>
-                <prop key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop>
-                <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop>
-                <prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop>
-            </props>
-        </property>
-    </bean>
-	
 	<!-- Jackson-->
 	<!-- <bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
