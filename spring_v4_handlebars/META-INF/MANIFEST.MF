@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: egovf
-Bundle-SymbolicName: spring_v4_handlebars
+Bundle-SymbolicName: spring_v3_es5vue
 Bundle-Version: 1.0.0.qualifier
 Export-Package: com.cmmn.dao,
  com.cmmn.exception,
