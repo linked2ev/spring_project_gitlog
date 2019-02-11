@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: egovf
+Bundle-SymbolicName: spring_v3_es5vue
+Bundle-Version: 1.0.0.qualifier
+Export-Package: com.cmmn.dao,
+ com.cmmn.exception,
+ com.cmmn.interceptor,
+ com.cmmn.resolver,
+ com.cmmn.util,
+ com.module.email,
+ com.module.etc,
+ com.module.file,
+ com.module.pagination,
+ egovf.bo.cmmn.service,
+ egovf.bo.cmmn.service.impl,
+ egovf.bo.security.controller
