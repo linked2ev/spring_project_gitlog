@@ -38,8 +38,8 @@ public class NoticeBoardController {
 	@Resource(name="cmmnService")
 	private CmmnService cmmnService;
 	
-	@Resource(name="ntcBoardService")
-	private NoticeBoardService ntcBoardService;
+	@Resource(name="noticeBoardService")
+	private NoticeBoardService noticeBoardService;
 	
 	/**
 	* <pre>
@@ -92,7 +92,7 @@ public class NoticeBoardController {
 		// 목록
 		List<Map<String, Object>> list = null;
 		if(listCnt > 0){
-			list = this.ntcBoardService.getNoticeBoardList(request, commandMap);
+			list = this.noticeBoardService.getNoticeBoardList(request, commandMap);
 		}
 		
 		mv.addObject("commandMap", commandMap);

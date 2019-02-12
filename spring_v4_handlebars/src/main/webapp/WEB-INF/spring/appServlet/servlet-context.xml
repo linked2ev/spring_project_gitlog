@@ -47,7 +47,7 @@
 	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>  <!-- beanNameViewResolver: JsonView을 인식하기 위해 설정  -->
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
 	    p:viewClass="org.springframework.web.servlet.view.JstlView"
-	    p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+	    p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
 	<context:annotation-config/>
  
     <!-- @RequestMapping -->

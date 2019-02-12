@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>egovf</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee"
+	xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
   
+  <display-name>spring4</display-name>
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -10,6 +15,7 @@
       <param-value>utf-8</param-value>
     </init-param>
   </filter>
+  
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
     <url-pattern>*.do</url-pattern>
@@ -22,27 +28,33 @@
     <filter-name>HTMLTagFilter</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
+  
+  <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:local/spring/context-*.xml</param-value>
+    <param-value>/WEB-INF/spring/context-*.xml</param-value>
   </context-param>
-  
+  <!-- Creates the Spring Container shared by all Servlets and Filters -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
+  <!-- Processes application requests -->
   <servlet>
-    <servlet-name>action</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring/dispatcher-servlet.xml</param-value>
-    </init-param>
+    <servlet-name>appServlet</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>action</servlet-name>
-    <url-pattern>*.do</url-pattern>
+    <servlet-name>appServlet</servlet-name>
+      <url-pattern>*.do</url-pattern>
+      <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
+	
   <jsp-config>
     <taglib>
       <taglib-uri>/tlds/jstlTag.tld</taglib-uri>
@@ -50,16 +62,18 @@
     </taglib>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
-      <include-prelude>/WEB-INF/jsp/cmmn/taglib.jsp</include-prelude>
+      <include-prelude>/WEB-INF/views/cmmn/taglib.jsp</include-prelude>
       <trim-directive-whitespaces>true</trim-directive-whitespaces>
     </jsp-property-group>
   </jsp-config>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   <login-config>
     <auth-method>BASIC</auth-method>
   </login-config>
+  
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
     <location>/cmmn/error.jsp</location>
@@ -72,4 +86,5 @@
     <error-code>500</error-code>
     <location>/cmmn/error500.jsp</location>
   </error-page>
+  
 </web-app>
