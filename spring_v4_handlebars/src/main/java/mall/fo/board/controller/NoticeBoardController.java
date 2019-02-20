@@ -1,5 +1,5 @@
 
-package egovf.bo.board.controller;
+package mall.fo.board.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -17,13 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.module.pagination.PaginationInfo;
 
-import egovf.bo.board.service.NoticeBoardService;
-import egovf.bo.cmmn.service.CmmnService;
+import mall.fo.board.service.NoticeBoardService;
+import mall.fo.cmmn.service.CmmnService;
 
 
 /**
 * <pre>
-* 1. 패키지명 : egovf.bo.board.controller
+* 1. 패키지명 : mall.fo.board.controller
 * 2. 타입명 : NoticeBoardController
 * 3. 작성일 : 2019. 2. 8.
 * 4. 작성자 : linked2ev
@@ -44,7 +44,7 @@ public class NoticeBoardController {
 	/**
 	* <pre>
 	* 1. 메소드명 : noticeBoardList
-	* 2. 작성일 : 2019. 2. 8.
+	* 2. 작성일 : 2019. 2. 20.
 	* 3. 작성자 : linked2ev
 	* 4. 설명 : 기본 게시판 목록
 	* </pre>
@@ -53,10 +53,10 @@ public class NoticeBoardController {
 	* @return
 	* @throws Exception
 	 */
-	@RequestMapping("/bo/board/noticeBoardList")
-	public ModelAndView noticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		return mv;
+	@RequestMapping("/board/noticeBoardList")
+	public String noticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
+		
+		return "/fo/board/noticeBoardList";
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class NoticeBoardController {
 	* @return
 	* @throws Exception
 	 */
-	@RequestMapping("/bo/board/getNoticeBoardList")
+	@RequestMapping("/fo/board/getNoticeBoardList")
 	public ModelAndView getNoticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
 		
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -102,5 +102,4 @@ public class NoticeBoardController {
 		return mv;
 	}
 	
-    
 }

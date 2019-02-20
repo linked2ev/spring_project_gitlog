@@ -12,6 +12,6 @@ Export-Package: com.cmmn.dao,
  com.module.etc,
  com.module.file,
  com.module.pagination,
- egovf.bo.cmmn.service,
- egovf.bo.cmmn.service.impl,
- egovf.bo.security.controller
+ mall.fo.cmmn.service,
+ mall.fo.cmmn.service.impl,
+ mall.fo.security.controller

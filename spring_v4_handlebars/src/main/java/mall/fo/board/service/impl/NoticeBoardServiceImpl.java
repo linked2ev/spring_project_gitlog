@@ -1,4 +1,4 @@
-package egovf.bo.board.service.impl;
+package mall.fo.board.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -13,11 +13,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.cmmn.dao.CmmnMapperDAO;
 import com.module.file.FileUpload;
 
-import egovf.bo.board.service.NoticeBoardService;
+import mall.fo.board.service.NoticeBoardService;
 
 /**
 * <pre>
-* 1. 패키지명 : egovf.bo.board.service.impl
+* 1. 패키지명 : mall.fo.board.service.impl
 * 2. 타입명 : NoticeBoardServiceImpl
 * 3. 작성일 : 2019. 2. 8.
 * 4. 작성자 : linked2ev

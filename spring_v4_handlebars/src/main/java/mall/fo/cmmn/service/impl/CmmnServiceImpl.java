@@ -1,4 +1,4 @@
-package egovf.bo.cmmn.service.impl;
+package mall.fo.cmmn.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.cmmn.dao.CmmnMapperDAO;
 
-import egovf.bo.cmmn.service.CmmnService;
+import mall.fo.cmmn.service.CmmnService;
 
 
 /**
 * <pre>
-* 1. 패키지명 : egovf.bo.cmmn.service.impl
+* 1. 패키지명 : mall.fo.cmmn.service.impl
 * 2. 타입명 : CmmnServiceImpl
 * 3. 작성일 : 2019. 2. 8.
 * 4. 작성자 : linked2ev

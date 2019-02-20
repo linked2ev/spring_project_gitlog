@@ -1,4 +1,4 @@
-package egovf.bo.security.controller;
+package mall.fo.security.controller;
 
 import org.springframework.stereotype.Controller;
 

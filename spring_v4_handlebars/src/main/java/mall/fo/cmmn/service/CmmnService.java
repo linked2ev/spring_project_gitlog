@@ -1,4 +1,4 @@
-package egovf.bo.cmmn.service;
+package mall.fo.cmmn.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
 * <pre>
-* 1. 패키지명 : egovf.bo.cmmn.service
+* 1. 패키지명 : mall.fo.cmmn.service
 * 2. 타입명 : CmmnService
 * 3. 작성일 : 2019. 2. 8.
 * 4. 작성자 : linked2ev
