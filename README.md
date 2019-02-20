@@ -8,7 +8,7 @@
 - Spring4
 - ContextLoaderListener > `Root WebApplicationContext 구조 설정`
 - load-on-startup(1) > `웹 애플리케이션이 톰캣에 의해 인식되는 시점에 서블릿이 초기화 되도록 설정`
-
+- logger PatternLayout 변경
 
 <br>
 
