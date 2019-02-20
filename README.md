@@ -1,3 +1,18 @@
+## spring_v4_handlebars ( restructure4 ) 프로젝트
+
+---
+
+> Spring4 + handlebarsjs
+
+- Spring MVC
+- Spring4
+- ContextLoaderListener > `Root WebApplicationContext 구조 설정`
+- load-on-startup(1) > `웹 애플리케이션이 톰캣에 의해 인식되는 시점에 서블릿이 초기화 되도록 설정`
+- logger PatternLayout 변경
+
+<br>
+
+
 ## spring_v3_es5vue ( es5vue ) 프로젝트
 
 ---
