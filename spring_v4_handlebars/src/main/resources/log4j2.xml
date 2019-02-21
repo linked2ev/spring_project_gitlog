@@ -8,7 +8,7 @@
     
     <Loggers>
         <!-- Application Loggers -->
-	    <logger name="egovf"                level="INFO" additivity="false"><AppenderRef ref="console" /></logger>
+	    <logger name="mall"                 level="INFO" additivity="false"><AppenderRef ref="console" /></logger>
 	    <logger name="com"                  level="INFO" additivity="false"><AppenderRef ref="console" /></logger>
     
 		<!-- jdbc.sql Loggers -->

@@ -1,6 +1,7 @@
 package com.cmmn.interceptor;
 
 import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.cmmn.resolver.CommandMap;
 
 
 /**
@@ -25,18 +28,20 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	static final Logger logger = LoggerFactory.getLogger(LoggerInterceptor.class);
      
     @SuppressWarnings("unchecked")
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler, CommandMap commandMap) throws Exception {
     	
     	logger.info("======================================          START         ======================================");
     	logger.info(" Class       \t:  " + handler.getClass());
     	logger.info(" Request URI \t:  " + request.getRequestURI());
     	logger.info(" Servlet URI \t:  " + request.getServletPath());
         Enumeration<String> paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-          String key = (String) paramNames.nextElement();  
-          String value = request.getParameter(key);
-          logger.info(" RequestParameter Data >>  " + key + " : " + value + "");
-        }
+        
+//        commandMap 사용
+//        while (paramNames.hasMoreElements()) {
+//          String key = (String) paramNames.nextElement();  
+//          String value = request.getParameter(key);
+//          logger.info(" RequestParameter Data >>  " + key + " : " + value + "");
+//        }
         logger.info("====================================================================================================");
         
         return true;

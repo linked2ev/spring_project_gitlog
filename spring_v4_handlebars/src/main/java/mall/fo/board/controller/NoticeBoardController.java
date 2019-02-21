@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cmmn.resolver.CommandMap;
 import com.module.pagination.PaginationInfo;
 
 import mall.fo.board.service.NoticeBoardService;
@@ -54,7 +55,7 @@ public class NoticeBoardController {
 	* @throws Exception
 	 */
 	@RequestMapping("/board/noticeBoardList")
-	public String noticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
+	public String noticeBoardList(HttpServletRequest request, CommandMap commandMap) throws Exception{
 		
 		return "/fo/board/noticeBoardList";
 	}
@@ -72,27 +73,28 @@ public class NoticeBoardController {
 	* @throws Exception
 	 */
 	@RequestMapping("/fo/board/getNoticeBoardList")
-	public ModelAndView getNoticeBoardList(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) throws Exception{
-		
+	public ModelAndView getNoticeBoardList(HttpServletRequest request, CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println(commandMap);
+		
 		String [] COMM_CD = new String [] { "SURVEY_GBN" };
 		
 		// 코드 목록
 		for(int i=0; i<COMM_CD.length; i++){
 			commandMap.put("COMM_CD", COMM_CD[i]);
-			mv.addObject(COMM_CD[i] +"_LIST", this.cmmnService.getCodeList(request, commandMap));
+			//mv.addObject(COMM_CD[i] +"_LIST", this.cmmnService.getCodeList(request, commandMap));
 		}
 		
 		// 목록 갯수
 		int listCnt = 0;
 		//int listCnt = this.ntcBoardService.getNtcBoardListCnt(request, commandMap);
-		PaginationInfo paginationInfo = new PaginationInfo(listCnt, commandMap);
+		//PaginationInfo paginationInfo = new PaginationInfo(listCnt, commandMap);
 		//mv.addObject("paginationInfo", paginationInfo);
 		
 		// 목록
 		List<Map<String, Object>> list = null;
 		if(listCnt > 0){
-			list = this.noticeBoardService.getNoticeBoardList(request, commandMap);
+			//list = this.noticeBoardService.getNoticeBoardList(request, commandMap);
 		}
 		
 		mv.addObject("commandMap", commandMap);
