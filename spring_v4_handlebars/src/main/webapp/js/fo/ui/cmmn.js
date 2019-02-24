@@ -23,12 +23,15 @@ function cmAxios(obj){
 	if(typeof obj.params == 'undefined'){
 		obj.params = {};
 	}
-
+	
 	$.ajax({
 		method  : obj.method == '' ? 'GET' : obj.method,
 		url     : obj.url,
-		//data    : {params: encodeURI(JSON.stringify(obj.params))}, //object to json params
-		data    : obj.params, // object params
+//		headers: {
+//			"X-Auth-Token":"linked2ev"
+//		},
+		data    : "json="+encodeURI(JSON.stringify(obj.params)), //object to json params
+//		data    : obj.params, // object params
 		timeout : 30000,
 		contentType: 'application/json; charset=UTF-8',
 		dataType: 'json',
@@ -47,3 +50,8 @@ function cmAxios(obj){
 		}
 	})
 }
+
+function jsonEscape (data) {
+	return JSON.stringify(data).replace(/&quot;/g, '"');
+}
+

@@ -1,6 +1,7 @@
 
 package mall.fo.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ import mall.fo.cmmn.service.CmmnService;
 public class NoticeBoardController {
 	
 	static final Logger logger = LoggerFactory.getLogger(NoticeBoardController.class);
+
+	private static final String Array = null;
 	
 	@Resource(name="cmmnService")
 	private CmmnService cmmnService;
@@ -56,7 +59,6 @@ public class NoticeBoardController {
 	 */
 	@RequestMapping("/board/noticeBoardList")
 	public String noticeBoardList(HttpServletRequest request, CommandMap commandMap) throws Exception{
-		
 		return "/fo/board/noticeBoardList";
 	}
 	
@@ -75,8 +77,7 @@ public class NoticeBoardController {
 	@RequestMapping("/fo/board/getNoticeBoardList")
 	public ModelAndView getNoticeBoardList(HttpServletRequest request, CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("jsonView");
-		System.out.println(commandMap);
-		
+			
 		String [] COMM_CD = new String [] { "SURVEY_GBN" };
 		
 		// 코드 목록
@@ -96,11 +97,11 @@ public class NoticeBoardController {
 		if(listCnt > 0){
 			//list = this.noticeBoardService.getNoticeBoardList(request, commandMap);
 		}
-		
+
 		mv.addObject("commandMap", commandMap);
 		mv.addObject("listCnt", listCnt);
 		mv.addObject("list", list);
-		
+
 		return mv;
 	}
 	

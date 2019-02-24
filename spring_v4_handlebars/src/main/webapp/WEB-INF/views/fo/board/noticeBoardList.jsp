@@ -10,7 +10,7 @@
 			<li>
 				<input type="text" name="title" />
 			</li>
-			<li>
+			<li id="title">
 				<input type="text" name="items" />
 				<input type="text" name="items" />
 				<input type="text" name="items" />
