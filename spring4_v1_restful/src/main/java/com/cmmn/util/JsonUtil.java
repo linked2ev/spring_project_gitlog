@@ -97,7 +97,7 @@ public class JsonUtil {
 
 		ObjectMapper mapper = new ObjectMapper();
 
-		List<Object> list = new ArrayList<>();
+		List<Object> list = new ArrayList<Object>();
 		list.add("msg 1");
 		list.add("msg 2");
 		list.add("msg 3");

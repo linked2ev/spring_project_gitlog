@@ -22,21 +22,21 @@ public class WebAccessInterceptor extends HandlerInterceptorAdapter {
 
 	static final Logger logger = LoggerFactory.getLogger(WebAccessInterceptor.class);
 	
-	@Value("#{config['webRootDomain']}")
-  	String webRootDomain;
-	
-	@Value("#{config['file.webRootPath']}")
-  	String webRootPath;
-	
-	@Value("#{config['file.uploadPath']}")
-	String uploadPath;
+//	@Value("#{config['webRootDomain']}")
+//  	String webRootDomain;
+//	
+//	@Value("#{config['file.webRootPath']}")
+//  	String webRootPath;
+//	
+//	@Value("#{config['file.uploadPath']}")
+//	String uploadPath;
 	
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
         /* *** config *** */
-        request.setAttribute("webRootDomain", webRootDomain);
-        request.setAttribute("webRootPath", webRootPath);
-        request.setAttribute("uploadPath", uploadPath);
+//        request.setAttribute("webRootDomain", webRootDomain);
+//        request.setAttribute("webRootPath", webRootPath);
+//        request.setAttribute("uploadPath", uploadPath);
         
 		return true;
     }

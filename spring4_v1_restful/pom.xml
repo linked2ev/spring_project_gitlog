@@ -2,18 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-	<groupId>spring_v4_handlebars</groupId>
-	<artifactId>spring_v4_handlebars</artifactId>
+	<groupId>com.mkyong.rest</groupId>
+	<artifactId>spring4_v1_restful</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>spring_v3_es5vue</name>
-	<url>http://www.egovframe.go.kr</url>
+	<name>spring4_v1_restful</name>
 
 	<properties>
-		<java-version>1.8</java-version>
 		<egovframework.rte.version>3.6.0</egovframework.rte.version>
 		<org.springframework.version>4.2.0.RELEASE</org.springframework.version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<jersey2.version>2.26</jersey2.version>
+		<jaxrs.version>2.0.1</jaxrs.version>
+		<jersey.scope>compile</jersey.scope>
 	</properties>
 
 	<repositories>
@@ -27,47 +28,9 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>egovframe</id>
-			<url>http://www.egovframe.go.kr/maven/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
 
 	<dependencies>
-	
-		<!-- egov setting -->
-        <dependency>
-		    <groupId>egovframework.rte</groupId>
-		    <artifactId>egovframework.rte.ptl.mvc</artifactId>
-		    <version>${egovframework.rte.version}</version>
-		    <exclusions>
-		    	<exclusion>
-		    		<artifactId>commons-logging</artifactId>
-		    		<groupId>commons-logging</groupId>
-		    	</exclusion>
-		    </exclusions>
-        </dependency>
-		<dependency>
-		    <groupId>egovframework.rte</groupId>
-		    <artifactId>egovframework.rte.psl.dataaccess</artifactId>
-		    <version>${egovframework.rte.version}</version>
-        </dependency>
-        <dependency>
-			<groupId>egovframework.rte</groupId>
-			<artifactId>egovframework.rte.fdl.idgnr</artifactId>
-			<version>${egovframework.rte.version}</version>
-		</dependency>
-       	<dependency>
-			<groupId>egovframework.rte</groupId>
-			<artifactId>egovframework.rte.fdl.property</artifactId>
-			<version>${egovframework.rte.version}</version>
-		</dependency><!-- // egov setting -->
 		
 		<!-- spring setting -->
       	<dependency>
@@ -86,6 +49,114 @@
 			<version>${org.springframework.version}</version>
 		</dependency><!-- // spring setting -->
 		
+		<!-- JAX-RS -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${jaxrs.version}</version>
+        </dependency>
+        
+    
+        <!-- Jersey JSON Jackson (2.x) entity providers support module -->
+	    <dependency>
+	        <groupId>org.glassfish.jersey.media</groupId>
+	        <artifactId>jersey-media-json-jackson</artifactId>
+	        <version>${jersey.version}</version>
+	        <scope>${jersey.scope}</scope>
+	    </dependency>
+    
+        <!-- Jersey 2.19 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
+            <scope>${jersey.scope}</scope>
+        </dependency>
+        <!-- Jersey core Servlet 2.x implementation -->
+	    <dependency>
+	        <groupId>org.glassfish.jersey.containers</groupId>
+	        <artifactId>jersey-container-servlet-core</artifactId>
+	        <version>${jersey2.version}</version>
+	        <scope>${jersey.scope}</scope>
+	    </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey2.version}</version>
+            <scope>${jersey.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey2.version}</version>
+            <scope>${jersey.scope}</scope>
+        </dependency>
+        <dependency>
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-json-jackson</artifactId>
+		    <version>${jersey2.version}</version>
+		    <scope>${jersey.scope}</scope>
+		</dependency>
+        <!-- for Spring integration we have to add the jersey-spring4 dependency -->
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-spring4</artifactId>
+			<version>${jersey2.version}</version>
+			<scope>${jersey.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.glassfish.jersey.inject</groupId> -->
+<!-- 		    <artifactId>jersey-hk2</artifactId> -->
+<!-- 		    <version>${jersey2.version}</version> -->
+<!-- 		    <scope>${jersey.scope}</scope> -->
+<!-- 		</dependency> -->
+		
+		<!-- jersey관련: JDK 9.0 이상 필요 -->
+		<dependency>
+	        <groupId>javax.xml.bind</groupId>
+	        <artifactId>jaxb-api</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>com.sun.xml.bind</groupId>
+	        <artifactId>jaxb-impl</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+		<dependency>
+	        <groupId>javax.activation</groupId>
+	        <artifactId>activation</artifactId>
+	        <version>1.1.1</version>
+	    </dependency><!-- //jersey관련: JDK 9.0 이상 필요 -->
+	    
+	    <dependency>
+		    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+		    <artifactId>jackson-jaxrs-xml-provider</artifactId>
+		    <version>2.9.4</version>
+		    <scope>compile</scope>
+		</dependency>
+    
         <dependency>
 		    <groupId>taglibs</groupId>
 		    <artifactId>standard</artifactId>
@@ -171,6 +242,20 @@
             <version>2.4</version>
         </dependency>
         
+        <!-- AspectJ Weaver -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.aspectj</groupId> -->
+<!-- 		    <artifactId>aspectjweaver</artifactId> -->
+<!-- 		    <version>${org.aspectj-version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.aspectj</groupId> -->
+<!-- 		    <artifactId>aspectjrt</artifactId> -->
+<!-- 		    <version>${org.aspectj-version}</version> -->
+<!-- 		</dependency> -->
+
+
+
       	<!-- MappingJacksonJsonView -->
       	<!-- delete -->
 		<!-- <dependency>
@@ -184,11 +269,11 @@
 			<version>1.9.13</version>
 		</dependency> -->
 		<!-- add : argument-resolvers -->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.jaxrs</groupId>
-		    <artifactId>jackson-jaxrs-base</artifactId>
-		    <version>2.4.4</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>com.fasterxml.jackson.jaxrs</groupId> -->
+<!-- 		    <artifactId>jackson-jaxrs-base</artifactId> -->
+<!-- 		    <version>2.4.4</version> -->
+<!-- 		</dependency> -->
 		
 		<!-- MultipartHttpServletRequset -->
 		<dependency>
