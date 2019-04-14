@@ -1,3 +1,19 @@
+## spring_jersey2_restful ( JAX-RS Jersey2 ) 
+
+---
+
+> RESTful Jersey2 + Spring4
+
+- JAX-RS RESTful Basic Example 동작 확인
+- JAX-RS Servlet / Jersey2 + Spring4 설정
+- GET/POST/PUT/DELETE Example 확인
+- JSON data 확인
+
+- Proceeding..
+
+<br>
+
+
 ## spring_v4_handlebars ( restructure4 ) 프로젝트
 
 ---
