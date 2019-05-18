@@ -2,12 +2,15 @@
 
 ---
 
-- RESTful MVC + Spring4
+> RESTful MVC + Spring4
+
+- 스프링 프로젝트 새로 생성
 
 - RESTful MVC Basic Example 동작 확인
 
 - 프로젝트 BaseController 생성
 
+- 이 프로젝트 기반으로 DAO, handlebarsjs 등 적용 예정
 
 <br>
 
