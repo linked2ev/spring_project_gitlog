@@ -1,3 +1,17 @@
+## spring_mvc_restful ( basic example mvc restful )
+
+---
+
+- RESTful MVC + Spring4
+
+- RESTful MVC Basic Example 동작 확인
+
+- 프로젝트 BaseController 생성
+
+
+<br>
+
+
 ## spring_jersey2_restful ( JAX-RS Jersey2 ) 
 
 ---
@@ -8,8 +22,6 @@
 - JAX-RS Servlet / Jersey2 + Spring4 설정
 - GET/POST/PUT/DELETE Example 확인
 - JSON data 확인
-
-- Proceeding..
 
 <br>
 
