@@ -1,4 +1,4 @@
-## spring_mvc_restful ( basic example mvc restful )
+## spring_mvc_restful ( NEW Spring4 MVC RESTful )
 
 ---
 
